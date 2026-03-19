@@ -3,46 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>内容归档 | AI学习站</title>
+    <title>内容归档 | AI Nexus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/style.css">
+    <style>
+        .page-header {
+            padding: 150px 0 60px;
+            text-align: center;
+        }
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .page-header .gradient-text {
+            background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-purple) 50%, var(--accent-pink) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .archive-section {
+            padding: 40px 0 80px;
+        }
+        .archive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .archive-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+        .archive-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-cyan);
+        }
+        .archive-date {
+            font-size: 0.85rem;
+            color: var(--accent-cyan);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .archive-card h3 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        .archive-stats {
+            display: flex;
+            gap: 16px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .archive-stats span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+        }
+        .empty-state .icon {
+            font-size: 4rem;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>🧠 AI学习站</h1>
-            <p class="subtitle">每日AI前沿 · 持续学习</p>
-            <nav>
-                <a href="index.html">首页</a>
-                <a href="papers.html">论文精选</a>
-                <a href="news.html">产业资讯</a>
-                <a href="archive.html" class="active">内容归档</a>
-            </nav>
+    <!-- 动态背景 -->
+    <div class="ambient-bg">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+        <div class="grid-overlay"></div>
+    </div>
+
+    <!-- 导航 -->
+    <nav class="glass-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">◈</span>
+                <span class="logo-text">AI Nexus</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">
+                    <span class="nav-icon">◉</span>首页
+                </a>
+                <a href="papers.html" class="nav-link">
+                    <span class="nav-icon">◈</span>论文精选
+                </a>
+                <a href="news.html" class="nav-link">
+                    <span class="nav-icon">◇</span>产业资讯
+                </a>
+                <a href="archive.html" class="nav-link active">
+                    <span class="nav-icon">○</span>内容归档
+                </a>
+            </div>
+            <div class="nav-meta">
+                <span class="live-indicator">
+                    <span class="pulse"></span>LIVE
+                </span>
+            </div>
         </div>
-    </header>
+    </nav>
 
     <main class="container">
-        <section>
-            <h2>📚 历史更新</h2>
-            <p style="color: var(--gray); margin-bottom: 1rem;">以下是过往每日更新的内容存档</p>
-            <div class="archive-list" id="archive-list">
-                <p style="color: var(--gray);">暂无历史存档</p>
+        <div class="page-header">
+            <h1><span class="gradient-text">内容归档</span></h1>
+            <p style="color: var(--text-secondary); font-size: 1.1rem;">过往每日更新的内容存档</p>
+        </div>
+
+        <section class="archive-section">
+            <div class="archive-grid" id="archive-list">
+                <div class="empty-state">
+                    <div class="icon">📚</div>
+                    <p>暂无历史存档</p>
+                    <p style="font-size: 0.9rem; margin-top: 8px;">每日更新后会自动归档</p>
+                </div>
             </div>
         </section>
     </main>
 
-    <footer>
-        <div class="container">
-            <p>🤖 由 QClaw AI 驱动 | 每日自动更新</p>
-            <p class="copyright">© 2026 AI学习站</p>
+    <footer class="glass-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="logo-icon">◈</span>
+                <span>AI Nexus</span>
+            </div>
+            <p class="footer-tagline">由 QClaw AI 驱动 · 每日自动更新</p>
+            <p class="copyright">© 2026 AI Nexus · Built with QClaw</p>
         </div>
     </footer>
 
     <script src="scripts/data.js"></script>
     <script>
-        // 归档页面 - 展示历史内容
         document.addEventListener('DOMContentLoaded', function() {
-            // 这个页面可以从 archive 目录读取历史数据
-            console.log('AI学习站 - 内容归档');
+            console.log('AI Nexus - 内容归档');
         });
     </script>
 </body>

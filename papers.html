@@ -3,44 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>论文精选 | AI学习站</title>
+    <title>论文精选 | AI Nexus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/style.css">
+    <style>
+        .page-header {
+            padding: 150px 0 60px;
+            text-align: center;
+        }
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .page-header .gradient-text {
+            background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-purple) 50%, var(--accent-pink) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .papers-section {
+            padding: 40px 0 80px;
+        }
+        .papers-section h2 {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.8rem;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .papers-section h2 .tag-icon {
+            font-size: 1.5rem;
+        }
+        .papers-list {
+            display: grid;
+            gap: 20px;
+        }
+        .paper-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+        .paper-card:hover {
+            transform: translateX(8px);
+            border-color: var(--accent-purple);
+        }
+        .paper-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        .paper-card .paper-meta {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+        .paper-card .paper-summary {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        .paper-card .paper-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--accent-cyan);
+            font-weight: 500;
+            transition: gap 0.3s ease;
+        }
+        .paper-card:hover .paper-link {
+            gap: 10px;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>🧠 AI学习站</h1>
-            <p class="subtitle">每日AI前沿 · 持续学习</p>
-            <nav>
-                <a href="index.html">首页</a>
-                <a href="papers.html" class="active">论文精选</a>
-                <a href="news.html">产业资讯</a>
-                <a href="archive.html">内容归档</a>
-            </nav>
+    <!-- 动态背景 -->
+    <div class="ambient-bg">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+        <div class="grid-overlay"></div>
+    </div>
+
+    <!-- 导航 -->
+    <nav class="glass-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">◈</span>
+                <span class="logo-text">AI Nexus</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">
+                    <span class="nav-icon">◉</span>首页
+                </a>
+                <a href="papers.html" class="nav-link active">
+                    <span class="nav-icon">◈</span>论文精选
+                </a>
+                <a href="news.html" class="nav-link">
+                    <span class="nav-icon">◇</span>产业资讯
+                </a>
+                <a href="archive.html" class="nav-link">
+                    <span class="nav-icon">○</span>内容归档
+                </a>
+            </div>
+            <div class="nav-meta">
+                <span class="live-indicator">
+                    <span class="pulse"></span>LIVE
+                </span>
+            </div>
         </div>
-    </header>
+    </nav>
 
     <main class="container">
-        <section id="ai">
-            <h2>🤖 AI（人工智能）</h2>
+        <div class="page-header">
+            <h1><span class="gradient-text">论文精选</span></h1>
+            <p style="color: var(--text-secondary); font-size: 1.1rem;">全球顶级会议/期刊的最新研究成果</p>
+        </div>
+
+        <section class="papers-section" id="ai">
+            <h2><span class="tag-icon">🤖</span>AI 人工智能</h2>
             <div class="papers-list" id="ai-papers"></div>
         </section>
 
-        <section id="edu">
-            <h2>📚 AI教育</h2>
+        <section class="papers-section" id="edu">
+            <h2><span class="tag-icon">📚</span>AI 教育</h2>
             <div class="papers-list" id="edu-papers"></div>
         </section>
 
-        <section id="health">
-            <h2>🏥 AI健康</h2>
+        <section class="papers-section" id="health">
+            <h2><span class="tag-icon">🏥</span>AI 健康</h2>
             <div class="papers-list" id="health-papers"></div>
         </section>
     </main>
 
-    <footer>
-        <div class="container">
-            <p>🤖 由 QClaw AI 驱动 | 每日自动更新</p>
-            <p class="copyright">© 2026 AI学习站</p>
+    <footer class="glass-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="logo-icon">◈</span>
+                <span>AI Nexus</span>
+            </div>
+            <p class="footer-tagline">由 QClaw AI 驱动 · 每日自动更新</p>
+            <p class="copyright">© 2026 AI Nexus · Built with QClaw</p>
         </div>
     </footer>
 
@@ -48,11 +158,13 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const formatPaper = p => `
-                <div class="highlight-card">
+                <div class="paper-card">
                     <h3>${p.title}</h3>
-                    <p class="meta">${p.venue} · ${p.authors}</p>
-                    <p class="summary">${p.summary}</p>
-                    <a href="${p.url}" target="_blank" class="link">阅读原文 →</a>
+                    <p class="paper-meta">${p.venue} · ${p.authors}</p>
+                    <p class="paper-summary">${p.summary}</p>
+                    <a href="${p.url}" target="_blank" class="paper-link">
+                        阅读原文 <span>→</span>
+                    </a>
                 </div>
             `;
             

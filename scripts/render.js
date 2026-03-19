@@ -1,8 +1,13 @@
-// AI学习站 - 渲染脚本
+// AI Nexus - 渲染脚本
 
 document.addEventListener('DOMContentLoaded', function() {
     // 设置更新日期
-    document.getElementById('update-date').textContent = siteData.lastUpdate;
+    const dateEl = document.getElementById('update-date');
+    if (dateEl) {
+        const today = new Date();
+        const options = { month: 'short', day: 'numeric' };
+        dateEl.textContent = today.toLocaleDateString('zh-CN', options);
+    }
     
     // 渲染今日精选
     renderHighlightCards();
@@ -28,12 +33,14 @@ function renderHighlightCards() {
     ];
     
     container.innerHTML = highlights.map(item => `
-        <div class="highlight-card">
-            <span class="tag ${item.tag}">${item.tagText}</span>
+        <div class="featured-card">
+            <span class="featured-tag ${item.tag}">${item.tagText}</span>
             <h3>${item.title}</h3>
-            <p class="meta">${item.venue} · ${item.authors}</p>
-            <p class="summary">${item.summary}</p>
-            <a href="${item.url}" target="_blank" class="link">阅读原文 →</a>
+            <p class="featured-meta">${item.venue} · ${item.authors}</p>
+            <p class="featured-summary">${item.summary}</p>
+            <a href="${item.url}" target="_blank" class="featured-link">
+                阅读原文 <span>→</span>
+            </a>
         </div>
     `).join('');
 }
@@ -42,10 +49,10 @@ function renderPaperLists() {
     // AI论文
     const aiList = document.getElementById('ai-papers-list');
     if (aiList) {
-        aiList.innerHTML = siteData.papers.ai.map(p => `
+        aiList.innerHTML = siteData.papers.ai.slice(0, 3).map(p => `
             <li>
                 <span class="paper-title">${p.title}</span>
-                <span class="paper-meta">${p.venue} · ${p.authors}</span>
+                <span class="paper-meta">${p.venue}</span>
             </li>
         `).join('');
     }
@@ -53,10 +60,10 @@ function renderPaperLists() {
     // AI教育论文
     const eduList = document.getElementById('edu-papers-list');
     if (eduList) {
-        eduList.innerHTML = siteData.papers.edu.map(p => `
+        eduList.innerHTML = siteData.papers.edu.slice(0, 3).map(p => `
             <li>
                 <span class="paper-title">${p.title}</span>
-                <span class="paper-meta">${p.venue} · ${p.authors}</span>
+                <span class="paper-meta">${p.venue}</span>
             </li>
         `).join('');
     }
@@ -64,10 +71,10 @@ function renderPaperLists() {
     // AI健康论文
     const healthList = document.getElementById('health-papers-list');
     if (healthList) {
-        healthList.innerHTML = siteData.papers.health.map(p => `
+        healthList.innerHTML = siteData.papers.health.slice(0, 3).map(p => `
             <li>
                 <span class="paper-title">${p.title}</span>
-                <span class="paper-meta">${p.venue} · ${p.authors}</span>
+                <span class="paper-meta">${p.venue}</span>
             </li>
         `).join('');
     }
@@ -77,33 +84,45 @@ function renderNews() {
     const container = document.getElementById('news-grid');
     if (!container) return;
     
-    container.innerHTML = siteData.news.map(item => `
-        <div class="news-item">
-            <span class="tag ${item.category}">${getCategoryEmoji(item.category)}</span>
-            <h4>${item.title}</h4>
-            <p class="source">${item.source} · ${item.date}</p>
-        </div>
-    `).join('');
+    const categoryMap = {
+        ai: { emoji: '🤖', class: 'ai' },
+        edu: { emoji: '📚', class: 'edu' },
+        health: { emoji: '🏥', class: 'health' }
+    };
+    
+    container.innerHTML = siteData.news.slice(0, 6).map(item => {
+        const cat = categoryMap[item.category] || { emoji: '📌', class: 'default' };
+        return `
+            <div class="news-item">
+                <span class="tag ${cat.class}">${cat.emoji}</span>
+                <h4>${item.title}</h4>
+                <p class="source">${item.source} · ${item.date}</p>
+            </div>
+        `;
+    }).join('');
 }
 
 function renderBabel() {
     const container = document.getElementById('babel-grid');
     if (!container) return;
     
-    container.innerHTML = siteData.babel.map(item => `
-        <div class="babel-item">
-            <span class="tag ${item.category}">${getCategoryEmoji(item.category)}</span>
-            <h4>${item.title}</h4>
-            <p class="source">${item.source} · ${item.date}</p>
-        </div>
-    `).join('');
-}
-
-function getCategoryEmoji(cat) {
-    const map = {
-        ai: '🤖', edu: '📚', health: '🏥', 
-        thinking: '🧠', science: '🔬', tech: '💻',
-        design: '🎨', history: '📜', nature: '🌿'
+    const categoryMap = {
+        thinking: { emoji: '🧠', class: 'purple' },
+        science: { emoji: '🔬', class: 'blue' },
+        tech: { emoji: '💻', class: 'cyan' },
+        design: { emoji: '🎨', class: 'pink' },
+        history: { emoji: '📜', class: 'orange' },
+        nature: { emoji: '🌿', class: 'green' }
     };
-    return map[cat] || '📌';
+    
+    container.innerHTML = siteData.babel.slice(0, 4).map(item => {
+        const cat = categoryMap[item.category] || { emoji: '📌', class: 'default' };
+        return `
+            <div class="babel-item">
+                <span class="tag ${cat.class}">${cat.emoji}</span>
+                <h4>${item.title}</h4>
+                <p class="source">${item.source} · ${item.date}</p>
+            </div>
+        `;
+    }).join('');
 }
