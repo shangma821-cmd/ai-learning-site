@@ -3,218 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Nexus | 智能前沿</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>🧠 灵儿的知识花园</title>
     <link rel="stylesheet" href="assets/style.css">
-    <meta name="description" content="AI Nexus - 每日AI前沿 | 顶级论文与产业资讯">
-    <meta property="og:title" content="AI Nexus | 智能前沿">
-    <meta property="og:description" content="每日更新AI、AI教育、AI健康领域的顶级论文和产业资讯">
-    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- 动态背景 -->
-    <div class="ambient-bg">
-        <div class="gradient-orb orb-1"></div>
-        <div class="gradient-orb orb-2"></div>
-        <div class="gradient-orb orb-3"></div>
-        <div class="grid-overlay"></div>
-        <div class="noise-overlay"></div>
-    </div>
-
-    <!-- 导航 -->
-    <nav class="glass-nav">
-        <div class="nav-container">
-            <a href="index.html" class="logo">
-                <span class="logo-icon">◈</span>
-                <span class="logo-text">AI Nexus</span>
-            </a>
-            <div class="nav-links">
-                <a href="index.html" class="nav-link active">
-                    <span class="nav-icon">◉</span>首页
-                </a>
-                <a href="papers.html" class="nav-link">
-                    <span class="nav-icon">◈</span>论文精选
-                </a>
-                <a href="news.html" class="nav-link">
-                    <span class="nav-icon">◇</span>产业资讯
-                </a>
-                <a href="archive.html" class="nav-link">
-                    <span class="nav-icon">○</span>内容归档
-                </a>
-            </div>
-            <div class="nav-meta">
-                <span class="live-indicator">
-                    <span class="pulse"></span>LIVE
-                </span>
-            </div>
+    <!-- 顶部导航 -->
+    <nav class="top-nav">
+        <div class="nav-brand">
+            <span class="brand-icon">🧠</span>
+            <span class="brand-text">灵儿的知识花园</span>
+        </div>
+        <div class="nav-stats" id="nav-stats">
+            <!-- 动态加载：连续学习天数 -->
+        </div>
+        <div class="nav-links">
+            <a href="#today" class="nav-link active">今日</a>
+            <a href="#garden" class="nav-link">花园</a>
+            <a href="#archive" class="nav-link">档案</a>
+            <a href="#chat" class="nav-link">对话</a>
         </div>
     </nav>
 
-    <!-- Hero 区 -->
-    <header class="hero">
-        <div class="hero-content">
-            <div class="hero-badge">
-                <span class="badge-dot"></span>
-                每日更新 · <span id="update-date"></span>
-            </div>
-            <h1 class="hero-title">
-                <span class="title-line">探索</span>
-                <span class="title-line gradient-text">智能前沿</span>
-            </h1>
-            <p class="hero-subtitle">
-                精选全球顶级AI论文 · 追踪产业最新动态<br>
-                打破信息茧房，拥抱广阔知识宇宙
-            </p>
-            <div class="hero-actions">
-                <a href="#featured" class="btn btn-primary">
-                    <span>探索内容</span>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
-                </a>
-                <a href="#categories" class="btn btn-secondary">快速导航</a>
-            </div>
-        </div>
-        <div class="hero-visual">
-            <div class="floating-card card-1">
-                <span class="card-icon">🤖</span>
-                <span>AI</span>
-            </div>
-            <div class="floating-card card-2">
-                <span class="card-icon">📚</span>
-                <span>教育</span>
-            </div>
-            <div class="floating-card card-3">
-                <span class="card-icon">🏥</span>
-                <span>健康</span>
-            </div>
-        </div>
-    </header>
-
+    <!-- 主内容区 -->
     <main>
         <!-- 今日精选 -->
-        <section id="featured" class="featured-section">
+        <section id="today" class="section today-section">
             <div class="section-header">
-                <div class="section-title-group">
-                    <span class="section-number">01</span>
-                    <h2 class="section-title">今日精选</h2>
-                </div>
-                <p class="section-desc">今日最值得关注的3篇重磅论文</p>
+                <h1><i class="fas fa-sun"></i> 今日新知</h1>
+                <span class="date" id="today-date"></span>
             </div>
-            <div class="featured-grid" id="highlight-cards">
+            
+            <!-- 论文卡片 -->
+            <div class="card-grid papers-grid" id="papers-container">
                 <!-- 动态加载 -->
             </div>
-        </section>
 
-        <!-- 分类导航 -->
-        <section id="categories" class="categories-section">
-            <div class="category-card" data-category="ai">
-                <div class="category-glow"></div>
-                <div class="category-content">
-                    <span class="category-icon">🤖</span>
-                    <h3>AI 人工智能</h3>
-                    <p>NeurIPS · ICML · ICLR · CVPR · ACL</p>
-                    <ul id="ai-papers-list" class="category-list">
-                        <!-- 动态加载 -->
-                    </ul>
-                    <a href="papers.html#ai" class="category-link">查看更多 →</a>
+            <!-- 产业资讯 -->
+            <div class="news-section">
+                <h2><i class="fas fa-newspaper"></i> 产业脉搏</h2>
+                <div class="news-timeline" id="news-container">
+                    <!-- 动态加载 -->
                 </div>
             </div>
-            <div class="category-card" data-category="edu">
-                <div class="category-glow"></div>
-                <div class="category-content">
-                    <span class="category-icon">📚</span>
-                    <h3>AI 教育</h3>
-                    <p>Nature Human Behaviour · AIED · CHI</p>
-                    <ul id="edu-papers-list" class="category-list">
-                        <!-- 动态加载 -->
-                    </ul>
-                    <a href="papers.html#edu" class="category-link">查看更多 →</a>
-                </div>
-            </div>
-            <div class="category-card" data-category="health">
-                <div class="category-glow"></div>
-                <div class="category-content">
-                    <span class="category-icon">🏥</span>
-                    <h3>AI 健康</h3>
-                    <p>Nature Medicine · NeurIPS Health</p>
-                    <ul id="health-papers-list" class="category-list">
-                        <!-- 动态加载 -->
-                    </ul>
-                    <a href="papers.html#health" class="category-link">查看更多 →</a>
+
+            <!-- 破茧时刻 -->
+            <div class="babel-section">
+                <h2><i class="fas fa-seedling"></i> 破茧时刻</h2>
+                <p class="section-desc">跳出信息茧房，遇见意想不到的知识</p>
+                <div class="babel-cards" id="babel-container">
+                    <!-- 动态加载 -->
                 </div>
             </div>
         </section>
 
-        <!-- 最新资讯 -->
-        <section class="news-section">
+        <!-- 知识花园 -->
+        <section id="garden" class="section garden-section">
             <div class="section-header">
-                <div class="section-title-group">
-                    <span class="section-number">02</span>
-                    <h2 class="section-title">产业资讯</h2>
+                <h1><i class="fas fa-tree"></i> 知识花园</h1>
+                <span class="garden-stats" id="garden-stats"></span>
+            </div>
+            
+            <!-- 知识图谱 -->
+            <div class="knowledge-graph" id="knowledge-graph">
+                <canvas id="graph-canvas"></canvas>
+            </div>
+            
+            <!-- 最近学习 -->
+            <div class="recent-learning">
+                <h3><i class="fas fa-history"></i> 最近探索</h3>
+                <div class="learning-trail" id="learning-trail">
+                    <!-- 动态加载 -->
                 </div>
-                <p class="section-desc">AI 领域的最新动态与趋势</p>
-            </div>
-            <div class="news-grid" id="news-grid">
-                <!-- 动态加载 -->
-            </div>
-            <div class="section-cta">
-                <a href="news.html" class="btn btn-outline">查看更多资讯</a>
             </div>
         </section>
 
-        <!-- 破茧行动 -->
-        <section class="break-babel-section">
-            <div class="babel-bg">
-                <div class="babel-pattern"></div>
+        <!-- 学习档案 -->
+        <section id="archive" class="section archive-section">
+            <div class="section-header">
+                <h1><i class="fas fa-archive"></i> 学习档案</h1>
             </div>
-            <div class="section-header light">
-                <div class="section-title-group">
-                    <span class="section-number">03</span>
-                    <h2 class="section-title">破茧行动</h2>
+            
+            <!-- 学习统计 -->
+            <div class="stats-dashboard" id="stats-dashboard">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-book"></i></div>
+                    <div class="stat-value" id="total-papers">0</div>
+                    <div class="stat-label">论文阅读</div>
                 </div>
-                <p class="section-desc">跳出信息茧房，探索更广阔的世界</p>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-fire"></i></div>
+                    <div class="stat-value" id="streak-days">1</div>
+                    <div class="stat-label">连续学习</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-lightbulb"></i></div>
+                    <div class="stat-value" id="total-insights">0</div>
+                    <div class="stat-label">获得洞见</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-compass"></i></div>
+                    <div class="stat-value" id="fields-explored">0</div>
+                    <div class="stat-label">探索领域</div>
+                </div>
             </div>
-            <div class="babel-grid" id="babel-grid">
-                <!-- 动态加载 -->
+
+            <!-- 历史记录 -->
+            <div class="history-calendar" id="history-calendar">
+                <!-- 日历视图 -->
+            </div>
+        </section>
+
+        <!-- AI 对话 -->
+        <section id="chat" class="section chat-section">
+            <div class="section-header">
+                <h1><i class="fas fa-comments"></i> 学习对话</h1>
+            </div>
+            
+            <div class="chat-container">
+                <div class="chat-messages" id="chat-messages">
+                    <div class="message assistant">
+                        <div class="avatar">🧠</div>
+                        <div class="content">
+                            你好！我是灵儿，你的学习伙伴。有什么想聊的吗？<br>
+                            你可以问我：<br>
+                            • "今天有什么值得读的论文？"<br>
+                            • "帮我解释一下 Transformer 是什么"<br>
+                            • "最近 AI 教育领域有什么新进展？"
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input-container">
+                    <input type="text" id="chat-input" placeholder="问点什么..." />
+                    <button id="chat-send"><i class="fas fa-paper-plane"></i></button>
+                </div>
             </div>
         </section>
     </main>
 
-    <!-- 页脚 -->
-    <footer class="glass-footer">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <span class="logo-icon">◈</span>
-                <span>AI Nexus</span>
-            </div>
-            <p class="footer-tagline">由 QClaw AI 驱动 · 每日自动更新</p>
-            <div class="footer-links">
-                <a href="https://github.com/shangma821-cmd/ai-learning-site" target="_blank">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                    </svg>
-                </a>
-            </div>
-            <p class="copyright">© 2026 AI Nexus · Built with QClaw</p>
-        </div>
+    <!-- 快捷操作 -->
+    <div class="quick-actions">
+        <button class="action-btn" id="btn-mark-read" title="标记已读">
+            <i class="fas fa-check"></i>
+        </button>
+        <button class="action-btn" id="btn-save" title="收藏">
+            <i class="fas fa-bookmark"></i>
+        </button>
+        <button class="action-btn" id="btn-share" title="分享">
+            <i class="fas fa-share-alt"></i>
+        </button>
+    </div>
+
+    <!-- 底部 -->
+    <footer>
+        <p>🧠 由灵儿 AI 驱动 · 每日生长</p>
     </footer>
 
     <script src="scripts/data.js"></script>
-    <script src="scripts/render.js"></script>
-    <script>
-        // 卡片鼠标跟随光效
-        document.querySelectorAll('.featured-card, .category-card, .news-item, .babel-item').forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = ((e.clientX - rect.left) / rect.width) * 100;
-                const y = ((e.clientY - rect.top) / rect.height) * 100;
-                card.style.setProperty('--mouse-x', x + '%');
-                card.style.setProperty('--mouse-y', y + '%');
-            });
-        });
-    </script>
+    <script src="scripts/app.js"></script>
 </body>
 </html>
