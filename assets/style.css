@@ -2,7 +2,7 @@
 
 /* ===== CSS 变量 ===== */
 :root {
-    /* 主色调 */
+    /* 主色调 - 2026 春季微调 */
     --bg-primary: #0a0a0f;
     --bg-secondary: #12121a;
     --bg-card: rgba(18, 18, 26, 0.7);
@@ -13,17 +13,18 @@
     --text-secondary: rgba(255, 255, 255, 0.7);
     --text-muted: rgba(255, 255, 255, 0.5);
     
-    /* 强调色 */
-    --accent-cyan: #00d4ff;
-    --accent-purple: #8b5cf6;
-    --accent-pink: #ec4899;
-    --accent-orange: #f97316;
-    --accent-green: #10b981;
+    /* 强调色 - 更温暖的色调 */
+    --accent-cyan: #22d3ee;
+    --accent-purple: #a78bfa;
+    --accent-pink: #f472b6;
+    --accent-orange: #fb923c;
+    --accent-green: #34d399;
     
-    /* 渐变色 */
-    --gradient-main: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    /* 渐变色 - 更柔和的现代感 */
+    --gradient-main: linear-gradient(135deg, #818cf8 0%, #c084fc 100%);
     --gradient-hero: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
     --gradient-card: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+    --gradient-shine: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
     
     /* 玻璃态 */
     --glass-bg: rgba(255, 255, 255, 0.05);
@@ -353,12 +354,29 @@ ul {
 .btn-primary {
     background: var(--gradient-main);
     color: white;
-    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 4px 20px rgba(129, 140, 248, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-shine);
+    transition: left 0.5s ease;
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(102, 126, 234, 0.5);
+    box-shadow: 0 8px 30px rgba(192, 132, 252, 0.5);
+}
+
+.btn-primary:hover::before {
+    left: 100%;
 }
 
 .btn-secondary {
@@ -491,7 +509,7 @@ main {
     padding: var(--space-lg);
     position: relative;
     overflow: hidden;
-    transition: all 0.4s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .featured-card::before {
@@ -506,13 +524,27 @@ main {
     transition: opacity 0.3s ease;
 }
 
+.featured-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.06) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
 .featured-card:hover {
-    transform: translateY(-8px);
-    border-color: rgba(139, 92, 246, 0.3);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    transform: translateY(-8px) scale(1.01);
+    border-color: rgba(167, 139, 250, 0.4);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 60px rgba(129, 140, 248, 0.1);
 }
 
 .featured-card:hover::before {
+    opacity: 1;
+}
+
+.featured-card:hover::after {
     opacity: 1;
 }
 
@@ -895,4 +927,48 @@ main {
         width: 100%;
         justify-content: center;
     }
+}
+
+/* ===== 卡片鼠标跟随光效 ===== */
+.featured-card, .category-card, .news-item, .babel-item {
+    --mouse-x: 50%;
+    --mouse-y: 50%;
+}
+
+/* ===== 滚动触发动画 ===== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-on-scroll {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+/* ===== 微交互优化 ===== */
+.nav-link {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.category-card {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.news-item {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== 焦点状态优化（可访问性） ===== */
+.btn:focus-visible,
+.nav-link:focus-visible,
+.category-link:focus-visible,
+.featured-link:focus-visible {
+    outline: 2px solid var(--accent-cyan);
+    outline-offset: 2px;
 }

@@ -203,5 +203,17 @@
 
     <script src="scripts/data.js"></script>
     <script src="scripts/render.js"></script>
+    <script>
+        // 卡片鼠标跟随光效
+        document.querySelectorAll('.featured-card, .category-card, .news-item, .babel-item').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+                card.style.setProperty('--mouse-x', x + '%');
+                card.style.setProperty('--mouse-y', y + '%');
+            });
+        });
+    </script>
 </body>
 </html>
