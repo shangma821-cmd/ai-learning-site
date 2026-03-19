@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI学习站 | 每日AI前沿</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <meta name="description" content="每日更新AI、AI教育、AI健康领域的顶级论文和产业资讯">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🧠 AI学习站</h1>
+            <p class="subtitle">每日AI前沿 · 持续学习</p>
+            <nav>
+                <a href="index.html" class="active">首页</a>
+                <a href="papers.html">论文精选</a>
+                <a href="news.html">产业资讯</a>
+                <a href="archive.html">内容归档</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="today-highlight">
+            <h2>📅 今日更新 <span id="update-date"></span></h2>
+            <div class="highlight-cards" id="highlight-cards">
+                <!-- 动态加载 -->
+            </div>
+        </section>
+
+        <section class="sections">
+            <div class="section-card">
+                <h3>🤖 AI论文</h3>
+                <ul id="ai-papers-list">
+                    <!-- 动态加载 -->
+                </ul>
+                <a href="papers.html#ai" class="more-link">查看更多 →</a>
+            </div>
+            <div class="section-card">
+                <h3>📚 AI教育</h3>
+                <ul id="edu-papers-list">
+                    <!-- 动态加载 -->
+                </ul>
+                <a href="papers.html#edu" class="more-link">查看更多 →</a>
+            </div>
+            <div class="section-card">
+                <h3>🏥 AI健康</h3>
+                <ul id="health-papers-list">
+                    <!-- 动态加载 -->
+                </ul>
+                <a href="papers.html#health" class="more-link">查看更多 →</a>
+            </div>
+        </section>
+
+        <section class="news-section">
+            <h2>📰 最新资讯</h2>
+            <div class="news-grid" id="news-grid">
+                <!-- 动态加载 -->
+            </div>
+            <a href="news.html" class="more-link">查看更多资讯 →</a>
+        </section>
+
+        <section class="break-babel">
+            <h2>🌈 破茧行动</h2>
+            <p>跳出信息茧房，看看更广阔的世界</p>
+            <div class="babel-grid" id="babel-grid">
+                <!-- 动态加载 -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>🤖 由 QClaw AI 驱动 | 每日自动更新</p>
+            <p class="copyright">© 2026 AI学习站</p>
+        </div>
+    </footer>
+
+    <script src="scripts/data.js"></script>
+    <script src="scripts/render.js"></script>
+</body>
+</html>

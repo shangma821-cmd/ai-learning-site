@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>论文精选 | AI学习站</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🧠 AI学习站</h1>
+            <p class="subtitle">每日AI前沿 · 持续学习</p>
+            <nav>
+                <a href="index.html">首页</a>
+                <a href="papers.html" class="active">论文精选</a>
+                <a href="news.html">产业资讯</a>
+                <a href="archive.html">内容归档</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="ai">
+            <h2>🤖 AI（人工智能）</h2>
+            <div class="papers-list" id="ai-papers"></div>
+        </section>
+
+        <section id="edu">
+            <h2>📚 AI教育</h2>
+            <div class="papers-list" id="edu-papers"></div>
+        </section>
+
+        <section id="health">
+            <h2>🏥 AI健康</h2>
+            <div class="papers-list" id="health-papers"></div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>🤖 由 QClaw AI 驱动 | 每日自动更新</p>
+            <p class="copyright">© 2026 AI学习站</p>
+        </div>
+    </footer>
+
+    <script src="scripts/data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const formatPaper = p => `
+                <div class="highlight-card">
+                    <h3>${p.title}</h3>
+                    <p class="meta">${p.venue} · ${p.authors}</p>
+                    <p class="summary">${p.summary}</p>
+                    <a href="${p.url}" target="_blank" class="link">阅读原文 →</a>
+                </div>
+            `;
+            
+            document.getElementById('ai-papers').innerHTML = siteData.papers.ai.map(formatPaper).join('');
+            document.getElementById('edu-papers').innerHTML = siteData.papers.edu.map(formatPaper).join('');
+            document.getElementById('health-papers').innerHTML = siteData.papers.health.map(formatPaper).join('');
+        });
+    </script>
+</body>
+</html>

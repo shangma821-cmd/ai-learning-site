@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>产业资讯 | AI学习站</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🧠 AI学习站</h1>
+            <p class="subtitle">每日AI前沿 · 持续学习</p>
+            <nav>
+                <a href="index.html">首页</a>
+                <a href="papers.html">论文精选</a>
+                <a href="news.html" class="active">产业资讯</a>
+                <a href="archive.html">内容归档</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section>
+            <h2>📰 最新产业资讯</h2>
+            <div class="news-list" id="news-list"></div>
+        </section>
+
+        <section class="break-babel">
+            <h2>🌈 破茧资讯</h2>
+            <div class="news-list" id="babel-list"></div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>🤖 由 QClaw AI 驱动 | 每日自动更新</p>
+            <p class="copyright">© 2026 AI学习站</p>
+        </div>
+    </footer>
+
+    <script src="scripts/data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const formatNews = item => `
+                <div class="highlight-card">
+                    <span class="tag ${item.category}">${item.category === 'ai' ? '🤖' : item.category === 'edu' ? '📚' : '🏥'}</span>
+                    <h3>${item.title}</h3>
+                    <p class="meta">${item.source} · ${item.date}</p>
+                    <p class="summary">${item.summary}</p>
+                    <a href="${item.url}" target="_blank" class="link">阅读原文 →</a>
+                </div>
+            `;
+            
+            document.getElementById('news-list').innerHTML = siteData.news.map(formatNews).join('');
+            document.getElementById('babel-list').innerHTML = siteData.babel.map(formatNews).join('');
+        });
+    </script>
+</body>
+</html>

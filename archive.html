@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>内容归档 | AI学习站</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🧠 AI学习站</h1>
+            <p class="subtitle">每日AI前沿 · 持续学习</p>
+            <nav>
+                <a href="index.html">首页</a>
+                <a href="papers.html">论文精选</a>
+                <a href="news.html">产业资讯</a>
+                <a href="archive.html" class="active">内容归档</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section>
+            <h2>📚 历史更新</h2>
+            <p style="color: var(--gray); margin-bottom: 1rem;">以下是过往每日更新的内容存档</p>
+            <div class="archive-list" id="archive-list">
+                <p style="color: var(--gray);">暂无历史存档</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>🤖 由 QClaw AI 驱动 | 每日自动更新</p>
+            <p class="copyright">© 2026 AI学习站</p>
+        </div>
+    </footer>
+
+    <script src="scripts/data.js"></script>
+    <script>
+        // 归档页面 - 展示历史内容
+        document.addEventListener('DOMContentLoaded', function() {
+            // 这个页面可以从 archive 目录读取历史数据
+            console.log('AI学习站 - 内容归档');
+        });
+    </script>
+</body>
+</html>
