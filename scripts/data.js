@@ -36,6 +36,55 @@ const siteData = {
         ]
     },
     news: [
+        // 2026-03-19 午间更新
+        {
+            title: "中国团队发布全球首款通用型AI智能体Manus",
+            source: "知乎/科技媒体",
+            url: "https://www.zhihu.com/question/14173371100",
+            summary: "Manus是真正自主的AI代理，能解决各类复杂多变任务，适用于各种AI应用场景",
+            category: "ai",
+            date: "2026-03-19"
+        },
+        {
+            title: "字节跳动发布中国首个AI原生IDE Trae国内版",
+            source: "字节跳动",
+            url: "https://www.zhihu.com/question/13918010999",
+            summary: "AI原生集成开发环境，支持实时代码建议、自然语言生成代码、从零开发项目",
+            category: "ai",
+            date: "2026-03-19"
+        },
+        {
+            title: "国内AI大模型数量已近80个，竞争白热化",
+            source: "知乎",
+            url: "https://www.zhihu.com/question/608763410",
+            summary: "大模型赛道拥挤，各厂商加速差异化布局，应用落地成为竞争焦点",
+            category: "ai",
+            date: "2026-03-19"
+        },
+        {
+            title: "多所高校毕业论文将检测AI率",
+            source: "高校官网",
+            url: "https://www.zhihu.com/question/15169887147",
+            summary: "西南大学、中国人民大学等高校发布规定，要求检测毕业论文AI生成内容比例",
+            category: "edu",
+            date: "2026-03-19"
+        },
+        {
+            title: "AI Infra成为技术热点，软硬件深度协同成趋势",
+            source: "知乎",
+            url: "https://www.zhihu.com/question/4023337465",
+            summary: "AI基础设施从物理硬件到上层工具形成闭环，垂直整合成为核心竞争力",
+            category: "ai",
+            date: "2026-03-19"
+        },
+        {
+            title: "5G+AI融合加速，边缘智能应用场景扩展",
+            source: "行业资讯",
+            url: "https://www.zhihu.com/question/282715644",
+            summary: "AI算法云端部署+5G接入，使站点无需强大算力即可获得灵活AI支持",
+            category: "ai",
+            date: "2026-03-19"
+        },
         {
             title: "OpenAI发布GPT-5预览版，推理能力大幅提升",
             source: "36kr",
