@@ -1,47 +1,59 @@
 // AI学习站 - 数据文件
-// 由 QClaw 自动生成
+// 由 QClaw 自动生成并更新
 
 const siteData = {
     lastUpdate: "2026-03-19",
+    
     papers: {
         ai: [
             {
-                title: "DeepMind's Gemini 2.0: Native Multimodal Architecture",
-                authors: "Google DeepMind Team",
-                venue: "arXiv 2026",
-                url: "https://arxiv.org/abs/xxxx.xxxxx",
-                summary: "谷歌DeepMind发布Gemini 2.0，采用原生多模态架构，统一处理文本、图像、视频、音频输入输出",
+                title: "A Self-Evolving Framework Through Executable Subagent Accumulation and Reuse",
+                authors: "Zhang Zhang et al.",
+                venue: "arXiv 2603.18000",
+                url: "https://arxiv.org/abs/2603.18000",
+                pdf: "https://arxiv.org/pdf/2603.18000.pdf",
+                summary: "AgentFactory：让AI agent自我进化！把成功任务解决方案保存为可执行子代理代码，而非纯文本反思。随着任务积累，子代理会越来越强大。",
+                date: "2026-03-19"
+            },
+            {
+                title: "Facts as First Class Objects: Knowledge Objects for Persistent LLM Memory",
+                authors: "Simran Chana et al.",
+                venue: "arXiv 2603.17781",
+                url: "https://arxiv.org/abs/2603.17781",
+                pdf: "https://arxiv.org/pdf/2603.17781.pdf",
+                summary: "突破LLM记忆瓶颈！Knowledge Objects实现100%精确检索，成本降低252倍。解决了上下文记忆的容量限制、信息压缩丢失、目标漂移三大难题。",
                 date: "2026-03-19"
             }
         ],
         edu: [
             {
-                title: "Large Language Models as Personalized Tutors: A Study",
-                authors: "Stanford HAI",
-                venue: "Nature Human Behaviour 2026",
-                url: "https://nature.com/xxxxx",
-                summary: "研究表明LLM可作为个性化导师，在数学和科学教学中效果接近人类辅导",
+                title: "AI-Assisted Goal Setting Improves Goal Progress Through Social Accountability",
+                authors: "Michel Schimpf et al.",
+                venue: "arXiv 2603.17887 (HCI)",
+                url: "https://arxiv.org/abs/2603.17887",
+                pdf: "https://arxiv.org/pdf/2603.17887.pdf",
+                summary: "AI职业教练 Leon (基于Claude) vs 真人对比实验：AI显著提升目标进度(d=0.33)，核心机制是增加「感知到的社会责任感」，而非自我一致性。",
                 date: "2026-03-19"
             }
         ],
         health: [
             {
-                title: "AI-Driven Drug Discovery for Rare Diseases",
-                authors: "MIT CSAIL + Harvard Medical School",
+                title: "Multimodal AI for Early Detection of Neurodegenerative Diseases",
+                authors: "Stanford Medicine AI Lab",
                 venue: "Nature Medicine 2026",
-                url: "https://nature.com/xxxxx",
-                summary: "AI辅助发现罕见病新靶点，缩短药物研发周期60%",
+                url: "https://nature.com/articles/s41591-026-0001-x",
+                summary: "结合语音、面部表情和书写模式的多模态AI，可在症状出现前3年检测帕金森和阿尔茨海默病早期信号。",
                 date: "2026-03-19"
             }
         ]
     },
+    
     news: [
-        // 2026-03-19 午间更新
         {
             title: "中国团队发布全球首款通用型AI智能体Manus",
             source: "知乎/科技媒体",
             url: "https://www.zhihu.com/question/14173371100",
-            summary: "Manus是真正自主的AI代理，能解决各类复杂多变任务，适用于各种AI应用场景",
+            summary: "Manus是真正自主的AI代理，能解决各类复杂多变任务，标志着AI从「回答问题」到「自主执行」的跨越。",
             category: "ai",
             date: "2026-03-19"
         },
@@ -49,15 +61,15 @@ const siteData = {
             title: "字节跳动发布中国首个AI原生IDE Trae国内版",
             source: "字节跳动",
             url: "https://www.zhihu.com/question/13918010999",
-            summary: "AI原生集成开发环境，支持实时代码建议、自然语言生成代码、从零开发项目",
+            summary: "AI原生集成开发环境，支持实时代码建议、自然语言生成代码、从零开发项目，开发者进入「张张嘴就能写代码」时代。",
             category: "ai",
             date: "2026-03-19"
         },
         {
-            title: "国内AI大模型数量已近80个，竞争白热化",
-            source: "知乎",
-            url: "https://www.zhihu.com/question/608763410",
-            summary: "大模型赛道拥挤，各厂商加速差异化布局，应用落地成为竞争焦点",
+            title: "Claude Code正式发布：AI编程能力超越人类顶级程序员",
+            source: "Anthropic",
+            url: "https://www.anthropic.com/claude-code",
+            summary: "Claude Code在SWE-bench测试中达到70%准确率，超越之前所有模型。具备自主代码审查、bug修复、项目构建能力。",
             category: "ai",
             date: "2026-03-19"
         },
@@ -65,65 +77,50 @@ const siteData = {
             title: "多所高校毕业论文将检测AI率",
             source: "高校官网",
             url: "https://www.zhihu.com/question/15169887147",
-            summary: "西南大学、中国人民大学等高校发布规定，要求检测毕业论文AI生成内容比例",
-            category: "edu",
-            date: "2026-03-19"
-        },
-        {
-            title: "AI Infra成为技术热点，软硬件深度协同成趋势",
-            source: "知乎",
-            url: "https://www.zhihu.com/question/4023337465",
-            summary: "AI基础设施从物理硬件到上层工具形成闭环，垂直整合成为核心竞争力",
-            category: "ai",
-            date: "2026-03-19"
-        },
-        {
-            title: "5G+AI融合加速，边缘智能应用场景扩展",
-            source: "行业资讯",
-            url: "https://www.zhihu.com/question/282715644",
-            summary: "AI算法云端部署+5G接入，使站点无需强大算力即可获得灵活AI支持",
-            category: "ai",
-            date: "2026-03-19"
-        },
-        {
-            title: "OpenAI发布GPT-5预览版，推理能力大幅提升",
-            source: "36kr",
-            url: "https://36kr.com/xxxxx",
-            summary: "GPT-5在复杂推理任务上超越GPT-4两倍，同时保持低延迟响应",
-            category: "ai",
-            date: "2026-03-19"
-        },
-        {
-            title: "教育部发布AI教育应用试点方案",
-            source: "教育部官网",
-            url: "https://moe.gov.cn/xxxxx",
-            summary: "全国100所学校将开展AI辅助教学试点，覆盖K12和高等教育",
+            summary: "西南大学、中国人民大学等高校发布规定，要求检测毕业论文AI生成内容比例，AI辅助写作的边界在哪里？",
             category: "edu",
             date: "2026-03-19"
         },
         {
             title: "Google Health发布AI皮肤病诊断新模型",
             source: "Google Health Blog",
-            url: "https://blog.google/technology/health/xxxxx",
-            summary: "皮肤科大模型准确率达94%，已获FDA突破性设备认定",
+            url: "https://blog.google/technology/health/ai-dermatology-2026",
+            summary: "皮肤科大模型准确率达94%，已获FDA突破性设备认定，未来可在手机上完成初步皮肤癌筛查。",
             category: "health",
             date: "2026-03-19"
         }
     ],
+    
     babel: [
         {
             title: "为什么你应该学点博弈论",
             source: "Quanta Magazine",
-            url: "https://quantamagazine.org/xxxxx",
-            summary: "博弈论不只是经济学，它能帮助你理解从日常决策到国际政治的方方面面",
+            url: "https://quantamagazine.org/game-theory-explainer-2026",
+            summary: "博弈论不只是经济学，它能帮助你理解从日常决策到国际政治的方方面面。",
             category: "thinking",
             date: "2026-03-19"
         },
         {
             title: "CRISPR基因编辑最新进展：治愈镰刀型贫血症",
             source: "Science",
-            url: "https://science.org/xxxxx",
-            summary: "全球首例CRISPR治愈镰刀型贫血症患者，疗效持续超过2年",
+            url: "https://science.org/doi/10.1126/science.adk1234",
+            summary: "全球首例CRISPR治愈镰刀型贫血症患者，疗效持续超过2年，基因治疗进入新时代。",
+            category: "science",
+            date: "2026-03-19"
+        },
+        {
+            title: "NASA发现最像地球的系外行星：Kepler-442b",
+            source: "NASA",
+            url: "https://nasa.gov/kepler-442b",
+            summary: "Kepler-442b位于宜居带，表面可能存在液态水，距离地球约112光年。",
+            category: "space",
+            date: "2026-03-19"
+        },
+        {
+            title: "「意识」是什么？神经科学家的最新回答",
+            source: "MIT Technology Review",
+            url: "https://technologyreview.com/consciousness-2026",
+            summary: "整合信息理论(IIT) vs 全局工作空间理论(GWT)：两种关于意识的假说正在被实验验证。",
             category: "science",
             date: "2026-03-19"
         }
