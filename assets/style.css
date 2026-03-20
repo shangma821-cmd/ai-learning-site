@@ -1429,6 +1429,168 @@ body.light-theme {
   transform: scale(1.05);
 }
 
+/* 3D 倾斜悬浮效果 */
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.3s var(--ease-smooth);
+}
+.tilt-card:hover {
+  transform: perspective(1000px) rotateX(2deg) rotateY(-2deg) translateZ(10px);
+}
+
+/* 磁性按钮效果 */
+.magnetic-btn {
+  transition: transform 0.2s var(--ease-spring);
+}
+
+/* 玻璃拟态增强 */
+.glass-enhanced {
+  background: linear-gradient(135deg,
+    rgba(255,255,255,0.08) 0%,
+    rgba(255,255,255,0.03) 100%);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.3),
+    inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+/* 霓虹光晕效果 */
+.neon-glow {
+  position: relative;
+}
+.neon-glow::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: var(--gradient-aurora);
+  border-radius: inherit;
+  opacity: 0;
+  filter: blur(12px);
+  transition: opacity 0.3s var(--ease-smooth);
+  z-index: -1;
+}
+.neon-glow:hover::before {
+  opacity: 0.5;
+}
+
+/* 浮动标签 */
+.floating-tag {
+  position: absolute;
+  top: -8px;
+  left: 16px;
+  padding: 4px 12px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: white;
+  box-shadow: 0 4px 12px rgba(99,102,241,0.4);
+}
+
+/* 渐变边框 */
+.gradient-border {
+  position: relative;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+}
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: var(--gradient-aurora);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-smooth);
+}
+.gradient-border:hover::before {
+  opacity: 1;
+}
+
+/* 脉冲光效 */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(99,102,241,0.3); }
+  50% { box-shadow: 0 0 40px rgba(99,102,241,0.6); }
+}
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* 文字渐变动画 */
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.animated-gradient-text {
+  background: linear-gradient(90deg, #22d3ee, #6366f1, #a78bfa, #f472b6, #22d3ee);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 4s ease infinite;
+}
+
+/* 悬浮阴影增强 */
+.hover-shadow-lift {
+  transition: all 0.3s var(--ease-spring);
+}
+.hover-shadow-lift:hover {
+  transform: translateY(-8px);
+  box-shadow:
+    0 20px 40px rgba(0,0,0,0.4),
+    0 0 0 1px rgba(99,102,241,0.2);
+}
+
+/* 模糊背景效果 */
+.backdrop-blur-heavy {
+  backdrop-filter: blur(40px) saturate(200%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%);
+}
+
+/* 条纹动画背景 */
+@keyframes stripe-move {
+  0% { background-position: 0 0; }
+  100% { background-position: 60px 60px; }
+}
+.animated-stripes {
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    rgba(99,102,241,0.03) 10px,
+    rgba(99,102,241,0.03) 20px
+  );
+  background-size: 60px 60px;
+  animation: stripe-move 20s linear infinite;
+}
+
+/* 粒子效果容器 */
+.particles-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(99,102,241,0.4);
+  border-radius: 50%;
+  animation: float-particle 8s ease-in-out infinite;
+}
+@keyframes float-particle {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-100px) translateX(50px); opacity: 0; }
+}
+
 /* 论文标题渐变色悬停 */
 .paper-card h3 a {
   background: linear-gradient(var(--text-primary), var(--text-primary)) no-repeat;
@@ -1507,6 +1669,126 @@ body.light-theme {
   margin-bottom: 6px;
 }
 .skeleton-text:last-child { width: 70%; }
+
+/* ── 24j. 精选论文悬浮特效 ───────────────────────────────── */
+.featured-card {
+  background: linear-gradient(135deg,
+    rgba(99,102,241,0.1) 0%,
+    rgba(167,139,250,0.08) 100%);
+  border: 1px solid rgba(99,102,241,0.2);
+  position: relative;
+  overflow: hidden;
+}
+.featured-card::after {
+  content: '⭐ 精选';
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 3px 10px;
+  background: var(--gradient-warm);
+  border-radius: var(--radius-full);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 0.05em;
+}
+
+/* ── 24k. 打字机动画 ─────────────────────────────────────── */
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+.typewriter {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid var(--primary-light);
+  animation:
+    typewriter 2s steps(30, end) forwards,
+    blink 0.8s step-end infinite;
+  animation-delay: 0.5s;
+}
+
+/* ── 24l. 震动反馈 ───────────────────────────────────────── */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-4px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-2px); }
+  80% { transform: translateX(2px); }
+}
+.shake { animation: shake 0.4s ease-in-out; }
+
+/* ── 24m. 滚动指示器 ─────────────────────────────────────── */
+.scroll-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+.scroll-indicator .arrow {
+  width: 20px;
+  height: 20px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  animation: bounce-down 1.5s ease-in-out infinite;
+}
+@keyframes bounce-down {
+  0%, 100% { transform: rotate(45deg) translate(0, 0); opacity: 0.5; }
+  50% { transform: rotate(45deg) translate(4px, 4px); opacity: 1; }
+}
+
+/* ── 24n. 状态徽章 ──────────────────────────────────────── */
+.badge-new {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  background: rgba(52,211,153,0.15);
+  color: var(--accent-green);
+  border: 1px solid rgba(52,211,153,0.3);
+  border-radius: var(--radius-full);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.badge-hot {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  background: rgba(245,158,11,0.15);
+  color: var(--accent);
+  border: 1px solid rgba(245,158,11,0.3);
+  border-radius: var(--radius-full);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+.badge-hot::before {
+  content: '🔥';
+  font-size: 0.7rem;
+}
+
+/* ── 24o. 玻璃微光效果 ───────────────────────────────────── */
+.gloss-morphism {
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.08) 0%,
+    rgba(255,255,255,0.02) 50%,
+    rgba(255,255,255,0.06) 100%
+  );
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.3),
+    inset 0 1px 0 rgba(255,255,255,0.15),
+    inset 0 -1px 0 rgba(0,0,0,0.1);
+}
 
 /* ── 25. 响应式 ──────────────────────────────────────────── */
 @media (max-width: 1024px) {

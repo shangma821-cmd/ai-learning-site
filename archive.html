@@ -60,7 +60,7 @@
 
     <main class="container" id="main-content">
         <div class="page-header">
-            <h1><span class="gradient-text">内容归档</span></h1>
+            <h1><span class="animated-gradient-text">内容归档</span></h1>
             <p>过往每日更新的内容存档</p>
         </div>
 
@@ -94,8 +94,8 @@
             }
 
             if (archiveItems.length > 0) {
-                container.innerHTML = archiveItems.map(item => `
-                    <div class="archive-card">
+                container.innerHTML = archiveItems.map((item, idx) => `
+                    <div class="archive-card hover-shadow-lift reveal" style="animation-delay:${idx * 0.08}s">
                         <div class="archive-date">${item.date}</div>
                         <h3>${item.title || '每日精选'}</h3>
                         <div class="archive-stats">
@@ -114,7 +114,7 @@
                 const newsCount = typeof siteData !== 'undefined' ? siteData.news.length : 0;
 
                 container.innerHTML = `
-                    <div class="archive-card">
+                    <div class="archive-card hover-shadow-lift reveal">
                         <div class="archive-date">${today}</div>
                         <h3>今日精选内容</h3>
                         <div class="archive-stats">
@@ -166,7 +166,7 @@
 
             // 滚动动画
             const observer = new IntersectionObserver(entries => {
-                entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('stagger-in'); observer.unobserve(e.target); } });
+                entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('stagger-in'); e.target.classList.add('visible'); observer.unobserve(e.target); } });
             }, { threshold: 0.1 });
             document.querySelectorAll('.archive-card').forEach(el => observer.observe(el));
         });

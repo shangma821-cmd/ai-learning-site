@@ -71,7 +71,7 @@
         <!-- 今日精选 -->
         <section id="today" class="section today-section active">
             <div class="section-header">
-                <h1><i class="fas fa-sun"></i> 今日新知</h1>
+                <h1><i class="fas fa-sun"></i> <span class="animated-gradient-text">今日新知</span></h1>
                 <span class="date" id="today-date"></span>
             </div>
 
@@ -227,21 +227,24 @@
                 health: { cls: 'health', label: '🏥 AI健康' }
             };
             let cards = [];
+            let cardIndex = 0;
             Object.entries(siteData.papers).forEach(([key, list]) => {
                 const t = tagMap[key] || { cls: 'ai', label: key };
-                list.slice(0, 2).forEach(p => {
+                list.slice(0, 2).forEach((p, idx) => {
+                    const isFeatured = idx === 0;
                     cards.push(`
-                        <div class="paper-card">
+                        <div class="paper-card ${isFeatured ? 'featured-card tilt-card' : 'tilt-card'} reveal" data-category="${key}" style="animation-delay:${cardIndex * 0.1}s">
                             <span class="tag ${t.cls}">${t.label}</span>
                             <h3><a href="${p.url}" target="_blank" rel="noopener">${p.title}</a></h3>
                             <p class="meta">${p.venue} · ${p.authors}</p>
                             <p class="summary">${p.summary}</p>
                             <div class="actions">
-                                <a href="${p.url}" target="_blank" rel="noopener" class="btn btn-primary">阅读原文</a>
-                                <button class="btn btn-ghost" onclick="this.textContent='✓ 已收藏'">收藏</button>
+                                <a href="${p.url}" target="_blank" rel="noopener" class="btn btn-primary magnetic-btn">阅读原文</a>
+                                <button class="btn btn-ghost" onclick="this.textContent='✓ 已收藏'; this.classList.add('saved');">收藏</button>
                             </div>
                         </div>
                     `);
+                    cardIndex++;
                 });
             });
             papersContainer.innerHTML = cards.join('');
@@ -250,17 +253,20 @@
         // 渲染新闻
         const newsContainer = document.getElementById('news-container');
         if (newsContainer && typeof siteData !== 'undefined') {
-            newsContainer.innerHTML = siteData.news.slice(0, 6).map(item => `
-                <div class="news-item">
+            newsContainer.innerHTML = siteData.news.slice(0, 6).map((item, idx) => {
+                const isNew = idx < 2;
+                return `
+                <div class="news-item reveal" style="animation-delay:${idx * 0.08}s">
                     <span class="time">${item.date ? item.date.slice(5) : '--'}</span>
                     <div class="content">
                         <div class="title">
+                            ${isNew ? '<span class="badge-new">NEW</span> ' : ''}
                             <a href="${item.url || '#'}" target="_blank" rel="noopener">${item.title}</a>
                         </div>
                         <div class="source">${item.source}</div>
                     </div>
                 </div>
-            `).join('');
+            `}).join('');
         }
 
         // 渲染破茧
@@ -270,8 +276,8 @@
                 thinking: '🧠', science: '🔬', tech: '💻',
                 design: '🎨', history: '📜', nature: '🌿'
             };
-            babelContainer.innerHTML = siteData.babel.slice(0, 4).map(item => `
-                <div class="babel-card" onclick="window.open('${item.url || '#'}','_blank')">
+            babelContainer.innerHTML = siteData.babel.slice(0, 4).map((item, idx) => `
+                <div class="babel-card hover-shadow-lift reveal" onclick="window.open('${item.url || '#'}','_blank')" style="animation-delay:${idx * 0.1}s">
                     <div class="emoji">${emojiMap[item.category] || '✨'}</div>
                     <h4>${item.title}</h4>
                     <div class="field">${item.source}</div>
@@ -346,12 +352,43 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('stagger-in');
+                    entry.target.classList.add('visible');
                     fadeObserver.unobserve(entry.target);
                 }
             });
         }, observerOptions);
-        document.querySelectorAll('.paper-card, .news-card, .babel-card, .stat-card').forEach(el => {
+        document.querySelectorAll('.paper-card, .news-card, .babel-card, .stat-card, .news-item, .reveal').forEach(el => {
             fadeObserver.observe(el);
+        });
+
+        // 3D 倾斜效果
+        document.querySelectorAll('.tilt-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+            });
+        });
+
+        // 磁性按钮效果
+        document.querySelectorAll('.magnetic-btn').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translate(0, 0)';
+            });
         });
     });
     </script>

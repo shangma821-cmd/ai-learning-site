@@ -60,7 +60,7 @@
 
     <main class="container" id="main-content">
         <div class="page-header">
-            <h1><span class="gradient-text">产业资讯</span></h1>
+            <h1><span class="animated-gradient-text">产业资讯</span></h1>
             <p>AI 领域的最新动态与趋势</p>
         </div>
 
@@ -95,23 +95,24 @@
                 health: { emoji: '🏥', cls: 'health' }
             };
 
-            const formatNews = item => {
+            const formatNews = (item, idx) => {
                 const cat = categoryMap[item.category] || { emoji: '📌', cls: 'default' };
+                const isHot = idx < 3;
                 return `
-                    <div class="news-card">
-                        <span class="tag ${cat.cls}">${cat.emoji} ${item.category ? item.category.toUpperCase() : ''}</span>
+                    <div class="news-card hover-shadow-lift reveal" style="animation-delay:${idx * 0.06}s">
+                        <span class="tag ${cat.cls}">${isHot ? '<span class="badge-hot">HOT</span> ' : ''}${cat.emoji} ${item.category ? item.category.toUpperCase() : ''}</span>
                         <h3>${item.title}</h3>
                         <p class="news-meta">${item.source} · ${item.date}</p>
                         <p class="news-summary">${item.summary || ''}</p>
-                        ${item.url ? `<a href="${item.url}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:5px;color:var(--accent-cyan);font-size:0.82rem;margin-top:12px;font-weight:500;">阅读全文 →</a>` : ''}
+                        ${item.url ? `<a href="${item.url}" target="_blank" rel="noopener" class="magnetic-btn" style="display:inline-flex;align-items:center;gap:5px;color:var(--accent-cyan);font-size:0.82rem;margin-top:12px;font-weight:500;">阅读全文 →</a>` : ''}
                     </div>
                 `;
             };
 
             document.getElementById('news-list').innerHTML =
-                siteData.news.map(formatNews).join('');
+                siteData.news.map((item, i) => formatNews(item, i)).join('');
             document.getElementById('babel-list').innerHTML =
-                siteData.babel.map(formatNews).join('');
+                siteData.babel.map((item, i) => formatNews(item, i)).join('');
 
             // 阅读进度条
             const progressBar = document.getElementById('reading-progress');
@@ -149,9 +150,22 @@
 
             // 滚动动画
             const observer = new IntersectionObserver(entries => {
-                entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('stagger-in'); observer.unobserve(e.target); } });
+                entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('stagger-in'); e.target.classList.add('visible'); observer.unobserve(e.target); } });
             }, { threshold: 0.1 });
             document.querySelectorAll('.news-card').forEach(el => observer.observe(el));
+
+            // 磁性按钮效果
+            document.querySelectorAll('.magnetic-btn').forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+                });
+                btn.addEventListener('mouseleave', () => {
+                    btn.style.transform = 'translate(0, 0)';
+                });
+            });
         });
     </script>
 </body>

@@ -61,7 +61,7 @@
 
     <main class="container" id="main-content">
         <div class="page-header">
-            <h1><span class="gradient-text">论文精选</span></h1>
+            <h1><span class="animated-gradient-text">论文精选</span></h1>
             <p>全球顶级会议 / 期刊的最新研究成果</p>
         </div>
 
@@ -95,24 +95,24 @@
     <script src="scripts/data.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const formatPaper = (p, tagCls) => `
-                <div class="paper-card">
+            const formatPaper = (p, tagCls, idx) => `
+                <div class="paper-card tilt-card reveal ${idx === 0 ? 'featured-card' : ''}" style="animation-delay:${idx * 0.08}s">
                     ${tagCls ? `<span class="tag ${tagCls}">${tagCls === 'ai' ? '🤖 AI' : tagCls === 'edu' ? '📚 教育' : '🏥 健康'}</span>` : ''}
                     <h3>${p.title}</h3>
                     <p class="paper-meta">${p.venue} · ${p.authors}</p>
                     <p class="paper-summary">${p.summary}</p>
-                    <a href="${p.url}" target="_blank" rel="noopener" class="paper-link">
+                    <a href="${p.url}" target="_blank" rel="noopener" class="paper-link magnetic-btn">
                         阅读原文 <span>→</span>
                     </a>
                 </div>
             `;
 
             document.getElementById('ai-papers').innerHTML =
-                siteData.papers.ai.map(p => formatPaper(p, 'ai')).join('');
+                siteData.papers.ai.map((p, i) => formatPaper(p, 'ai', i)).join('');
             document.getElementById('edu-papers').innerHTML =
-                siteData.papers.edu.map(p => formatPaper(p, 'edu')).join('');
+                siteData.papers.edu.map((p, i) => formatPaper(p, 'edu', i)).join('');
             document.getElementById('health-papers').innerHTML =
-                siteData.papers.health.map(p => formatPaper(p, 'health')).join('');
+                siteData.papers.health.map((p, i) => formatPaper(p, 'health', i)).join('');
 
             // 阅读进度条
             const progressBar = document.getElementById('reading-progress');
@@ -150,9 +150,39 @@
 
             // 滚动动画
             const observer = new IntersectionObserver(entries => {
-                entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('stagger-in'); observer.unobserve(e.target); } });
+                entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('stagger-in'); e.target.classList.add('visible'); observer.unobserve(e.target); } });
             }, { threshold: 0.1 });
             document.querySelectorAll('.paper-card').forEach(el => observer.observe(el));
+
+            // 3D 倾斜效果
+            document.querySelectorAll('.tilt-card').forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = (y - centerY) / 20;
+                    const rotateY = (centerX - x) / 20;
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+                });
+            });
+
+            // 磁性按钮效果
+            document.querySelectorAll('.magnetic-btn').forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+                });
+                btn.addEventListener('mouseleave', () => {
+                    btn.style.transform = 'translate(0, 0)';
+                });
+            });
         });
     </script>
 </body>
