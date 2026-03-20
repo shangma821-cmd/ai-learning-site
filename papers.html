@@ -4,86 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>论文精选 | AI Nexus</title>
+    <meta name="description" content="全球顶级会议/期刊的最新 AI 研究成果精选">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/style.css">
-    <style>
-        .page-header {
-            padding: 150px 0 60px;
-            text-align: center;
-        }
-        .page-header h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-        .page-header .gradient-text {
-            background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-purple) 50%, var(--accent-pink) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .papers-section {
-            padding: 40px 0 80px;
-        }
-        .papers-section h2 {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 1.8rem;
-            margin-bottom: 24px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--glass-border);
-        }
-        .papers-section h2 .tag-icon {
-            font-size: 1.5rem;
-        }
-        .papers-list {
-            display: grid;
-            gap: 20px;
-        }
-        .paper-card {
-            background: var(--bg-card);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-lg);
-            padding: 24px;
-            transition: all 0.3s ease;
-        }
-        .paper-card:hover {
-            transform: translateX(8px);
-            border-color: var(--accent-purple);
-        }
-        .paper-card h3 {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-            line-height: 1.4;
-        }
-        .paper-card .paper-meta {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 12px;
-        }
-        .paper-card .paper-summary {
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 16px;
-        }
-        .paper-card .paper-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--accent-cyan);
-            font-weight: 500;
-            transition: gap 0.3s ease;
-        }
-        .paper-card:hover .paper-link {
-            gap: 10px;
-        }
-    </style>
 </head>
 <body>
+
     <!-- 动态背景 -->
     <div class="ambient-bg">
         <div class="gradient-orb orb-1"></div>
@@ -124,7 +52,7 @@
     <main class="container">
         <div class="page-header">
             <h1><span class="gradient-text">论文精选</span></h1>
-            <p style="color: var(--text-secondary); font-size: 1.1rem;">全球顶级会议/期刊的最新研究成果</p>
+            <p>全球顶级会议 / 期刊的最新研究成果</p>
         </div>
 
         <section class="papers-section" id="ai">
@@ -157,20 +85,24 @@
     <script src="scripts/data.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const formatPaper = p => `
+            const formatPaper = (p, tagCls) => `
                 <div class="paper-card">
+                    ${tagCls ? `<span class="tag ${tagCls}">${tagCls === 'ai' ? '🤖 AI' : tagCls === 'edu' ? '📚 教育' : '🏥 健康'}</span>` : ''}
                     <h3>${p.title}</h3>
                     <p class="paper-meta">${p.venue} · ${p.authors}</p>
                     <p class="paper-summary">${p.summary}</p>
-                    <a href="${p.url}" target="_blank" class="paper-link">
+                    <a href="${p.url}" target="_blank" rel="noopener" class="paper-link">
                         阅读原文 <span>→</span>
                     </a>
                 </div>
             `;
-            
-            document.getElementById('ai-papers').innerHTML = siteData.papers.ai.map(formatPaper).join('');
-            document.getElementById('edu-papers').innerHTML = siteData.papers.edu.map(formatPaper).join('');
-            document.getElementById('health-papers').innerHTML = siteData.papers.health.map(formatPaper).join('');
+
+            document.getElementById('ai-papers').innerHTML =
+                siteData.papers.ai.map(p => formatPaper(p, 'ai')).join('');
+            document.getElementById('edu-papers').innerHTML =
+                siteData.papers.edu.map(p => formatPaper(p, 'edu')).join('');
+            document.getElementById('health-papers').innerHTML =
+                siteData.papers.health.map(p => formatPaper(p, 'health')).join('');
         });
     </script>
 </body>

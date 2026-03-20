@@ -4,81 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>内容归档 | AI Nexus</title>
+    <meta name="description" content="过往每日更新的内容存档">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/style.css">
-    <style>
-        .page-header {
-            padding: 150px 0 60px;
-            text-align: center;
-        }
-        .page-header h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-        .page-header .gradient-text {
-            background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-purple) 50%, var(--accent-pink) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .archive-section {
-            padding: 40px 0 80px;
-        }
-        .archive-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-        .archive-card {
-            background: var(--bg-card);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-lg);
-            padding: 24px;
-            transition: all 0.3s ease;
-        }
-        .archive-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent-cyan);
-        }
-        .archive-date {
-            font-size: 0.85rem;
-            color: var(--accent-cyan);
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-        .archive-card h3 {
-            font-size: 1.1rem;
-            font-weight: 500;
-            margin-bottom: 12px;
-            line-height: 1.4;
-        }
-        .archive-stats {
-            display: flex;
-            gap: 16px;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-        .archive-stats span {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--text-muted);
-        }
-        .empty-state .icon {
-            font-size: 4rem;
-            margin-bottom: 16px;
-            opacity: 0.5;
-        }
-    </style>
 </head>
 <body>
+
     <!-- 动态背景 -->
     <div class="ambient-bg">
         <div class="gradient-orb orb-1"></div>
@@ -119,16 +52,12 @@
     <main class="container">
         <div class="page-header">
             <h1><span class="gradient-text">内容归档</span></h1>
-            <p style="color: var(--text-secondary); font-size: 1.1rem;">过往每日更新的内容存档</p>
+            <p>过往每日更新的内容存档</p>
         </div>
 
         <section class="archive-section">
             <div class="archive-grid" id="archive-list">
-                <div class="empty-state">
-                    <div class="icon">📚</div>
-                    <p>暂无历史存档</p>
-                    <p style="font-size: 0.9rem; margin-top: 8px;">每日更新后会自动归档</p>
-                </div>
+                <!-- 动态加载 -->
             </div>
         </section>
     </main>
@@ -147,7 +76,53 @@
     <script src="scripts/data.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('AI Nexus - 内容归档');
+            const container = document.getElementById('archive-list');
+
+            // 尝试从 posts 目录或 siteData 构建归档
+            let archiveItems = [];
+
+            // 如果 siteData 有 archive 字段
+            if (typeof siteData !== 'undefined' && siteData.archive && siteData.archive.length > 0) {
+                archiveItems = siteData.archive;
+            }
+
+            if (archiveItems.length > 0) {
+                container.innerHTML = archiveItems.map(item => `
+                    <div class="archive-card">
+                        <div class="archive-date">${item.date}</div>
+                        <h3>${item.title || '每日精选'}</h3>
+                        <div class="archive-stats">
+                            <span>📄 ${item.papers || 0} 篇论文</span>
+                            <span>📰 ${item.news || 0} 条资讯</span>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                // 用当前数据生成一条归档记录
+                const today = new Date().toLocaleDateString('zh-CN', {
+                    year: 'numeric', month: '2-digit', day: '2-digit'
+                });
+                const paperCount = typeof siteData !== 'undefined'
+                    ? Object.values(siteData.papers).reduce((s, a) => s + a.length, 0)
+                    : 0;
+                const newsCount = typeof siteData !== 'undefined' ? siteData.news.length : 0;
+
+                container.innerHTML = `
+                    <div class="archive-card">
+                        <div class="archive-date">${today}</div>
+                        <h3>今日精选内容</h3>
+                        <div class="archive-stats">
+                            <span>📄 ${paperCount} 篇论文</span>
+                            <span>📰 ${newsCount} 条资讯</span>
+                        </div>
+                    </div>
+                    <div class="empty-state" style="grid-column:1/-1;padding:40px 20px;">
+                        <div class="icon">📚</div>
+                        <p>历史存档将在每日更新后自动积累</p>
+                        <p style="font-size:0.85rem;margin-top:8px;color:var(--text-muted)">每日更新后会自动归档</p>
+                    </div>
+                `;
+            }
         });
     </script>
 </body>

@@ -4,86 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>产业资讯 | AI Nexus</title>
+    <meta name="description" content="AI 领域的最新动态与趋势">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/style.css">
-    <style>
-        .page-header {
-            padding: 150px 0 60px;
-            text-align: center;
-        }
-        .page-header h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-        .page-header .gradient-text {
-            background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-purple) 50%, var(--accent-pink) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .news-section-page {
-            padding: 40px 0 80px;
-        }
-        .news-section-page h2 {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 1.8rem;
-            margin-bottom: 24px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--glass-border);
-        }
-        .news-grid-page {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 20px;
-        }
-        .news-card {
-            background: var(--bg-card);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-lg);
-            padding: 20px;
-            transition: all 0.3s ease;
-        }
-        .news-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent-purple);
-        }
-        .news-card .tag {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .news-card h3 {
-            font-size: 1.1rem;
-            font-weight: 500;
-            margin-bottom: 8px;
-            line-height: 1.4;
-        }
-        .news-card .news-meta {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-bottom: 12px;
-        }
-        .news-card .news-summary {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-        .break-babel-page {
-            margin-top: 60px;
-            padding-top: 40px;
-            border-top: 1px solid var(--glass-border);
-        }
-    </style>
 </head>
 <body>
+
     <!-- 动态背景 -->
     <div class="ambient-bg">
         <div class="gradient-orb orb-1"></div>
@@ -124,7 +52,7 @@
     <main class="container">
         <div class="page-header">
             <h1><span class="gradient-text">产业资讯</span></h1>
-            <p style="color: var(--text-secondary); font-size: 1.1rem;">AI 领域的最新动态与趋势</p>
+            <p>AI 领域的最新动态与趋势</p>
         </div>
 
         <section class="news-section-page">
@@ -153,25 +81,28 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const categoryMap = {
-                ai: { emoji: '🤖', class: 'ai' },
-                edu: { emoji: '📚', class: 'edu' },
-                health: { emoji: '🏥', class: 'health' }
+                ai:     { emoji: '🤖', cls: 'ai' },
+                edu:    { emoji: '📚', cls: 'edu' },
+                health: { emoji: '🏥', cls: 'health' }
             };
-            
+
             const formatNews = item => {
-                const cat = categoryMap[item.category] || { emoji: '📌', class: 'default' };
+                const cat = categoryMap[item.category] || { emoji: '📌', cls: 'default' };
                 return `
                     <div class="news-card">
-                        <span class="tag ${cat.class}">${cat.emoji}</span>
+                        <span class="tag ${cat.cls}">${cat.emoji} ${item.category ? item.category.toUpperCase() : ''}</span>
                         <h3>${item.title}</h3>
                         <p class="news-meta">${item.source} · ${item.date}</p>
-                        <p class="news-summary">${item.summary}</p>
+                        <p class="news-summary">${item.summary || ''}</p>
+                        ${item.url ? `<a href="${item.url}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:5px;color:var(--accent-cyan);font-size:0.82rem;margin-top:12px;font-weight:500;">阅读全文 →</a>` : ''}
                     </div>
                 `;
             };
-            
-            document.getElementById('news-list').innerHTML = siteData.news.map(formatNews).join('');
-            document.getElementById('babel-list').innerHTML = siteData.babel.map(formatNews).join('');
+
+            document.getElementById('news-list').innerHTML =
+                siteData.news.map(formatNews).join('');
+            document.getElementById('babel-list').innerHTML =
+                siteData.babel.map(formatNews).join('');
         });
     </script>
 </body>
