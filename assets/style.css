@@ -1,7 +1,8 @@
 /* ============================================================
    AI Nexus — 灵儿的知识花园
-   Design System v3.0 · 2026-03-20
-   Theme: Deep Space Glass · Aurora Gradients
+   Design System v6.0 · 2026-03-21 02:15
+   Theme: Deep Space Glass · Aurora Gradients · Micro-interactions
+   ✨ 全栈美学大师版 · 每小时自动优化
    ============================================================ */
 
 /* ── 1. CSS 变量 ─────────────────────────────────────────── */
@@ -1930,3 +1931,692 @@ body.light-theme {
   .quick-actions, .chat-input-container { display: none; }
   body { background: white; color: black; }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   v5.0 美学大师版 · 2026-03-21 00:46
+   Theme: Deep Space Glass · Aurora Gradients · Micro-interactions
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 27. 页面切换滑动动画 ─────────────────────────────────── */
+.section {
+  position: relative;
+  overflow: hidden;
+}
+
+.section.active::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(99,102,241,0.03), transparent);
+  animation: sectionSweep 0.6s ease-out;
+}
+
+@keyframes sectionSweep {
+  from { left: -100%; }
+  to   { left: 100%; }
+}
+
+/* ── 28. 论文卡片增强 ────────────────────────────────────── */
+.paper-card {
+  cursor: pointer;
+}
+
+/* 顶部渐变条悬浮 */
+.paper-card .top-glow {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
+  background-size: 200% 100%;
+  opacity: 0;
+  transition: opacity 0.3s;
+  animation: gradient-flow 3s linear infinite;
+}
+
+@keyframes gradient-flow {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+.paper-card:hover .top-glow { opacity: 1; }
+
+/* 阅读原文链接悬浮图标动画 */
+.paper-link span {
+  display: inline-block;
+  transition: transform 0.25s var(--ease-spring);
+}
+.paper-card:hover .paper-link span {
+  transform: translateX(4px);
+}
+
+/* ── 29. 统计卡片计数动画 ─────────────────────────────────── */
+.stat-card .stat-value {
+  display: inline-block;
+  transition: transform 0.3s var(--ease-spring);
+}
+
+.stat-card:hover .stat-value {
+  transform: scale(1.05);
+}
+
+/* 卡片背景微光 */
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(99,102,241,0.5), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.stat-card:hover::before { opacity: 1; }
+
+/* ── 30. 新闻时间线增强 ───────────────────────────────────── */
+.news-item {
+  position: relative;
+}
+
+.news-item::after {
+  content: '';
+  position: absolute;
+  left: 56px;
+  top: 100%;
+  width: 1px;
+  height: 10px;
+  background: var(--glass-border);
+}
+
+.news-item:last-child::after { display: none; }
+
+/* ── 31. 快捷操作按钮悬浮旋转 ─────────────────────────────── */
+.action-btn:nth-child(1):hover { transform: scale(1.12) rotate(5deg); }
+.action-btn:nth-child(2):hover { transform: scale(1.12) rotate(-8deg); }
+.action-btn:nth-child(3):hover { transform: scale(1.12) rotate(3deg); }
+
+/* ── 32. 导航链接微光 ─────────────────────────────────────── */
+.nav-link::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--gradient-aurora);
+  opacity: 0;
+  filter: blur(12px);
+  transition: opacity 0.2s;
+  z-index: -1;
+}
+.nav-link:hover::before { opacity: 0.12; }
+
+/* ── 33. Logo 动画 ───────────────────────────────────────── */
+.logo {
+  transition: transform 0.3s var(--ease-spring);
+}
+.logo:hover { transform: scale(1.05); }
+
+.logo-icon {
+  display: inline-block;
+  transition: transform 0.5s var(--ease-spring);
+}
+.logo:hover .logo-icon {
+  transform: rotate(180deg);
+}
+
+/* ── 34. 归档卡片悬浮边框流动 ─────────────────────────────── */
+@keyframes border-flow {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.archive-card:hover {
+  background: linear-gradient(var(--bg-card), var(--bg-card)),
+              linear-gradient(135deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
+  background-size: 100% 100%, 200% 200%;
+  background-position: 0 0, 0 0;
+  animation: border-flow 3s linear infinite;
+  animation: none;
+  background: var(--bg-card);
+}
+
+/* ── 35. 破茧卡片悬浮时浮现信息层 ────────────────────────── */
+.babel-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.babel-card .overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(99,102,241,0.85), rgba(167,139,250,0.85));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+  border-radius: inherit;
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.babel-card:hover .overlay { opacity: 1; }
+.babel-card:hover .emoji,
+.babel-card:hover h4,
+.babel-card:hover .field { opacity: 0; }
+
+/* ── 36. 精选角标呼吸动画 ───────────────────────────────── */
+.featured-card::after {
+  animation: featured-pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes featured-pulse {
+  0%, 100% { box-shadow: 0 4px 12px rgba(245,158,11,0.3); }
+  50% { box-shadow: 0 4px 24px rgba(245,158,11,0.6); }
+}
+
+/* ── 37. 页面滚动指示器阴影 ─────────────────────────────── */
+.scroll-indicator {
+  text-shadow: 0 0 10px rgba(99,102,241,0.5);
+}
+
+/* ── 38. 骨架屏增强 ──────────────────────────────────────── */
+.skeleton-card {
+  animation: skeleton-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes skeleton-glow {
+  from { box-shadow: 0 0 0 rgba(99,102,241,0); }
+  to   { box-shadow: 0 0 20px rgba(99,102,241,0.1); }
+}
+
+/* ── 39. 搜索框动画聚焦边框 ─────────────────────────────── */
+.search-input:focus {
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+  background: var(--bg-glass-hover);
+}
+
+/* ── 40. 移动端优化：触摸反馈 ───────────────────────────── */
+@media (hover: none) {
+  .paper-card:active,
+  .babel-card:active,
+  .news-card:active {
+    transform: scale(0.98);
+    transition: transform 0.1s;
+  }
+  
+  .action-btn:active {
+    transform: scale(0.95);
+  }
+}
+
+/* ── 41. 触摸设备禁用悬停效果 ───────────────────────────── */
+@media (hover: none) {
+  .tilt-card {
+    transform-style: flat;
+  }
+  .paper-card:hover,
+  .stat-card:hover {
+    transform: none;
+  }
+}
+
+/* ── 42. 标签染色按钮组 ──────────────────────────────────── */
+.filter-chip.active {
+  background: var(--gradient-primary) !important;
+  border-color: transparent !important;
+  color: white !important;
+}
+
+/* ── 43. 论文摘要展开动画 ────────────────────────────────── */
+.paper-card {
+  position: relative;
+}
+
+/* ── 44. 新增：论文标签悬浮展开效果 ──────────────────────── */
+.paper-card .tag {
+  transition: all 0.25s var(--ease-spring);
+}
+.paper-card:hover .tag {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99,102,241,0.3);
+}
+
+/* ── 45. 新增：新闻卡片悬停进度条动画（已在前面定义，保留）─ */
+.news-card .read-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--accent-cyan);
+  font-size: 0.82rem;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: all 0.25s var(--ease-smooth);
+}
+.news-card:hover .read-more {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── 46. 对话气泡呼吸动画 ───────────────────────────────── */
+.message.assistant .content {
+  animation: message-in 0.4s var(--ease-spring);
+}
+
+@keyframes message-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.message.user .content {
+  animation: message-in-user 0.4s var(--ease-spring);
+}
+
+@keyframes message-in-user {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ── 47. 导航滚动阴影 ────────────────────────────────────── */
+.glass-nav {
+  transition: box-shadow 0.3s, background 0.3s;
+}
+
+body.scrolled .glass-nav {
+  background: rgba(8, 12, 20, 0.95);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+/* ── 48. Footer 悬浮发光 ────────────────────────────────── */
+.glass-footer:hover {
+  background: rgba(15, 23, 42, 0.8);
+}
+
+/* ── 49. 数字滚动动画（配合JS）──────────────────────────── */
+.count-up {
+  transition: none;
+}
+
+/* ── 50. 页面过渡：淡入+微上移 ───────────────────────────── */
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-header {
+  animation: page-enter 0.5s var(--ease-smooth) both;
+}
+
+.papers-section {
+  animation: page-enter 0.5s var(--ease-smooth) 0.1s both;
+}
+
+/* ── 51. 新增：论文页搜索/筛选功能 ───────────────────────── */
+.papers-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.papers-toolbar .search-input {
+  flex: 1;
+  min-width: 240px;
+}
+
+/* ── 52. 新增：归档页时间分组 ─────────────────────────────── */
+.archive-group {
+  margin-bottom: 32px;
+}
+
+.archive-group-title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--accent-cyan);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  padding-left: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.archive-group-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--glass-border), transparent);
+}
+
+/* ── 53. 键盘导航高亮 ─────────────────────────────────────── */
+.paper-card:focus-within {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(99,102,241,0.3);
+  outline: none;
+}
+
+/* ── 54. 深色主题专属：发光文字效果 ─────────────────────── */
+body:not(.light-theme) .glow-text {
+  text-shadow:
+    0 0 10px rgba(99,102,241,0.5),
+    0 0 20px rgba(99,102,241,0.3),
+    0 0 40px rgba(99,102,241,0.15);
+}
+
+/* ── 55. 暗色模式专属：卡片边框光晕 ─────────────────────── */
+body:not(.light-theme) .paper-card {
+  box-shadow:
+    0 4px 20px rgba(0,0,0,0.3),
+    inset 0 1px 0 rgba(255,255,255,0.03);
+}
+
+body:not(.light-theme) .paper-card:hover {
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.5),
+    0 0 30px rgba(99,102,241,0.15),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+/* ── 56. 亮色模式增强 ───────────────────────────────────── */
+body.light-theme .ambient-bg .grid-overlay {
+  opacity: 0.4;
+}
+
+body.light-theme .gradient-orb {
+  opacity: 0.08;
+}
+
+body.light-theme .glass-nav {
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom-color: rgba(0,0,0,0.06);
+}
+
+body.light-theme .paper-card {
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+body.light-theme .paper-card:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1), 0 0 20px rgba(99,102,241,0.08);
+}
+
+body.light-theme .stat-card:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+body.light-theme .news-item:hover {
+  transform: none;
+  background: rgba(99,102,241,0.04);
+}
+
+body.light-theme .babel-card:hover {
+  transform: scale(1.02);
+}
+
+body.light-theme .action-btn:hover {
+  box-shadow: 0 4px 14px rgba(99,102,241,0.3);
+}
+
+/* ── 57. 无障碍：强对比文字 ──────────────────────────────── */
+@media (prefers-contrast: high) {
+  .paper-card { border: 2px solid var(--text-secondary); }
+  .news-item { border-left-width: 4px; }
+  .stat-card { border: 2px solid var(--text-secondary); }
+}
+
+/* ── 58. 页面最大宽度与留白平衡 ─────────────────────────── */
+@media (min-width: 1440px) {
+  main, .container {
+    max-width: 1400px;
+  }
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ── 59. 打印优化 ───────────────────────────────────────── */
+@media print {
+  .ambient-bg, .glass-nav, .top-nav,
+  .quick-actions, .chat-input-container,
+  .action-btn, .reading-progress,
+  .skip-link, .nav-actions { display: none !important; }
+  
+  body {
+    background: white !important;
+    color: #111 !important;
+  }
+  
+  .paper-card, .news-card, .stat-card, .babel-card, .archive-card {
+    border: 1px solid #ddd !important;
+    background: white !important;
+    color: #111 !important;
+    box-shadow: none !important;
+  }
+  
+  .paper-card h3, .news-card h3, .babel-card h4, .archive-card h3 {
+    color: #111 !important;
+  }
+  
+  a { color: #0066cc !important; }
+}
+
+/* ── 60. 页面加载完成动画 ───────────────────────────────── */
+body.loaded main {
+  animation: main-content-enter 0.6s var(--ease-smooth) 0.1s both;
+}
+
+@keyframes main-content-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── 61. 论文页增强：标签页筛选 ─────────────────────────── */
+.paper-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--glass-border);
+  padding-bottom: 0;
+}
+
+.paper-tab {
+  padding: 10px 20px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.paper-tab:hover {
+  color: var(--text-primary);
+  background: var(--bg-glass);
+}
+
+.paper-tab.active {
+  color: var(--primary-light);
+  border-bottom-color: var(--primary);
+}
+
+/* ── 62. 归档卡片新增：悬浮浮现操作按钮 ────────────────── */
+.archive-card .card-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: all 0.25s var(--ease-smooth);
+}
+
+.archive-card:hover .card-actions {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.archive-card .card-btn {
+  flex: 1;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid var(--glass-border);
+  background: var(--bg-glass);
+  color: var(--text-secondary);
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.archive-card .card-btn:hover {
+  background: rgba(99,102,241,0.1);
+  border-color: rgba(99,102,241,0.3);
+  color: var(--text-primary);
+}
+
+/* ── 63. 加载指示器 ──────────────────────────────────────── */
+.loading-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--glass-border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── 64. 通知 Toast 样式 ─────────────────────────────────── */
+.toast {
+  position: fixed;
+  bottom: 80px;
+  right: 24px;
+  padding: 14px 20px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  font-size: 0.88rem;
+  z-index: 1000;
+  animation: toast-in 0.4s var(--ease-spring) both;
+  max-width: 320px;
+}
+
+.toast.success { border-left: 3px solid var(--accent-green); }
+.toast.error   { border-left: 3px solid var(--danger); }
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ── 65. 滚动条宽度过小修复 ─────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(99,102,241,0.25);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(99,102,241,0.5);
+}
+
+/* ── 66. 移动端：触摸时全宽导航 ────────────────────────── */
+@media (max-width: 480px) {
+  .nav-container {
+    padding: 0 16px;
+    gap: 12px;
+  }
+  
+  .nav-link {
+    padding: 10px 14px;
+    font-size: 0.95rem;
+  }
+  
+  .nav-stats {
+    display: none;
+  }
+}
+
+/* ── 67. 论文页新增：排序控件 ─────────────────────────── */
+.sort-select {
+  padding: 7px 14px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--glass-border);
+  background: var(--bg-glass);
+  color: var(--text-primary);
+  font-size: 0.82rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 30px;
+}
+
+.sort-select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+}
+
+.sort-select:hover {
+  border-color: rgba(99,102,241,0.4);
+}
+
+/* ── 68. 新增：首页 Hero 区域 ──────────────────────────── */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  background: rgba(99,102,241,0.12);
+  border: 1px solid rgba(99,102,241,0.25);
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--primary-light);
+  letter-spacing: 0.04em;
+  margin-bottom: 20px;
+  animation: hero-badge-pulse 3s ease-in-out infinite;
+}
+
+@keyframes hero-badge-pulse {
+  0%, 100% { box-shadow: 0 0 0 rgba(99,102,241,0); }
+  50% { box-shadow: 0 0 16px rgba(99,102,241,0.2); }
+}
+
