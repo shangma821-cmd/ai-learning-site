@@ -13,6 +13,12 @@
 </head>
 <body>
 
+    <!-- 页面加载器 -->
+    <div class="page-loader" id="page-loader">
+        <div class="loader-logo">◈</div>
+        <div class="loader-bar"></div>
+    </div>
+
     <!-- 动态背景 -->
     <div class="ambient-bg">
         <div class="gradient-orb orb-1"></div>
@@ -26,6 +32,14 @@
 
     <!-- 阅读进度条 -->
     <div class="reading-progress" id="reading-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+
+    <!-- 章节指示器 -->
+    <div class="section-indicator" id="section-indicator">
+        <div class="section-dot active" data-section="today" title="今日"></div>
+        <div class="section-dot" data-section="garden" title="知识花园"></div>
+        <div class="section-dot" data-section="archive" title="学习档案"></div>
+        <div class="section-dot" data-section="chat" title="学习对话"></div>
+    </div>
 
     <!-- 顶部导航 -->
     <nav class="glass-nav" role="navigation" aria-label="主导航">
@@ -75,16 +89,27 @@
                 每日更新 · 精选前沿
             </div>
             <h1 class="hero-title">
-                <span class="animated-gradient-text">探索 AI 的边界</span>
+                <span class="animated-gradient-text" id="hero-title-text">探索 AI 的边界</span>
+                <span class="cursor"></span>
             </h1>
             <p class="hero-subtitle">从论文到实践，从产业到跨界 — 每天 30 分钟，追踪 AI 最值得关注的进展</p>
         </div>
 
         <!-- 今日精选 -->
         <section id="today" class="section today-section active">
+            <!-- 今日日期大标题 -->
+            <div class="today-header">
+                <div class="today-date-display" id="today-date-bg"></div>
+            </div>
+
             <div class="section-header">
                 <h1><i class="fas fa-sun"></i> <span class="animated-gradient-text">今日新知</span></h1>
                 <span class="date" id="today-date"></span>
+            </div>
+
+            <!-- 新闻滚动条 -->
+            <div class="news-ticker" id="news-ticker">
+                <div class="news-ticker-track" id="news-ticker-track"></div>
             </div>
 
             <!-- 论文卡片 -->
