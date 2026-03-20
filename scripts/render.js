@@ -1,5 +1,5 @@
-// AI Nexus — 渲染脚本 v3.0
-// 统一渲染逻辑，支持新版设计系统
+// AI Nexus — 渲染脚本 v3.1
+// 统一渲染逻辑，支持新版设计系统 + 滚动动画 + 交互增强
 
 document.addEventListener('DOMContentLoaded', function () {
     // 设置更新日期
@@ -15,6 +15,9 @@ document.addEventListener('DOMContentLoaded', function () {
     renderPaperLists();
     renderNews();
     renderBabel();
+
+    // 初始化滚动动画观察器
+    initScrollReveal();
 });
 
 /* ── 精选卡片 ── */
@@ -28,10 +31,10 @@ function renderHighlightCards() {
         ...siteData.papers.health.slice(0, 1).map(p => ({ ...p, tag: 'health', tagText: '🏥 AI健康' }))
     ];
 
-    container.innerHTML = highlights.map(item => `
-        <div class="paper-card">
+    container.innerHTML = highlights.map((item, i) => `
+        <div class="paper-card reveal" data-category="${item.tag}" style="animation-delay:${i * 0.08}s">
             <span class="tag ${item.tag}">${item.tagText}</span>
-            <h3>${item.title}</h3>
+            <h3><a href="${item.url}" target="_blank" rel="noopener">${item.title}</a></h3>
             <p class="meta">${item.venue} · ${item.authors}</p>
             <p class="summary">${item.summary}</p>
             <a href="${item.url}" target="_blank" rel="noopener" class="paper-link">
@@ -72,10 +75,10 @@ function renderNews() {
         health: { emoji: '🏥', cls: 'health' }
     };
 
-    container.innerHTML = siteData.news.slice(0, 6).map(item => {
+    container.innerHTML = siteData.news.slice(0, 6).map((item, i) => {
         const cat = categoryMap[item.category] || { emoji: '📌', cls: 'default' };
         return `
-            <div class="news-card">
+            <div class="news-card reveal" style="animation-delay:${i * 0.06}s">
                 <span class="tag ${cat.cls}">${cat.emoji}</span>
                 <h4>${item.title}</h4>
                 <p class="news-meta">${item.source} · ${item.date}</p>
@@ -99,14 +102,28 @@ function renderBabel() {
         nature:   { emoji: '🌿', cls: 'green' }
     };
 
-    container.innerHTML = siteData.babel.slice(0, 4).map(item => {
+    container.innerHTML = siteData.babel.slice(0, 4).map((item, i) => {
         const cat = categoryMap[item.category] || { emoji: '✨', cls: 'default' };
         return `
-            <div class="babel-card" onclick="window.open('${item.url || '#'}','_blank')">
+            <div class="babel-card reveal" onclick="window.open('${item.url || '#'}','_blank')" style="animation-delay:${i * 0.08}s">
                 <div class="emoji">${cat.emoji}</div>
                 <h4>${item.title}</h4>
                 <div class="field">${item.source} · ${item.date}</div>
             </div>
         `;
     }).join('');
+}
+
+/* ── 滚动触发动画 ── */
+function initScrollReveal() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 }

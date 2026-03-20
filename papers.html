@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
@@ -20,36 +21,45 @@
         <div class="grid-overlay"></div>
     </div>
 
+    <!-- 跳过导航 -->
+    <a href="#main-content" class="skip-link">跳到主要内容</a>
+
+    <!-- 阅读进度条 -->
+    <div class="reading-progress" id="reading-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+
     <!-- 导航 -->
-    <nav class="glass-nav">
+    <nav class="glass-nav" role="navigation" aria-label="主导航">
         <div class="nav-container">
-            <a href="index.html" class="logo">
-                <span class="logo-icon">◈</span>
+            <a href="index.html" class="logo" aria-label="AI Nexus首页">
+                <span class="logo-icon" aria-hidden="true">◈</span>
                 <span class="logo-text">AI Nexus</span>
             </a>
-            <div class="nav-links">
-                <a href="index.html" class="nav-link">
-                    <span class="nav-icon">◉</span>首页
+            <div class="nav-links" id="nav-links" role="menubar">
+                <a href="index.html" class="nav-link" role="menuitem">
+                    <span class="nav-icon" aria-hidden="true">◉</span>首页
                 </a>
-                <a href="papers.html" class="nav-link active">
-                    <span class="nav-icon">◈</span>论文精选
+                <a href="papers.html" class="nav-link active" role="menuitem">
+                    <span class="nav-icon" aria-hidden="true">◈</span>论文精选
                 </a>
-                <a href="news.html" class="nav-link">
-                    <span class="nav-icon">◇</span>产业资讯
+                <a href="news.html" class="nav-link" role="menuitem">
+                    <span class="nav-icon" aria-hidden="true">◇</span>产业资讯
                 </a>
-                <a href="archive.html" class="nav-link">
-                    <span class="nav-icon">○</span>内容归档
+                <a href="archive.html" class="nav-link" role="menuitem">
+                    <span class="nav-icon" aria-hidden="true">○</span>内容归档
                 </a>
             </div>
-            <div class="nav-meta">
-                <span class="live-indicator">
-                    <span class="pulse"></span>LIVE
-                </span>
+            <div class="nav-actions" style="margin-left:auto;display:flex;align-items:center;gap:10px;">
+                <button class="theme-toggle" id="theme-toggle" aria-label="切换暗色/亮色模式" title="切换主题">
+                    <i class="fas fa-adjust"></i>
+                </button>
+                <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="打开菜单" aria-expanded="false" style="display:none;">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
         </div>
     </nav>
 
-    <main class="container">
+    <main class="container" id="main-content">
         <div class="page-header">
             <h1><span class="gradient-text">论文精选</span></h1>
             <p>全球顶级会议 / 期刊的最新研究成果</p>
@@ -103,6 +113,46 @@
                 siteData.papers.edu.map(p => formatPaper(p, 'edu')).join('');
             document.getElementById('health-papers').innerHTML =
                 siteData.papers.health.map(p => formatPaper(p, 'health')).join('');
+
+            // 阅读进度条
+            const progressBar = document.getElementById('reading-progress');
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                progressBar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
+            });
+
+            // 暗色/亮色模式切换
+            const themeToggle = document.getElementById('theme-toggle');
+            if (themeToggle) {
+                themeToggle.addEventListener('click', () => {
+                    const isDark = !document.body.classList.contains('light-theme');
+                    document.body.classList.toggle('light-theme');
+                    themeToggle.innerHTML = isDark ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+                    localStorage.setItem('theme', isDark ? 'light' : 'dark');
+                });
+                if (localStorage.getItem('theme') === 'light') {
+                    document.body.classList.add('light-theme');
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                }
+            }
+
+            // 移动端菜单
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const navLinks = document.getElementById('nav-links');
+            if (mobileMenuBtn && navLinks) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    const isOpen = navLinks.classList.toggle('open');
+                    mobileMenuBtn.setAttribute('aria-expanded', String(isOpen));
+                    mobileMenuBtn.innerHTML = isOpen ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+                });
+            }
+
+            // 滚动动画
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('stagger-in'); observer.unobserve(e.target); } });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.paper-card').forEach(el => observer.observe(el));
         });
     </script>
 </body>
