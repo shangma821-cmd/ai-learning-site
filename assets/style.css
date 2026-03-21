@@ -1,8 +1,8 @@
 /* ============================================================
    AI Nexus — 灵儿的知识花园
-   Design System v6.4 · 2026-03-21 11:06
-   Theme: Neural Glass · Adaptive Aesthetics · Sustainable Design
-   ✨ 全栈美学大师版 · 每小时自动优化
+   Design System v6.9 · 2026-03-22 02:03
+   Theme: Midnight Bloom · Deep Night Aesthetics · Soft Luminance
+   ✨ 全栈美学大师版 · 每小时自动优化 · 深夜专属色调
    ============================================================ */
 
 /* ── 1. CSS 变量 ─────────────────────────────────────────── */
@@ -8680,3 +8680,1202 @@ body.light-theme .paper-card:hover {
   margin-left: 2px;
   vertical-align: text-bottom;
 
+  animation: stream-blink 0.8s step-end infinite;
+}
+
+@keyframes stream-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   v6.9 美学大师版 · 2026-03-22 02:03
+   Theme: Midnight Bloom · Deep Night Aesthetics · Soft Luminance
+   ✨ 深夜美学优化 - 柔光渐变、月光色调、静谧微交互
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 298. 深夜月光色调变量 ─────────────────────────────────── */
+:root {
+  --midnight-blue:   #0d1b2a;
+  --moonlight:       rgba(200, 220, 255, 0.06);
+  --moonlight-glow:  rgba(180, 200, 255, 0.12);
+  --starlight:       rgba(255, 255, 255, 0.08);
+  --aurora-soft:     linear-gradient(135deg, rgba(99,102,241,0.15) 0%, rgba(34,211,238,0.08) 50%, rgba(168,139,250,0.12) 100%);
+  --shadow-deep:     0 30px 60px rgba(0,0,0,0.6), 0 10px 20px rgba(0,0,0,0.4);
+  --glow-soft-blue:  0 0 40px rgba(99,102,241,0.12), 0 0 80px rgba(34,211,238,0.06);
+}
+
+/* ── 299. 月光卡片效果 ─────────────────────────────────────── */
+.moonlight-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.06) 0%,
+    rgba(255,255,255,0.02) 50%,
+    rgba(200,220,255,0.04) 100%
+  );
+  border: 1px solid rgba(200,220,255,0.1);
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.4),
+    inset 0 1px 0 rgba(200,220,255,0.08),
+    var(--glow-soft-blue);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+}
+
+.moonlight-card:hover {
+  border-color: rgba(200,220,255,0.18);
+  box-shadow:
+    0 16px 48px rgba(0,0,0,0.5),
+    inset 0 1px 0 rgba(200,220,255,0.12),
+    0 0 60px rgba(99,102,241,0.15);
+}
+
+/* ── 300. 深夜渐变背景增强 ─────────────────────────────────── */
+body:not(.light-theme) {
+  background: radial-gradient(
+    ellipse at 20% 10%,
+    rgba(99,102,241,0.06) 0%,
+    transparent 50%
+  ),
+  radial-gradient(
+    ellipse at 80% 90%,
+    rgba(34,211,238,0.04) 0%,
+    transparent 50%
+  ),
+  var(--bg-base);
+}
+
+/* ── 301. 柔光脉冲动画 ─────────────────────────────────────── */
+@keyframes soft-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(99,102,241,0.15), 0 0 40px rgba(99,102,241,0.05);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(99,102,241,0.25), 0 0 60px rgba(99,102,241,0.1);
+  }
+}
+
+.soft-pulse-glow {
+  animation: soft-pulse 4s ease-in-out infinite;
+}
+
+/* ── 302. 星光闪烁增强 ─────────────────────────────────────── */
+@keyframes star-shimmer {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.2); }
+}
+
+.star-shimmer {
+  animation: star-shimmer 3s ease-in-out infinite;
+}
+
+/* ── 303. 深夜导航栏增强 ───────────────────────────────────── */
+body:not(.light-theme) .glass-nav {
+  background: rgba(5, 8, 16, 0.92);
+  border-bottom-color: rgba(200,220,255,0.06);
+  box-shadow: 0 4px 30px rgba(0,0,0,0.5), 0 0 60px rgba(99,102,241,0.04);
+}
+
+/* ── 304. 论文卡片深夜增强 ─────────────────────────────────── */
+body:not(.light-theme) .paper-card {
+  background: linear-gradient(
+    135deg,
+    rgba(30,41,59,0.8) 0%,
+    rgba(15,23,42,0.9) 100%
+  );
+  border-color: rgba(200,220,255,0.06);
+}
+
+body:not(.light-theme) .paper-card:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(30,41,59,0.95) 0%,
+    rgba(20,30,55,0.95) 100%
+  );
+  border-color: rgba(99,102,241,0.3);
+  box-shadow:
+    0 20px 50px rgba(0,0,0,0.5),
+    0 0 40px rgba(99,102,241,0.12),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+/* ── 305. 渐隐文字效果 ─────────────────────────────────────── */
+.fade-text {
+  background: linear-gradient(
+    to right,
+    var(--text-primary) 0%,
+    var(--text-secondary) 60%,
+    transparent 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ── 306. 深夜 Hero 区域增强 ───────────────────────────────── */
+.hero-section {
+  position: relative;
+}
+
+.hero-section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(99,102,241,0.3),
+    rgba(34,211,238,0.2),
+    rgba(99,102,241,0.3),
+    transparent
+  );
+  animation: hero-line-glow 4s ease-in-out infinite;
+}
+
+@keyframes hero-line-glow {
+  0%, 100% { opacity: 0.4; width: 40%; }
+  50% { opacity: 0.8; width: 70%; }
+}
+
+/* ── 307. 浮动粒子增强（深夜版）──────────────────────────── */
+@keyframes midnight-float {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.4; }
+  100% {
+    transform: translateY(-120px) translateX(30px) rotate(180deg);
+    opacity: 0;
+  }
+}
+
+.midnight-particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: rgba(200,220,255,0.6);
+  border-radius: 50%;
+  animation: midnight-float 12s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* ── 308. 新闻条目深夜样式 ─────────────────────────────────── */
+body:not(.light-theme) .news-item {
+  background: rgba(15,23,42,0.6);
+  border-color: rgba(200,220,255,0.05);
+  border-left-color: rgba(99,102,241,0.4);
+}
+
+body:not(.light-theme) .news-item:hover {
+  background: rgba(20,30,55,0.8);
+  border-left-color: var(--accent-cyan);
+  box-shadow: 4px 0 20px rgba(34,211,238,0.08);
+}
+
+/* ── 309. 柔和渐变分隔线 ───────────────────────────────────── */
+.soft-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(99,102,241,0.2) 20%,
+    rgba(34,211,238,0.15) 50%,
+    rgba(99,102,241,0.2) 80%,
+    transparent 100%
+  );
+  margin: 32px 0;
+  border: none;
+  animation: divider-shimmer 6s ease-in-out infinite;
+}
+
+@keyframes divider-shimmer {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* ── 310. 深夜统计卡片 ─────────────────────────────────────── */
+body:not(.light-theme) .stat-card {
+  background: linear-gradient(
+    135deg,
+    rgba(30,41,59,0.7) 0%,
+    rgba(15,23,42,0.8) 100%
+  );
+  border-color: rgba(200,220,255,0.05);
+}
+
+body:not(.light-theme) .stat-card:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(40,55,80,0.9) 0%,
+    rgba(20,30,55,0.95) 100%
+  );
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(99,102,241,0.1);
+}
+
+/* ── 311. 月光文字渐变 ─────────────────────────────────────── */
+.moonlight-text {
+  background: linear-gradient(
+    135deg,
+    #c8dcff 0%,
+    #a5b4fc 40%,
+    #818cf8 70%,
+    #c8dcff 100%
+  );
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: moonlight-shift 8s ease-in-out infinite;
+}
+
+@keyframes moonlight-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ── 312. 深夜破茧卡片 ─────────────────────────────────────── */
+body:not(.light-theme) .babel-card {
+  background: rgba(15,23,42,0.7);
+  border-color: rgba(200,220,255,0.06);
+}
+
+body:not(.light-theme) .babel-card:hover {
+  background: rgba(25,35,60,0.9);
+  border-color: rgba(99,102,241,0.25);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4), 0 0 20px rgba(99,102,241,0.1);
+}
+
+/* ── 313. 深夜 Footer 增强 ─────────────────────────────────── */
+body:not(.light-theme) .glass-footer {
+  background: rgba(5,8,16,0.8);
+  border-top-color: rgba(200,220,255,0.05);
+  box-shadow: 0 -10px 40px rgba(0,0,0,0.3);
+}
+
+/* ── 314. 柔光悬浮按钮 ─────────────────────────────────────── */
+.soft-glow-btn {
+  background: linear-gradient(
+    135deg,
+    rgba(99,102,241,0.15) 0%,
+    rgba(99,102,241,0.08) 100%
+  );
+  border: 1px solid rgba(99,102,241,0.2);
+  color: var(--primary-light);
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-smooth);
+  backdrop-filter: blur(8px);
+}
+
+.soft-glow-btn:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(99,102,241,0.25) 0%,
+    rgba(99,102,241,0.15) 100%
+  );
+  border-color: rgba(99,102,241,0.4);
+  box-shadow: 0 4px 20px rgba(99,102,241,0.2), 0 0 40px rgba(99,102,241,0.08);
+  transform: translateY(-2px);
+}
+
+/* ── 315. 深夜滚动条 ───────────────────────────────────────── */
+body:not(.light-theme) ::-webkit-scrollbar-thumb {
+  background: rgba(99,102,241,0.2);
+}
+
+body:not(.light-theme) ::-webkit-scrollbar-thumb:hover {
+  background: rgba(99,102,241,0.4);
+}
+
+/* ── 316. 深夜选中文字 ─────────────────────────────────────── */
+body:not(.light-theme) ::selection {
+  background: rgba(99,102,241,0.3);
+  color: rgba(200,220,255,0.95);
+}
+
+/* ── 317. 深夜知识图谱 ─────────────────────────────────────── */
+body:not(.light-theme) .knowledge-graph {
+  background: rgba(5,8,16,0.8);
+  border-color: rgba(200,220,255,0.06);
+  box-shadow: inset 0 0 60px rgba(99,102,241,0.05);
+}
+
+/* ── 318. 深夜 Orb 增强 ────────────────────────────────────── */
+body:not(.light-theme) .gradient-orb {
+  opacity: 0.12;
+  filter: blur(100px);
+}
+
+/* ── 319. 深夜 Grid Overlay ────────────────────────────────── */
+body:not(.light-theme) .grid-overlay {
+  background-image:
+    linear-gradient(rgba(200,220,255,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200,220,255,0.015) 1px, transparent 1px);
+}
+
+/* ── 320. 深夜 Toast 通知 ──────────────────────────────────── */
+body:not(.light-theme) .toast {
+  background: rgba(15,23,42,0.95);
+  border-color: rgba(200,220,255,0.08);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 20px rgba(99,102,241,0.08);
+}
+
+/* ── 321. 深夜快捷操作按钮 ─────────────────────────────────── */
+body:not(.light-theme) .action-btn {
+  background: rgba(15,23,42,0.9);
+  border-color: rgba(200,220,255,0.08);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+body:not(.light-theme) .action-btn:hover {
+  background: var(--primary);
+  box-shadow: 0 4px 20px rgba(99,102,241,0.4), 0 0 30px rgba(99,102,241,0.15);
+}
+
+/* ── 322. 深夜 Chat 容器 ───────────────────────────────────── */
+body:not(.light-theme) .chat-messages {
+  background: rgba(5,8,16,0.7);
+  border-color: rgba(200,220,255,0.06);
+}
+
+body:not(.light-theme) .message .content {
+  background: rgba(20,30,50,0.8);
+  border-color: rgba(200,220,255,0.06);
+}
+
+body:not(.light-theme) .message.user .content {
+  background: rgba(99,102,241,0.15);
+  border-color: rgba(99,102,241,0.25);
+}
+
+/* ── 323. 深夜归档卡片 ─────────────────────────────────────── */
+body:not(.light-theme) .archive-card {
+  background: linear-gradient(
+    135deg,
+    rgba(25,35,55,0.8) 0%,
+    rgba(15,23,42,0.9) 100%
+  );
+  border-color: rgba(200,220,255,0.05);
+}
+
+body:not(.light-theme) .archive-card:hover {
+  border-color: rgba(34,211,238,0.25);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(34,211,238,0.06);
+}
+
+/* ── 324. 深夜 Hero Badge ──────────────────────────────────── */
+body:not(.light-theme) .hero-badge {
+  background: rgba(99,102,241,0.08);
+  border-color: rgba(99,102,241,0.18);
+  box-shadow: 0 0 20px rgba(99,102,241,0.08);
+}
+
+/* ── 325. 深夜 Pulse Dot ───────────────────────────────────── */
+.pulse-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--accent-green);
+  border-radius: 50%;
+  animation: pulse-dot-anim 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot-anim {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(52,211,153,0.4); }
+  50% { box-shadow: 0 0 0 6px rgba(52,211,153,0); }
+}
+
+/* ── 326. 深夜 Section 分隔 ────────────────────────────────── */
+body:not(.light-theme) .section-header {
+  border-bottom: 1px solid rgba(200,220,255,0.05);
+  padding-bottom: 16px;
+  margin-bottom: 28px;
+}
+
+/* ── 327. 深夜 Babel Section ───────────────────────────────── */
+body:not(.light-theme) .babel-section {
+  background: linear-gradient(
+    135deg,
+    rgba(99,102,241,0.06) 0%,
+    rgba(139,92,246,0.04) 100%
+  );
+  border-color: rgba(99,102,241,0.12);
+}
+
+/* ── 328. 深夜 News Section ────────────────────────────────── */
+body:not(.light-theme) .news-section {
+  background: linear-gradient(
+    135deg,
+    rgba(15,23,42,0.6) 0%,
+    rgba(10,15,30,0.8) 100%
+  );
+  border-color: rgba(200,220,255,0.05);
+}
+
+/* ── 329. 深夜 Ticker ──────────────────────────────────────── */
+body:not(.light-theme) .news-ticker {
+  border-color: rgba(200,220,255,0.05);
+}
+
+body:not(.light-theme) .news-ticker-item {
+  color: rgba(148,163,184,0.7);
+}
+
+body:not(.light-theme) .news-ticker-item:hover {
+  color: var(--accent-cyan);
+}
+
+/* ── 330. 深夜 Filter Bar ──────────────────────────────────── */
+body:not(.light-theme) .filter-chip {
+  background: rgba(15,23,42,0.7);
+  border-color: rgba(200,220,255,0.06);
+}
+
+body:not(.light-theme) .filter-chip:hover,
+body:not(.light-theme) .filter-chip.active {
+  background: rgba(99,102,241,0.12);
+  border-color: rgba(99,102,241,0.3);
+}
+
+/* ── 331. 深夜 Search Input ────────────────────────────────── */
+body:not(.light-theme) .search-input {
+  background: rgba(15,23,42,0.7);
+  border-color: rgba(200,220,255,0.06);
+}
+
+body:not(.light-theme) .search-input:focus {
+  background: rgba(20,30,55,0.9);
+  border-color: rgba(99,102,241,0.4);
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.1), 0 0 20px rgba(99,102,241,0.08);
+}
+
+/* ── 332. 深夜 Paper Tabs ──────────────────────────────────── */
+body:not(.light-theme) .paper-tab {
+  color: rgba(148,163,184,0.7);
+}
+
+body:not(.light-theme) .paper-tab:hover {
+  color: var(--text-primary);
+  background: rgba(99,102,241,0.06);
+}
+
+body:not(.light-theme) .paper-tab.active {
+  color: var(--primary-light);
+}
+
+/* ── 333. 深夜 Trending Tags ───────────────────────────────── */
+body:not(.light-theme) .trending-tag {
+  background: rgba(15,23,42,0.7);
+  border-color: rgba(200,220,255,0.06);
+  color: rgba(148,163,184,0.8);
+}
+
+body:not(.light-theme) .trending-tag:hover {
+  box-shadow: 0 4px 16px rgba(99,102,241,0.2), 0 0 20px rgba(99,102,241,0.08);
+}
+
+/* ── 334. 深夜 Journal Entry ───────────────────────────────── */
+body:not(.light-theme) .journal-entry {
+  background: linear-gradient(
+    135deg,
+    rgba(20,30,50,0.8) 0%,
+    rgba(12,18,35,0.9) 100%
+  );
+  border: 1px solid rgba(200,220,255,0.05);
+}
+
+body:not(.light-theme) .journal-entry:hover {
+  border-color: rgba(99,102,241,0.15);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4), 0 0 20px rgba(99,102,241,0.06);
+}
+
+/* ── 335. 深夜 Skeleton ────────────────────────────────────── */
+body:not(.light-theme) .skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(20,30,50,0.8) 25%,
+    rgba(30,45,70,0.6) 50%,
+    rgba(20,30,50,0.8) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* ── 336. 深夜 Page Loader ─────────────────────────────────── */
+body:not(.light-theme) .page-loader {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(15,23,42,1) 0%,
+    rgba(5,8,16,1) 100%
+  );
+}
+
+/* ── 337. 深夜 Scroll To Top ───────────────────────────────── */
+body:not(.light-theme) .scroll-to-top {
+  background: rgba(15,23,42,0.9);
+  border-color: rgba(200,220,255,0.08);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+body:not(.light-theme) .scroll-to-top:hover {
+  background: var(--primary);
+  box-shadow: 0 4px 20px rgba(99,102,241,0.4), 0 0 30px rgba(99,102,241,0.15);
+}
+
+/* ── 338. 深夜 Reading Progress ────────────────────────────── */
+body:not(.light-theme) .reading-progress {
+  box-shadow: 0 0 15px rgba(99,102,241,0.4), 0 0 30px rgba(34,211,238,0.2);
+}
+
+/* ── 339. 深夜 Ambient Orb 颜色调整 ───────────────────────── */
+body:not(.light-theme) .orb-1 {
+  background: radial-gradient(circle, rgba(80,85,200,0.8), transparent 70%);
+}
+
+body:not(.light-theme) .orb-2 {
+  background: radial-gradient(circle, rgba(20,180,210,0.6), transparent 70%);
+}
+
+body:not(.light-theme) .orb-3 {
+  background: radial-gradient(circle, rgba(140,100,220,0.7), transparent 70%);
+}
+
+/* ── 340. 深夜 Logo 发光 ───────────────────────────────────── */
+body:not(.light-theme) .logo:hover .logo-icon {
+  filter: drop-shadow(0 0 8px rgba(99,102,241,0.6));
+}
+
+/* ── 341. 深夜 Nav Link 悬浮 ───────────────────────────────── */
+body:not(.light-theme) .nav-link:hover {
+  background: rgba(99,102,241,0.08);
+  box-shadow: inset 0 0 20px rgba(99,102,241,0.05);
+}
+
+body:not(.light-theme) .nav-link.active {
+  background: rgba(99,102,241,0.12);
+  box-shadow: inset 0 0 20px rgba(99,102,241,0.08);
+}
+
+/* ── 342. 深夜 Stat Icon 发光 ──────────────────────────────── */
+body:not(.light-theme) .stat-icon {
+  color: rgba(129,140,248,0.8);
+  text-shadow: 0 0 10px rgba(99,102,241,0.4);
+}
+
+/* ── 343. 深夜 Section Dot ─────────────────────────────────── */
+body:not(.light-theme) .section-dot {
+  background: rgba(200,220,255,0.15);
+}
+
+body:not(.light-theme) .section-dot.active {
+  background: var(--primary);
+  box-shadow: 0 0 12px rgba(99,102,241,0.6), 0 0 24px rgba(99,102,241,0.3);
+}
+
+/* ── 344. 深夜 Live Indicator ──────────────────────────────── */
+body:not(.light-theme) .live-indicator {
+  background: rgba(52,211,153,0.06);
+  border-color: rgba(52,211,153,0.15);
+  box-shadow: 0 0 15px rgba(52,211,153,0.08);
+}
+
+/* ── 345. 深夜 Gradient Text 增强 ──────────────────────────── */
+body:not(.light-theme) .gradient-text {
+  filter: brightness(1.1);
+}
+
+/* ── 346. 深夜 Animated Gradient Text ─────────────────────── */
+body:not(.light-theme) .animated-gradient-text {
+  filter: brightness(1.05) saturate(1.1);
+}
+
+/* ── 347. 深夜 Hero Title 增强 ─────────────────────────────── */
+body:not(.light-theme) .hero-title {
+  text-shadow: 0 0 60px rgba(99,102,241,0.15), 0 0 120px rgba(34,211,238,0.08);
+}
+
+/* ── 348. 深夜 Hero Subtitle ───────────────────────────────── */
+body:not(.light-theme) .hero-subtitle {
+  color: rgba(148,163,184,0.75);
+}
+
+/* ── 349. 深夜 Empty State ─────────────────────────────────── */
+body:not(.light-theme) .empty-state {
+  color: rgba(71,85,105,0.8);
+}
+
+/* ── 350. 深夜 Code Block ──────────────────────────────────── */
+body:not(.light-theme) code {
+  background: rgba(15,23,42,0.8);
+  border: 1px solid rgba(200,220,255,0.06);
+  color: var(--accent-cyan);
+}
+
+body:not(.light-theme) pre {
+  background: rgba(5,8,16,0.9);
+  border-color: rgba(200,220,255,0.06);
+  box-shadow: inset 0 0 30px rgba(0,0,0,0.3);
+}
+
+/* ── 351. 深夜 Kbd ─────────────────────────────────────────── */
+body:not(.light-theme) .kbd {
+  background: rgba(15,23,42,0.8);
+  border-color: rgba(200,220,255,0.08);
+  color: rgba(148,163,184,0.8);
+}
+
+/* ── 352. 深夜 Tag Cloud ───────────────────────────────────── */
+body:not(.light-theme) .tag-cloud .tag {
+  background: rgba(15,23,42,0.7);
+  border-color: rgba(200,220,255,0.06);
+}
+
+body:not(.light-theme) .tag-cloud .tag:hover {
+  background: rgba(99,102,241,0.1);
+  border-color: rgba(99,102,241,0.25);
+  box-shadow: 0 4px 12px rgba(99,102,241,0.15);
+}
+
+/* ── 353. 深夜 Horizontal Scroll ───────────────────────────── */
+body:not(.light-theme) .horizontal-scroll .scroll-card {
+  background: rgba(20,30,50,0.8);
+  border-color: rgba(200,220,255,0.05);
+}
+
+body:not(.light-theme) .horizontal-scroll .scroll-card:hover {
+  border-color: rgba(99,102,241,0.25);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4), 0 0 20px rgba(99,102,241,0.08);
+}
+
+/* ── 354. 深夜 Trail Item ──────────────────────────────────── */
+body:not(.light-theme) .trail-item {
+  background: rgba(15,23,42,0.7);
+  border-color: rgba(200,220,255,0.05);
+}
+
+body:not(.light-theme) .trail-item:hover {
+  background: rgba(20,30,55,0.9);
+  border-color: rgba(99,102,241,0.2);
+}
+
+/* ── 355. 深夜 Floating Sphere ─────────────────────────────── */
+body:not(.light-theme) .floating-sphere {
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(99,102,241,0.15),
+    rgba(34,211,238,0.05) 50%,
+    transparent 70%
+  );
+  filter: blur(20px);
+}
+
+/* ── 356. 深夜 Dots Grid ───────────────────────────────────── */
+body:not(.light-theme) .dots-grid {
+  background-image: radial-gradient(
+    circle,
+    rgba(200,220,255,0.12) 1px,
+    transparent 1px
+  );
+  opacity: 0.2;
+}
+
+/* ── 357. 深夜 Watermark ───────────────────────────────────── */
+.signature-watermark {
+  position: fixed;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.65rem;
+  color: rgba(71,85,105,0.4);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  pointer-events: none;
+  z-index: 50;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.signature-watermark .w-dot {
+  width: 4px;
+  height: 4px;
+  background: rgba(99,102,241,0.3);
+  border-radius: 50%;
+  animation: soft-pulse 3s ease-in-out infinite;
+}
+
+/* ── 358. 深夜 Quick Nav Float ─────────────────────────────── */
+.quick-nav-float {
+  position: fixed;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 99;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.quick-nav-float:hover {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.quick-nav-float .nav-item {
+  padding: 6px 12px;
+  background: rgba(15,23,42,0.85);
+  border: 1px solid rgba(200,220,255,0.06);
+  border-radius: var(--radius-sm);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  backdrop-filter: blur(10px);
+}
+
+.quick-nav-float .nav-item:hover {
+  background: rgba(99,102,241,0.12);
+  border-color: rgba(99,102,241,0.25);
+  color: var(--text-primary);
+  transform: translateX(4px);
+}
+
+@media (max-width: 1200px) {
+  .quick-nav-float { display: none; }
+}
+
+/* ── 359. 深夜 Calendar ────────────────────────────────────── */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: all 0.2s var(--ease-smooth);
+  color: var(--text-muted);
+}
+
+.calendar-day:hover {
+  background: rgba(99,102,241,0.1);
+  color: var(--text-primary);
+}
+
+.calendar-day.today {
+  background: var(--gradient-primary);
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(99,102,241,0.4);
+}
+
+.calendar-day.has-content {
+  color: var(--text-secondary);
+  position: relative;
+}
+
+.calendar-day.has-content::after {
+  content: '';
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  background: var(--accent-green);
+  border-radius: 50%;
+}
+
+.calendar-day.has-content:hover {
+  background: rgba(52,211,153,0.1);
+  color: var(--accent-green);
+}
+
+/* ── 360. 深夜 Paper Summary Toggle ────────────────────────── */
+.paper-summary-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: transparent;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  margin-top: 8px;
+}
+
+.paper-summary-toggle:hover {
+  background: var(--bg-glass);
+  color: var(--text-secondary);
+  border-color: var(--glass-border-hover);
+}
+
+.paper-summary-toggle i {
+  transition: transform 0.3s var(--ease-spring);
+  font-size: 0.65rem;
+}
+
+.paper-summary-toggle.open i {
+  transform: rotate(180deg);
+}
+
+.paper-summary-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s var(--ease-smooth);
+}
+
+.paper-summary-content.open {
+  max-height: 200px;
+}
+
+/* ── 361. 深夜 Paper Meta Row ──────────────────────────────── */
+.paper-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+/* ── 362. 深夜 Journal Latest ──────────────────────────────── */
+.journal-latest {
+  border: 1px solid rgba(99,102,241,0.2) !important;
+  box-shadow: 0 0 30px rgba(99,102,241,0.08) !important;
+}
+
+/* ── 363. 深夜 Neural Card ─────────────────────────────────── */
+.neural-card {
+  background: linear-gradient(
+    135deg,
+    rgba(30,41,59,0.6) 0%,
+    rgba(15,23,42,0.8) 100%
+  );
+  border: 1px solid rgba(200,220,255,0.06);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* ── 364. 深夜 Neural Gradient ─────────────────────────────── */
+.neural-gradient {
+  background: linear-gradient(
+    135deg,
+    rgba(15,23,42,0.7) 0%,
+    rgba(10,15,30,0.9) 100%
+  );
+  border: 1px solid rgba(200,220,255,0.05);
+  border-radius: var(--radius-xl);
+  padding: 24px;
+}
+
+/* ── 365. 深夜 Sustainable Responsive ──────────────────────── */
+.sustainable-responsive {
+  container-type: inline-size;
+}
+
+/* ── 366. 深夜 Adaptive Gap ────────────────────────────────── */
+.adaptive-gap {
+  gap: clamp(8px, 2vw, 20px);
+}
+
+/* ── 367. 深夜 Organic Radius ──────────────────────────────── */
+.organic-radius {
+  border-radius: var(--radius-lg);
+}
+
+/* ── 368. 深夜 Neural Icon ─────────────────────────────────── */
+.neural-icon {
+  color: var(--primary-light);
+  filter: drop-shadow(0 0 4px rgba(99,102,241,0.4));
+}
+
+/* ── 369. 深夜 Neural Hover ────────────────────────────────── */
+.neural-hover {
+  transition: all 0.3s var(--ease-smooth);
+}
+
+.neural-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3), 0 0 20px rgba(99,102,241,0.1);
+}
+
+/* ── 370. 深夜 Glass Morphism 3D ───────────────────────────── */
+.glass-morphism-3d {
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.06) 0%,
+    rgba(255,255,255,0.02) 100%
+  );
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.3),
+    inset 0 1px 0 rgba(255,255,255,0.1),
+    inset 0 -1px 0 rgba(0,0,0,0.1);
+}
+
+/* ── 371. 深夜 Focus Frame ─────────────────────────────────── */
+.focus-frame:focus-within {
+  box-shadow: 0 0 0 2px rgba(99,102,241,0.3), 0 0 20px rgba(99,102,241,0.1);
+}
+
+/* ── 372. 深夜 Adaptive Gradient ───────────────────────────── */
+.adaptive-gradient {
+  background: var(--gradient-aurora);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ── 373. 深夜 Masonry 增强 ────────────────────────────────── */
+@media (min-width: 1024px) {
+  .masonry-layout {
+    columns: 3;
+    column-gap: 20px;
+  }
+
+  .masonry-layout .paper-card {
+    break-inside: avoid;
+    margin-bottom: 20px;
+  }
+}
+
+/* ── 374. 深夜 Responsive 增强 ─────────────────────────────── */
+@media (max-width: 768px) {
+  .neural-card {
+    padding: 20px;
+  }
+
+  .neural-gradient {
+    padding: 16px;
+  }
+
+  .hero-section::after {
+    display: none;
+  }
+
+  .quick-nav-float {
+    display: none;
+  }
+
+  .signature-watermark {
+    display: none;
+  }
+}
+
+/* ── 375. 深夜 Print 优化 ──────────────────────────────────── */
+@media print {
+  .signature-watermark,
+  .quick-nav-float,
+  .particles-canvas,
+  .ambient-bg { display: none !important; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   End of v6.9 深夜美学版 · 2026-03-22 02:03
+   Theme: Midnight Bloom · Deep Night Aesthetics · Soft Luminance
+   ✨ 78 个新样式规则 · 深夜专属色调 · 柔光微交互
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════════════
+   v6.9 深夜扩展 · 午夜专属模式
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 午夜模式专属 ─────────────────────────────────────────── */
+body.midnight-mode .hero-badge {
+  background: rgba(99,102,241,0.06);
+  border-color: rgba(99,102,241,0.12);
+  box-shadow: 0 0 25px rgba(99,102,241,0.06), 0 0 50px rgba(34,211,238,0.03);
+}
+
+body.midnight-mode .ambient-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 30% 40%,
+    rgba(30,40,100,0.15) 0%,
+    transparent 60%
+  ),
+  radial-gradient(
+    ellipse at 70% 60%,
+    rgba(20,50,80,0.1) 0%,
+    transparent 50%
+  );
+  pointer-events: none;
+  animation: midnight-ambient 15s ease-in-out infinite alternate;
+}
+
+@keyframes midnight-ambient {
+  from { opacity: 0.6; }
+  to { opacity: 1; }
+}
+
+body.midnight-mode .hero-title {
+  text-shadow:
+    0 0 80px rgba(99,102,241,0.12),
+    0 0 150px rgba(34,211,238,0.06);
+}
+
+body.midnight-mode .gradient-orb {
+  opacity: 0.08;
+  filter: blur(120px);
+}
+
+body.midnight-mode .grid-overlay {
+  opacity: 0.3;
+}
+
+body.midnight-mode .paper-card {
+  background: linear-gradient(
+    135deg,
+    rgba(20,30,55,0.85) 0%,
+    rgba(10,15,35,0.95) 100%
+  );
+}
+
+body.midnight-mode .paper-card:hover {
+  box-shadow:
+    0 20px 50px rgba(0,0,0,0.5),
+    0 0 50px rgba(99,102,241,0.1),
+    inset 0 1px 0 rgba(200,220,255,0.04);
+}
+
+body.midnight-mode .glass-nav {
+  background: rgba(3,5,12,0.95);
+  box-shadow: 0 4px 40px rgba(0,0,0,0.6), 0 0 80px rgba(99,102,241,0.03);
+}
+
+body.midnight-mode .glass-footer {
+  background: rgba(3,5,12,0.9);
+}
+
+body.midnight-mode .stat-card {
+  background: linear-gradient(135deg, rgba(20,30,55,0.75), rgba(10,15,30,0.85));
+}
+
+body.midnight-mode .news-item {
+  background: rgba(10,15,30,0.7);
+}
+
+body.midnight-mode .babel-card {
+  background: rgba(10,15,30,0.75);
+}
+
+body.midnight-mode .babel-card:hover {
+  background: rgba(20,30,55,0.9);
+  box-shadow: 0 10px 35px rgba(0,0,0,0.5), 0 0 25px rgba(99,102,241,0.08);
+}
+
+body.midnight-mode .news-ticker-item {
+  color: rgba(130,145,175,0.6);
+}
+
+body.midnight-mode .hero-subtitle {
+  color: rgba(130,145,175,0.65);
+}
+
+body.midnight-mode .hero-section::after {
+  animation: midnight-hero-glow 5s ease-in-out infinite;
+}
+
+@keyframes midnight-hero-glow {
+  0%, 100% { opacity: 0.3; width: 35%; }
+  50% { opacity: 0.7; width: 65%; }
+}
+
+body.midnight-mode .action-btn {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+body.midnight-mode .scroll-to-top {
+  background: rgba(10,15,30,0.95);
+  box-shadow: 0 4px 25px rgba(0,0,0,0.5);
+}
+
+body.midnight-mode .chat-messages {
+  background: rgba(3,5,12,0.75);
+}
+
+body.midnight-mode .message .content {
+  background: rgba(15,22,45,0.85);
+  border-color: rgba(200,220,255,0.05);
+}
+
+body.midnight-mode .journal-entry {
+  background: linear-gradient(135deg, rgba(15,22,45,0.85), rgba(8,12,28,0.95));
+}
+
+body.midnight-mode .trending-tag {
+  color: rgba(130,145,175,0.7);
+}
+
+body.midnight-mode .neural-card {
+  background: linear-gradient(135deg, rgba(20,30,55,0.7), rgba(8,12,28,0.9));
+}
+
+body.midnight-mode .neural-gradient {
+  background: linear-gradient(135deg, rgba(10,15,35,0.75), rgba(5,8,18,0.95));
+}
+
+/* ── 午夜时间水印文字 ─────────────────────────────────────── */
+.midnight-watermark {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(6rem, 20vw, 14rem);
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(99,102,241,0.04);
+  user-select: none;
+  pointer-events: none;
+  z-index: 0;
+  white-space: nowrap;
+  animation: midnight-watermark-glow 8s ease-in-out infinite;
+}
+
+@keyframes midnight-watermark-glow {
+  0%, 100% { opacity: 0.3; filter: blur(3px); }
+  50% { opacity: 0.6; filter: blur(1px); }
+}
+
+body.midnight-mode .hero-section .today-date-display {
+  opacity: 0.08;
+  filter: blur(2px);
+  font-size: clamp(5rem, 18vw, 12rem);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   End of v6.9 Midnight Extended · 2026-03-22 02:10
+   ═══════════════════════════════════════════════════════════════ */

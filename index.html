@@ -94,9 +94,10 @@
             <div class="hero-badge">
                 <span class="pulse-dot"></span>
                 每日更新 · 精选前沿
+                <span class="midnight-badge" id="time-greeting"></span>
             </div>
             <h1 class="hero-title">
-                <span class="animated-gradient-text" id="hero-title-text">探索 AI 的边界</span>
+                <span class="moonlight-text" id="hero-title-text">探索 AI 的边界</span>
                 <span class="cursor"></span>
             </h1>
             <p class="hero-subtitle masked-text">从论文到实践，从产业到跨界 — 每天 30 分钟，追踪 AI 最值得关注的进展</p>
@@ -292,6 +293,34 @@
     <script>
     // 今日日期
     document.addEventListener('DOMContentLoaded', function() {
+        // 时间问候语
+        const hour = new Date().getHours();
+        let greeting = '';
+        let badge = '';
+        if (hour >= 5 && hour < 11) {
+            greeting = '早安';
+            badge = '🌅';
+        } else if (hour >= 11 && hour < 14) {
+            greeting = '午安';
+            badge = '☀️';
+        } else if (hour >= 14 && hour < 18) {
+            greeting = '下午好';
+            badge = '🌤️';
+        } else if (hour >= 18 && hour < 22) {
+            greeting = '傍晚好';
+            badge = '🌆';
+        } else {
+            greeting = '夜深了';
+            badge = '🌙';
+        }
+        const greetingEl = document.getElementById('time-greeting');
+        if (greetingEl) {
+            greetingEl.textContent = badge + ' ' + greeting;
+            greetingEl.style.cssText = 'margin-left:8px;padding:2px 10px;background:rgba(99,102,241,0.1);border-radius:20px;font-size:0.72rem;';
+        }
+        if (hour >= 22 || hour < 5) {
+            document.body.classList.add('midnight-mode');
+        }
         const dateEl = document.getElementById('today-date');
         if (dateEl) {
             const now = new Date();
