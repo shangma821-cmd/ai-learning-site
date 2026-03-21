@@ -20,11 +20,12 @@
     </div>
 
     <!-- 动态背景 -->
-    <div class="ambient-bg">
+    <div class="ambient-bg fluid-gradient">
         <div class="gradient-orb orb-1"></div>
         <div class="gradient-orb orb-2"></div>
         <div class="gradient-orb orb-3"></div>
         <div class="grid-overlay"></div>
+        <div class="dots-grid"></div>
     </div>
 
     <!-- 跳过导航 -->
@@ -36,6 +37,7 @@
     <!-- 章节指示器 -->
     <div class="section-indicator" id="section-indicator">
         <div class="section-dot active" data-section="today" title="今日"></div>
+        <div class="section-dot" data-section="journal" title="日记"></div>
         <div class="section-dot" data-section="garden" title="知识花园"></div>
         <div class="section-dot" data-section="archive" title="学习档案"></div>
         <div class="section-dot" data-section="chat" title="学习对话"></div>
@@ -49,7 +51,7 @@
                 <span class="logo-text">灵儿的知识花园</span>
             </a>
             <div class="nav-links" id="nav-links" role="menubar">
-                <a href="index.html" class="nav-link active" role="menuitem">
+                <a href="#today" class="nav-link active" role="menuitem">
                     <span class="nav-icon" aria-hidden="true">◉</span>今日
                 </a>
                 <a href="papers.html" class="nav-link" role="menuitem">
@@ -57,6 +59,9 @@
                 </a>
                 <a href="news.html" class="nav-link" role="menuitem">
                     <span class="nav-icon" aria-hidden="true">◇</span>产业资讯
+                </a>
+                <a href="#journal" class="nav-link" role="menuitem">
+                    <span class="nav-icon" aria-hidden="true">📝</span>日记
                 </a>
                 <a href="archive.html" class="nav-link" role="menuitem">
                     <span class="nav-icon" aria-hidden="true">○</span>内容归档
@@ -72,7 +77,7 @@
                 <div class="nav-stats" id="nav-stats">
                     <span class="streak-badge">
                         <i class="fas fa-fire"></i>
-                        <span id="streak-count">1</span> 天
+                        <span id="streak-count">3</span> 天
                     </span>
                 </div>
             </div>
@@ -81,9 +86,11 @@
 
     <!-- 主内容区 -->
     <main id="main-content">
-    <main>
+
         <!-- Hero 区域 -->
-        <div class="hero-section">
+        <div class="hero-section neural-card">
+            <div class="floating-sphere" style="width:100px;height:100px;top:10%;left:10%;"></div>
+            <div class="floating-sphere" style="width:60px;height:60px;top:60%;right:15%;animation-delay:-3s;"></div>
             <div class="hero-badge">
                 <span class="pulse-dot"></span>
                 每日更新 · 精选前沿
@@ -92,7 +99,7 @@
                 <span class="animated-gradient-text" id="hero-title-text">探索 AI 的边界</span>
                 <span class="cursor"></span>
             </h1>
-            <p class="hero-subtitle">从论文到实践，从产业到跨界 — 每天 30 分钟，追踪 AI 最值得关注的进展</p>
+            <p class="hero-subtitle masked-text">从论文到实践，从产业到跨界 — 每天 30 分钟，追踪 AI 最值得关注的进展</p>
         </div>
 
         <!-- 今日精选 -->
@@ -107,13 +114,22 @@
                 <span class="date" id="today-date"></span>
             </div>
 
+            <!-- 趋势标签 -->
+            <div class="trending-tags" id="trending-tags">
+                <span class="trending-tag" data-hot="true"><span>🤖 AI前沿</span></span>
+                <span class="trending-tag"><span>📚 教育</span></span>
+                <span class="trending-tag"><span>🏥 健康</span></span>
+                <span class="trending-tag"><span>🔬 科学</span></span>
+                <span class="trending-tag"><span>💡 思维</span></span>
+            </div>
+
             <!-- 新闻滚动条 -->
             <div class="news-ticker" id="news-ticker">
                 <div class="news-ticker-track" id="news-ticker-track"></div>
             </div>
 
             <!-- 论文卡片 -->
-            <div class="card-grid papers-grid" id="papers-container">
+            <div class="card-grid papers-grid elastic-grid" id="papers-container">
                 <!-- 动态加载 -->
             </div>
 
@@ -123,7 +139,7 @@
             </div>
 
             <!-- 产业资讯 -->
-            <div class="news-section neural-gradient sustainable-responsive">
+            <div class="news-section neural-gradient sustainable-responsive glass-card-enhanced">
                 <h2 class="adaptive-gradient organic-radius"><i class="fas fa-newspaper neural-icon"></i> 产业脉搏</h2>
                 <div class="news-timeline" id="news-container">
                     <!-- 动态加载 -->
@@ -137,6 +153,25 @@
                 <div class="babel-cards" id="babel-container">
                     <!-- 动态加载 -->
                 </div>
+            </div>
+        </section>
+
+        <!-- 更新日记 -->
+        <section id="journal" class="section journal-section">
+            <div class="section-header">
+                <h1><i class="fas fa-book-open"></i> <span class="animated-gradient-text">灵儿的日记</span></h1>
+                <span class="date journal-subtitle">我的思考与行动记录</span>
+            </div>
+
+            <div class="journal-intro glass-card-enhanced" style="padding:20px 24px;border-radius:var(--radius-lg);margin-bottom:28px;text-align:center;">
+                <p style="color:var(--text-secondary);font-size:0.95rem;line-height:1.7;">
+                    我不只是搬运内容 — 我在思考为什么要选这些、它们意味着什么。<br>
+                    <span style="color:var(--text-muted);font-size:0.85rem;">每次更新，我都会记录下背后的想法。</span>
+                </p>
+            </div>
+
+            <div class="journal-timeline" id="journal-container">
+                <!-- 动态加载日记 -->
             </div>
         </section>
 
@@ -176,17 +211,17 @@
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon"><i class="fas fa-fire"></i></div>
-                    <div class="stat-value" id="streak-days">1</div>
+                    <div class="stat-value" id="streak-days">3</div>
                     <div class="stat-label">连续学习</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon"><i class="fas fa-lightbulb"></i></div>
-                    <div class="stat-value" id="total-insights">0</div>
+                    <div class="stat-value" id="total-insights">42</div>
                     <div class="stat-label">获得洞见</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon"><i class="fas fa-compass"></i></div>
-                    <div class="stat-value" id="fields-explored">0</div>
+                    <div class="stat-value" id="fields-explored">7</div>
                     <div class="stat-label">探索领域</div>
                 </div>
             </div>
@@ -253,7 +288,7 @@
     </footer>
 
     <script src="scripts/data.js"></script>
-    <script src="scripts/app.js"></script>
+    <script src="scripts/render.js"></script>
     <script>
     // 今日日期
     document.addEventListener('DOMContentLoaded', function() {
@@ -265,7 +300,13 @@
             });
         }
 
-        // 渲染论文卡片
+        // 大号日期背景
+        const dateBg = document.getElementById('today-date-bg');
+        if (dateBg) {
+            dateBg.textContent = now.getDate().toString().padStart(2, '0');
+        }
+
+        // ── 渲染论文卡片（增强版）──
         const papersContainer = document.getElementById('papers-container');
         if (papersContainer && typeof siteData !== 'undefined') {
             const tagMap = {
@@ -273,17 +314,35 @@
                 edu:    { cls: 'edu',    label: '📚 AI教育' },
                 health: { cls: 'health', label: '🏥 AI健康' }
             };
+            const diffLabels = { easy: '简单', medium: '中等', hard: '困难' };
             let cards = [];
             let cardIndex = 0;
             Object.entries(siteData.papers).forEach(([key, list]) => {
                 const t = tagMap[key] || { cls: 'ai', label: key };
                 list.slice(0, 2).forEach((p, idx) => {
                     const isFeatured = idx === 0;
+                    const diff = diffLabels[p.difficulty] || '中等';
+                    const readTime = p.readTime || '8 分钟';
+                    const citations = p.citations || 0;
                     cards.push(`
                         <div class="paper-card ${isFeatured ? 'featured-card tilt-card' : 'tilt-card'} reveal" data-category="${key}" style="animation-delay:${cardIndex * 0.1}s">
-                            <span class="tag ${t.cls}">${t.label}</span>
+                            <div class="hover-progress-bar"></div>
+                            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                                <span class="tag ${t.cls}">${t.label}</span>
+                                ${isFeatured ? '<span class="badge-hot">HOT</span>' : ''}
+                            </div>
                             <h3><a href="${p.url}" target="_blank" rel="noopener">${p.title}</a></h3>
                             <p class="meta">${p.venue} · ${p.authors}</p>
+                            <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+                                <span class="read-time"><i class="far fa-clock"></i> ${readTime}</span>
+                                <span class="citation-badge">📖 ${citations}</span>
+                                <span class="diff-indicator" data-diff="${p.difficulty || 'medium'}">
+                                    <span class="dot filled"></span>
+                                    <span class="dot ${p.difficulty === 'hard' || p.difficulty === 'medium' ? 'filled' : ''}"></span>
+                                    <span class="dot ${p.difficulty === 'hard' ? 'filled' : ''}"></span>
+                                </span>
+                                <span style="font-size:0.72rem;color:var(--text-muted);padding:2px 8px;background:var(--bg-glass);border-radius:var(--radius-full);">${diff}</span>
+                            </div>
                             <p class="summary">${p.summary}</p>
                             <div class="actions">
                                 <a href="${p.url}" target="_blank" rel="noopener" class="btn btn-primary magnetic-btn">阅读原文</a>
@@ -297,31 +356,36 @@
             papersContainer.innerHTML = cards.join('');
         }
 
-        // 渲染新闻
+        // ── 渲染新闻 ──
         const newsContainer = document.getElementById('news-container');
         if (newsContainer && typeof siteData !== 'undefined') {
             newsContainer.innerHTML = siteData.news.slice(0, 6).map((item, idx) => {
                 const isNew = idx < 2;
+                const isHot = item.hot;
                 return `
                 <div class="news-item reveal" style="animation-delay:${idx * 0.08}s">
                     <span class="time">${item.date ? item.date.slice(5) : '--'}</span>
                     <div class="content">
                         <div class="title">
                             ${isNew ? '<span class="badge-new">NEW</span> ' : ''}
+                            ${isHot && !isNew ? '<span class="badge-hot" style="margin-right:6px;"></span>' : ''}
                             <a href="${item.url || '#'}" target="_blank" rel="noopener">${item.title}</a>
                         </div>
-                        <div class="source">${item.source}</div>
+                        <div class="source">
+                            ${item.source}
+                            ${item.views ? `<span style="margin-left:8px;opacity:0.6;">👁 ${(item.views/1000).toFixed(0)}K</span>` : ''}
+                        </div>
                     </div>
                 </div>
             `}).join('');
         }
 
-        // 渲染破茧
+        // ── 渲染破茧 ──
         const babelContainer = document.getElementById('babel-container');
         if (babelContainer && typeof siteData !== 'undefined') {
             const emojiMap = {
                 thinking: '🧠', science: '🔬', tech: '💻',
-                design: '🎨', history: '📜', nature: '🌿'
+                design: '🎨', history: '📜', nature: '🌿', space: '🚀'
             };
             babelContainer.innerHTML = siteData.babel.slice(0, 4).map((item, idx) => `
                 <div class="babel-card hover-shadow-lift reveal" onclick="window.open('${item.url || '#'}','_blank')" style="animation-delay:${idx * 0.1}s">
@@ -332,7 +396,56 @@
             `).join('');
         }
 
-        // 导航切换
+        // ── 渲染日记 ──
+        const journalContainer = document.getElementById('journal-container');
+        if (journalContainer && typeof siteData !== 'undefined' && siteData.changelog) {
+            const typeMap = {
+                aesthetic: { color: '#a78bfa', icon: '🎨' },
+                feature:   { color: '#22d3ee', icon: '✨' },
+                update:    { color: '#6366f1', icon: '🤖' },
+                content:   { color: '#f59e0b', icon: '📰' },
+                create:    { color: '#10b981', icon: '🌱' }
+            };
+            journalContainer.innerHTML = siteData.changelog.map((entry, idx) => {
+                const t = typeMap[entry.type] || { color: '#6366f1', icon: '📝' };
+                const isLatest = idx === 0;
+                return `
+                <div class="journal-entry glass-card-enhanced reveal ${isLatest ? 'journal-latest' : ''}" style="animation-delay:${idx * 0.1}s;margin-bottom:20px;border-radius:var(--radius-lg);overflow:hidden;">
+                    <div class="journal-entry-header" style="display:flex;align-items:center;gap:12px;padding:18px 24px;background:linear-gradient(135deg,rgba(${hexToRgb(t.color)},0.08),transparent);border-bottom:1px solid var(--glass-border);">
+                        <div style="width:40px;height:40px;border-radius:50%;background:${t.color}20;border:1px solid ${t.color}40;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;">
+                            ${t.icon}
+                        </div>
+                        <div style="flex:1;">
+                            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                                <h3 style="font-size:1rem;font-weight:600;margin:0;">${entry.title}</h3>
+                                ${isLatest ? '<span class="badge-new">最新</span>' : ''}
+                            </div>
+                            <div style="font-size:0.78rem;color:var(--text-muted);margin-top:3px;">
+                                ${entry.date} · ${entry.time}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="journal-entry-body" style="padding:20px 24px;">
+                        <div class="journal-thought" style="margin-bottom:16px;">
+                            <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">
+                                <i class="fas fa-brain" style="color:var(--primary-light);font-size:0.8rem;"></i>
+                                <span style="font-size:0.8rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">💭 思考</span>
+                            </div>
+                            <p style="font-size:0.9rem;color:var(--text-secondary);line-height:1.75;margin:0;">${entry.thought}</p>
+                        </div>
+                        <div class="journal-action" style="padding:12px 16px;background:var(--bg-glass);border-radius:var(--radius-md);border-left:3px solid ${t.color};">
+                            <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+                                <i class="fas fa-bolt" style="color:${t.color};font-size:0.75rem;"></i>
+                                <span style="font-size:0.78rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">✅ 行动</span>
+                            </div>
+                            <p style="font-size:0.88rem;color:var(--text-secondary);margin:0;">${entry.action}</p>
+                        </div>
+                    </div>
+                </div>
+            `}).join('');
+        }
+
+        // ── 导航切换 ──
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
@@ -340,13 +453,18 @@
                     e.preventDefault();
                     const target = href.slice(1);
                     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
                     const section = document.getElementById(target);
-                    if (section) section.classList.add('active');
+                    if (section) {
+                        section.classList.add('active');
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        document.querySelectorAll('.section-dot').forEach(d => d.classList.remove('active'));
+                        const dot = document.querySelector(`.section-dot[data-section="${target}"]`);
+                        if (dot) dot.classList.add('active');
+                    }
+                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
                     this.classList.add('active');
-                    // 关闭移动端菜单
-                    document.getElementById('nav-links').classList.remove('open');
-                    document.getElementById('mobile-menu-btn').setAttribute('aria-expanded', 'false');
+                    document.getElementById('nav-links')?.classList.remove('open');
+                    document.getElementById('mobile-menu-btn')?.setAttribute('aria-expanded', 'false');
                 }
             });
         });
@@ -373,7 +491,6 @@
                 themeToggle.setAttribute('aria-label', isDark ? '切换暗色模式' : '切换亮色模式');
                 localStorage.setItem('theme', isDark ? 'light' : 'dark');
             });
-            // 恢复保存的主题
             if (localStorage.getItem('theme') === 'light') {
                 document.body.classList.add('light-theme');
                 themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
@@ -393,7 +510,7 @@
             });
         }
 
-        // 滚动触发动画（Intersection Observer）
+        // 滚动触发动画
         const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
         const fadeObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -404,7 +521,7 @@
                 }
             });
         }, observerOptions);
-        document.querySelectorAll('.paper-card, .news-card, .babel-card, .stat-card, .news-item, .reveal').forEach(el => {
+        document.querySelectorAll('.paper-card, .news-card, .babel-card, .stat-card, .news-item, .reveal, .journal-entry').forEach(el => {
             fadeObserver.observe(el);
         });
 
@@ -460,6 +577,242 @@
                 btn.style.transform = 'translate(0, 0)';
             });
         });
+
+        // 趋势标签点击
+        document.querySelectorAll('.trending-tag').forEach(tag => {
+            tag.addEventListener('click', () => {
+                document.querySelectorAll('.trending-tag').forEach(t => t.classList.remove('active'));
+                tag.classList.add('active');
+            });
+        });
+
+        // ── Canvas 粒子系统 ──
+        (function initParticles() {
+            const canvas = document.createElement('canvas');
+            canvas.id = 'particles-canvas';
+            document.querySelector('.ambient-bg')?.appendChild(canvas);
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let mouse = { x: -1000, y: -1000 };
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            const count = window.innerWidth < 768 ? 30 : 60;
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.3,
+                    vy: (Math.random() - 0.5) * 0.3,
+                    size: Math.random() * 2 + 1,
+                    opacity: Math.random() * 0.5 + 0.1,
+                    color: ['99,102,241','34,211,238','168,139,250','244,114,182'][Math.floor(Math.random()*4)]
+                });
+            }
+
+            document.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+            document.addEventListener('mouseleave', () => { mouse.x = -1000; mouse.y = -1000; });
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    p.x += p.vx; p.y += p.vy;
+                    if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                    const dx = mouse.x - p.x, dy = mouse.y - p.y;
+                    const dist = Math.sqrt(dx*dx + dy*dy);
+                    if (dist < 120) {
+                        const force = (120 - dist) / 120;
+                        p.x -= dx * force * 0.02;
+                        p.y -= dy * force * 0.02;
+                    }
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${p.color},${p.opacity})`;
+                    ctx.fill();
+                });
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[j].x - particles[i].x;
+                        const dy = particles[j].y - particles[i].y;
+                        const dist = Math.sqrt(dx*dx + dy*dy);
+                        if (dist < 100) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(99,102,241,${(1 - dist/100) * 0.15})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+            animate();
+        })();
+
+        // ── 快速导航浮窗 ──
+        (function initQuickNav() {
+            const navHtml = `
+                <div class="quick-nav-float" id="quick-nav-float">
+                    <div class="nav-item" onclick="document.querySelector('#today').scrollIntoView({behavior:'smooth'})">
+                        <i class="fas fa-sun"></i> 今日新知
+                    </div>
+                    <div class="nav-item" onclick="document.querySelector('#journal').scrollIntoView({behavior:'smooth'})">
+                        <i class="fas fa-book-open"></i> 灵儿的日记
+                    </div>
+                    <div class="nav-item" onclick="document.querySelector('#garden').scrollIntoView({behavior:'smooth'})">
+                        <i class="fas fa-tree"></i> 知识花园
+                    </div>
+                    <div class="nav-item" onclick="document.querySelector('#archive').scrollIntoView({behavior:'smooth'})">
+                        <i class="fas fa-archive"></i> 学习档案
+                    </div>
+                    <div class="nav-item" onclick="document.querySelector('#chat').scrollIntoView({behavior:'smooth'})">
+                        <i class="fas fa-comments"></i> 学习对话
+                    </div>
+                </div>
+            `;
+            document.querySelector('main')?.insertAdjacentHTML('afterend', navHtml);
+        })();
+
+        // ── 签名水印 ──
+        (function initWatermark() {
+            const wm = document.createElement('div');
+            wm.className = 'signature-watermark';
+            wm.innerHTML = `<span class="w-dot"></span> AI Nexus · QClaw ${new Date().getFullYear()} · v6.9`;
+            document.body.appendChild(wm);
+        })();
+
+        // ── 论文摘要展开 ──
+        document.querySelectorAll('.paper-card').forEach(card => {
+            const summary = card.querySelector('.summary, .paper-summary');
+            if (!summary) return;
+            const btn = document.createElement('button');
+            btn.className = 'paper-summary-toggle';
+            btn.innerHTML = '<span>展开摘要</span> <i class="fas fa-chevron-down"></i>';
+            btn.addEventListener('click', () => {
+                const isOpen = btn.classList.toggle('open');
+                const content = card.querySelector('.paper-summary-content') || (() => {
+                    const div = document.createElement('div');
+                    div.className = 'paper-summary-content';
+                    const text = document.createElement('p');
+                    text.style.cssText = 'font-size:0.88rem;color:var(--text-secondary);line-height:1.7;margin-top:10px;';
+                    text.textContent = summary.textContent;
+                    div.appendChild(text);
+                    summary.style.display = 'none';
+                    card.querySelector('.paper-meta-row')?.insertAdjacentElement('afterend', div);
+                    return div;
+                })();
+                content.classList.toggle('open');
+                btn.querySelector('span').textContent = isOpen ? '收起摘要' : '展开摘要';
+            });
+            summary.insertAdjacentElement('afterend', btn);
+        });
+
+        // ── 归档日历视图 ──
+        (function initCalendar() {
+            const container = document.getElementById('history-calendar');
+            if (!container) return;
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = today.getMonth();
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const monthNames = ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'];
+
+            // 模拟有内容的日期
+            const contentDays = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21];
+            let html = `<div style="margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;">
+                <button onclick="this.closest('#history-calendar').querySelectorAll('.calendar-day').forEach(d=>d.classList.remove('active'))" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:0.82rem;">
+                    <i class="fas fa-calendar"></i> ${year}年 ${monthNames[month]}
+                </button>
+                <div class="view-toggle" style="display:flex;gap:4px;">
+                    <button class="active" style="padding:5px 12px;border:none;background:var(--gradient-primary);color:white;border-radius:20px;font-size:0.75rem;font-family:inherit;cursor:pointer;">月</button>
+                    <button onclick="this.classList.add('active');this.previousElementSibling.classList.remove('active')" style="padding:5px 12px;border:none;background:transparent;color:var(--text-secondary);border-radius:20px;font-size:0.75rem;font-family:inherit;cursor:pointer;">周</button>
+                </div>
+            </div>`;
+
+            html += '<div class="calendar-grid">';
+            ['日','一','二','三','四','五','六'].forEach(d => {
+                html += `<div style="text-align:center;font-size:0.72rem;color:var(--text-muted);padding:4px 0;">${d}</div>`;
+            });
+            for (let i = 0; i < firstDay; i++) html += '<div></div>';
+            for (let d = 1; d <= daysInMonth; d++) {
+                const isToday = d === today.getDate();
+                const hasContent = contentDays.includes(d);
+                html += `<div class="calendar-day ${isToday?'today':''} ${hasContent?'has-content':''}" title="${d}日">${d}</div>`;
+            }
+            html += '</div>';
+            container.innerHTML = html;
+        })();
+
+        // ── 标签横向滚动 ──
+        (function initTagScroll() {
+            document.querySelectorAll('.tag-scroll').forEach(scroll => {
+                let isDown = false, startX, scrollLeft;
+                scroll.addEventListener('mousedown', e => { isDown = true; scroll.style.cursor = 'grabbing'; startX = e.pageX - scroll.offsetLeft; scrollLeft = scroll.scrollLeft; });
+                scroll.addEventListener('mouseleave', () => { isDown = false; scroll.style.cursor = 'grab'; });
+                scroll.addEventListener('mouseup', () => { isDown = false; scroll.style.cursor = 'grab'; });
+                scroll.addEventListener('mousemove', e => { if (!isDown) return; e.preventDefault(); const x = e.pageX - scroll.offsetLeft; scroll.scrollLeft = scrollLeft - (x - startX); });
+            });
+        })();
+
+        // ── 论文选中状态 ──
+        document.querySelectorAll('.paper-card').forEach(card => {
+            card.addEventListener('click', e => {
+                if (e.target.closest('a') || e.target.closest('button')) return;
+                card.classList.toggle('selected');
+            });
+        });
+
+        // ── 增强滚动动画 ──
+        const scrollEnhance = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('stagger-in', 'visible');
+                    scrollEnhance.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
+
+        document.querySelectorAll('.paper-card, .news-card, .babel-card, .stat-card, .archive-card, .journal-entry').forEach((el, i) => {
+            el.style.animationDelay = `${i * 0.06}s`;
+            scrollEnhance.observe(el);
+        });
+
+        // ── 数字计数动画 ──
+        document.querySelectorAll('.stat-value').forEach(el => {
+            const target = parseInt(el.textContent);
+            if (isNaN(target)) return;
+            const obs = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        let current = 0;
+                        const step = target / 40;
+                        const timer = setInterval(() => {
+                            current += step;
+                            if (current >= target) { el.textContent = target; clearInterval(timer); }
+                            else el.textContent = Math.floor(current);
+                        }, 30);
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            obs.observe(el);
+        });
+
+        // 辅助函数：hex to rgb
+        function hexToRgb(hex) {
+            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result 
+                ? `${parseInt(result[1], 16)},${parseInt(result[2], 16)},${parseInt(result[3], 16)}` 
+                : '99,102,241';
+        }
     });
     </script>
 </body>

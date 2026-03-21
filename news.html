@@ -166,6 +166,84 @@
                     btn.style.transform = 'translate(0, 0)';
                 });
             });
+
+            // 粒子系统
+            (function initParticles() {
+                const canvas = document.createElement('canvas');
+                canvas.id = 'particles-canvas';
+                document.querySelector('.ambient-bg')?.appendChild(canvas);
+                const ctx = canvas.getContext('2d');
+                let particles = [];
+                let mouse = { x: -1000, y: -1000 };
+                function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+                resize(); window.addEventListener('resize', resize);
+                const count = window.innerWidth < 768 ? 30 : 60;
+                for (let i = 0; i < count; i++) {
+                    particles.push({
+                        x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+                        vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3,
+                        size: Math.random() * 2 + 1, opacity: Math.random() * 0.5 + 0.1,
+                        color: ['99,102,241','34,211,238','168,139,250','244,114,182'][Math.floor(Math.random()*4)]
+                    });
+                }
+                document.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+                document.addEventListener('mouseleave', () => { mouse.x = -1000; mouse.y = -1000; });
+                function animate() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    particles.forEach(p => {
+                        p.x += p.vx; p.y += p.vy;
+                        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+                        const dx = mouse.x - p.x, dy = mouse.y - p.y;
+                        const dist = Math.sqrt(dx*dx + dy*dy);
+                        if (dist < 120) { const f = (120 - dist)/120; p.x -= dx*f*0.02; p.y -= dy*f*0.02; }
+                        ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
+                        ctx.fillStyle = `rgba(${p.color},${p.opacity})`; ctx.fill();
+                    });
+                    for (let i = 0; i < particles.length; i++) {
+                        for (let j = i+1; j < particles.length; j++) {
+                            const dx = particles[j].x - particles[i].x, dy = particles[j].y - particles[i].y;
+                            const dist = Math.sqrt(dx*dx + dy*dy);
+                            if (dist < 100) {
+                                ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y);
+                                ctx.lineTo(particles[j].x, particles[j].y);
+                                ctx.strokeStyle = `rgba(99,102,241,${(1-dist/100)*0.12})`;
+                                ctx.lineWidth = 0.5; ctx.stroke();
+                            }
+                        }
+                    }
+                    requestAnimationFrame(animate);
+                }
+                animate();
+            })();
+
+            // 签名水印
+            (function initWatermark() {
+                const wm = document.createElement('div');
+                wm.className = 'signature-watermark';
+                wm.innerHTML = `<span class="w-dot"></span> AI Nexus · QClaw ${new Date().getFullYear()} · v6.9`;
+                document.body.appendChild(wm);
+            })();
+
+            // 数字计数动画
+            document.querySelectorAll('.stat-value').forEach(el => {
+                const target = parseInt(el.textContent);
+                if (isNaN(target)) return;
+                const obs = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            let current = 0; const step = target / 40;
+                            const timer = setInterval(() => {
+                                current += step;
+                                if (current >= target) { el.textContent = target; clearInterval(timer); }
+                                else el.textContent = Math.floor(current);
+                            }, 30);
+                            obs.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.5 });
+                obs.observe(el);
+            });
         });
     </script>
 </body>
