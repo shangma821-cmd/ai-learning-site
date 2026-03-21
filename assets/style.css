@@ -1,8 +1,8 @@
 /* ============================================================
    AI Nexus — 灵儿的知识花园
-   Design System v6.9 · 2026-03-22 02:03
-   Theme: Midnight Bloom · Deep Night Aesthetics · Soft Luminance
-   ✨ 全栈美学大师版 · 每小时自动优化 · 深夜专属色调
+   Design System v7.2 · 2026-03-22 07:01
+   Theme: Dawn Aurora · Morning Glow Aesthetics
+   ✨ 全栈美学大师版 · 每小时自动优化 · 清晨极光色调
    ============================================================ */
 
 /* ── 1. CSS 变量 ─────────────────────────────────────────── */
@@ -11657,7 +11657,204 @@ body.midnight-mode .glass-nav::after {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   End of v7.1 Dawn Aurora · 2026-03-22 05:50
-   Theme: Dawn Aurora · 黎明极光
+   v7.2 Morning Glow Enhancements · 2026-03-22 07:01
+   Theme: Dawn Aurora · 清晨极光
+   ✨ 增强特性：毛玻璃卡片·动态字体·交互微反馈
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 351. 增强毛玻璃卡片 ───────────────────────────────── */
+.glass-card-enhanced {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  transition: all 0.4s var(--ease-smooth);
+}
+
+.glass-card-enhanced:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--glass-border-hover);
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 
+    0 20px 40px rgba(0,0,0,0.3),
+    0 0 60px rgba(255,183,120,0.08);
+}
+
+/* ── 352. 动态字体加载效果 ─────────────────────────────── */
+.font-loading {
+  animation: fontFadeIn 0.6s ease-out forwards;
+}
+
+@keyframes fontFadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(10px); 
+    filter: blur(4px);
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+    filter: blur(0);
+  }
+}
+
+/* ── 353. 微交互反馈 ───────────────────────────────────── */
+.micro-interaction {
+  position: relative;
+  overflow: hidden;
+}
+
+.micro-interaction::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), 
+    rgba(255,255,255,0.15) 0%, 
+    transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.micro-interaction:hover::after {
+  opacity: 1;
+}
+
+/* ── 354. 悬停涟漪效果 ─────────────────────────────────── */
+.ripple-hover {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple-hover .ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(0);
+  animation: rippleEffect 0.6s var(--ease-smooth);
+  pointer-events: none;
+}
+
+@keyframes rippleEffect {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* ── 355. 渐变边框动画 ─────────────────────────────────── */
+.gradient-border {
+  position: relative;
+  background: var(--bg-surface);
+  border-radius: var(--radius-lg);
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: calc(var(--radius-lg) + 2px);
+  background: linear-gradient(135deg, 
+    #ffb778, #f472b6, #a78bfa, #22d3ee, #ffb778);
+  background-size: 300% 300%;
+  animation: gradientBorderMove 4s ease infinite;
+  z-index: -1;
+  opacity: 0.6;
+}
+
+@keyframes gradientBorderMove {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ── 356. 弹性进入动画 ─────────────────────────────────── */
+.slide-up-enter {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: slideUpEnter 0.5s var(--ease-spring) forwards;
+}
+
+@keyframes slideUpEnter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-up-enter:nth-child(1) { animation-delay: 0ms; }
+.slide-up-enter:nth-child(2) { animation-delay: 80ms; }
+.slide-up-enter:nth-child(3) { animation-delay: 160ms; }
+.slide-up-enter:nth-child(4) { animation-delay: 240ms; }
+.slide-up-enter:nth-child(5) { animation-delay: 320ms; }
+
+/* ── 357. 文本光晕效果 ─────────────────────────────────── */
+.text-glow {
+  text-shadow: 
+    0 0 10px rgba(255,183,120,0.5),
+    0 0 20px rgba(255,183,120,0.3),
+    0 0 40px rgba(255,183,120,0.1);
+  animation: textGlowPulse 3s ease-in-out infinite;
+}
+
+@keyframes textGlowPulse {
+  0%, 100% { 
+    text-shadow: 
+      0 0 10px rgba(255,183,120,0.5),
+      0 0 20px rgba(255,183,120,0.3),
+      0 0 40px rgba(255,183,120,0.1);
+  }
+  50% { 
+    text-shadow: 
+      0 0 15px rgba(255,183,120,0.7),
+      0 0 30px rgba(255,183,120,0.5),
+      0 0 60px rgba(255,183,120,0.2);
+  }
+}
+
+/* ── 358. 悬停图标旋转 ─────────────────────────────────── */
+.rotate-hover {
+  transition: transform 0.4s var(--ease-spring);
+}
+
+.rotate-hover:hover {
+  transform: rotate(10deg) scale(1.1);
+}
+
+/* ── 359. 加载骨架屏 ───────────────────────────────────── */
+.skeleton {
+  background: linear-gradient(90deg, 
+    var(--bg-elevated) 25%, 
+    rgba(255,255,255,0.05) 50%, 
+    var(--bg-elevated) 75%);
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.5s ease-in-out infinite;
+  border-radius: var(--radius-sm);
+}
+
+@keyframes skeletonShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── 360. 响应式断点优化 ───────────────────────────────── */
+@media (max-width: 640px) {
+  :root {
+    --radius-xl: 16px;
+    --radius-2xl: 20px;
+  }
+  
+  .glass-card-enhanced {
+    border-radius: var(--radius-lg);
+  }
+  
+  .gradient-border::before {
+    opacity: 0.4;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   End of v7.2 Morning Glow · 2026-03-22 07:01
+   Theme: Dawn Aurora · 清晨极光
    ✨ 每小时美学优化完成
    ═══════════════════════════════════════════════════════════════ */
