@@ -217,15 +217,20 @@
         </section>
     </main>
 
+    <!-- 返回顶部 -->
+    <button class="scroll-to-top" id="scroll-to-top" aria-label="返回顶部">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <!-- 快捷操作 -->
     <div class="quick-actions">
-        <button class="action-btn" id="btn-mark-read" title="标记已读">
+        <button class="action-btn bounce-icon-btn" id="btn-mark-read" title="标记已读">
             <i class="fas fa-check"></i>
         </button>
-        <button class="action-btn" id="btn-save" title="收藏">
+        <button class="action-btn bounce-icon-btn" id="btn-save" title="收藏">
             <i class="fas fa-bookmark"></i>
         </button>
-        <button class="action-btn" id="btn-share" title="分享">
+        <button class="action-btn bounce-icon-btn" id="btn-share" title="分享">
             <i class="fas fa-share-alt"></i>
         </button>
     </div>
@@ -413,6 +418,29 @@
             card.addEventListener('mouseleave', () => {
                 card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
             });
+        });
+
+        // 返回顶部按钮
+        const scrollToTopBtn = document.getElementById('scroll-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
+        });
+        if (scrollToTopBtn) {
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        // 页面加载完成后移除加载器
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('page-loader')?.classList.add('hidden');
+                document.body.classList.add('loaded');
+            }, 500);
         });
 
         // 磁性按钮效果

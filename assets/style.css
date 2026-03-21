@@ -1933,9 +1933,9 @@ body.light-theme {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   v6.1 美学大师版 · 2026-03-21 07:40
+   v6.2 美学大师版 · 2026-03-21 08:53
    Theme: Deep Space Glass · Aurora Gradients · Micro-interactions
-   ✨ 每小时美学优化 - 新增容器查询与增强动效
+   ✨ 每小时美学优化 - 新增流光边框、动态高光与增强微交互
    ═══════════════════════════════════════════════════════════════ */
 
 /* ── 27. 页面切换滑动动画 ─────────────────────────────────── */
@@ -3228,5 +3228,547 @@ pre {
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-md);
   overflow-x: auto;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   v6.2 新增样式 - 2026-03-21 08:53
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 101. 流光边框效果 ─────────────────────────────────────── */
+.flow-border {
+  position: relative;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+}
+
+.flow-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, 
+    var(--accent-cyan), 
+    var(--accent-purple), 
+    var(--accent-pink), 
+    var(--accent-cyan));
+  background-size: 300% 300%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s;
+  animation: flow-border-move 3s ease infinite;
+}
+
+.flow-border:hover::before {
+  opacity: 1;
+}
+
+@keyframes flow-border-move {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ── 102. 动态高光卡片 ───────────────────────────────────── */
+.highlight-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.highlight-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 50%);
+  transform: rotate(30deg);
+  opacity: 0;
+  transition: opacity 0.5s, transform 0.5s;
+  pointer-events: none;
+}
+
+.highlight-card:hover::after {
+  opacity: 1;
+  transform: rotate(30deg) translate(20%, 20%);
+}
+
+/* ── 103. 渐变阴影按钮 ───────────────────────────────────── */
+.gradient-shadow-btn {
+  position: relative;
+  background: var(--bg-glass);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-smooth);
+  z-index: 1;
+}
+
+.gradient-shadow-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--gradient-aurora);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: -1;
+}
+
+.gradient-shadow-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(99,102,241,0.25);
+}
+
+.gradient-shadow-btn:hover::before {
+  opacity: 1;
+}
+
+/* ── 104. 悬停文字上浮动画 ───────────────────────────────── */
+.hover-float {
+  display: inline-block;
+  transition: transform 0.3s var(--ease-spring);
+}
+
+.hover-float:hover {
+  transform: translateY(-3px);
+}
+
+/* ── 105. 卡片内阴影发光 ─────────────────────────────────── */
+.inner-glow {
+  position: relative;
+}
+
+.inner-glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 30px rgba(99,102,241,0.08);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.inner-glow:hover::before {
+  opacity: 1;
+}
+
+/* ── 106. 动态光点追踪效果 ───────────────────────────────── */
+.light-track {
+  position: relative;
+  overflow: hidden;
+}
+
+.light-track::after {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.light-track:hover::after {
+  opacity: 1;
+  animation: light-track-move 1s ease-out;
+}
+
+@keyframes light-track-move {
+  from { transform: translate(-50%, -50%) scale(0.5); }
+  to { transform: translate(50%, 50%) scale(1.5); }
+}
+
+/* ── 107. 扫描线效果 ─────────────────────────────────────── */
+.scanline {
+  position: relative;
+  overflow: hidden;
+}
+
+.scanline::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+  animation: scanline-move 2s linear infinite;
+  opacity: 0.5;
+}
+
+@keyframes scanline-move {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* ── 108. 弹跳图标按钮 ───────────────────────────────────── */
+.bounce-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: var(--bg-glass);
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.3s var(--ease-spring);
+}
+
+.bounce-icon-btn:hover {
+  background: rgba(99,102,241,0.15);
+  border-color: rgba(99,102,241,0.3);
+  color: var(--primary-light);
+  transform: translateY(-4px);
+}
+
+.bounce-icon-btn:hover i {
+  animation: icon-bounce 0.5s var(--ease-spring);
+}
+
+@keyframes icon-bounce {
+  0%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-4px); }
+  60% { transform: translateY(-2px); }
+}
+
+/* ── 109. 涟漪扩散按钮 ───────────────────────────────────── */
+.ripple-btn {
+  position: relative;
+  overflow: hidden;
+  background: var(--gradient-primary);
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-smooth);
+}
+
+.ripple-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(99,102,241,0.4);
+}
+
+.ripple-btn .ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.4);
+  transform: scale(0);
+  animation: ripple-effect 0.6s linear;
+  pointer-events: none;
+}
+
+@keyframes ripple-effect {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* ── 110. 毛玻璃效果增强 ────────────────────────────────── */
+.frosted-glass {
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* ── 111. 悬浮文字阴影发光 ───────────────────────────────── */
+.text-glow {
+  transition: text-shadow 0.3s var(--ease-smooth);
+}
+
+.text-glow:hover {
+  text-shadow: 
+    0 0 10px currentColor,
+    0 0 20px currentColor,
+    0 0 40px currentColor;
+}
+
+/* ── 112. 数字滚动到顶效果 ──────────────────────────────── */
+.scroll-to-top {
+  position: fixed;
+  bottom: 80px;
+  left: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--bg-elevated);
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s var(--ease-spring);
+  z-index: 100;
+}
+
+.scroll-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.scroll-to-top:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+  transform: translateY(-4px);
+}
+
+/* ── 113. 动态标签云 ─────────────────────────────────────── */
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag-cloud .tag {
+  padding: 4px 12px;
+  background: var(--bg-glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.25s var(--ease-smooth);
+}
+
+.tag-cloud .tag:hover {
+  background: rgba(99,102,241,0.15);
+  border-color: rgba(99,102,241,0.3);
+  color: var(--primary-light);
+  transform: scale(1.05);
+}
+
+.tag-cloud .tag.active {
+  background: var(--gradient-primary);
+  border-color: transparent;
+  color: white;
+}
+
+/* ── 114. 横向滚动卡片容器 ─────────────────────────────── */
+.horizontal-scroll {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 8px 4px 20px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: var(--glass-border) transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+.horizontal-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+
+.horizontal-scroll .scroll-card {
+  flex: 0 0 280px;
+  scroll-snap-align: start;
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  transition: all 0.3s var(--ease-smooth);
+}
+
+.horizontal-scroll .scroll-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(99,102,241,0.3);
+  box-shadow: var(--shadow-md);
+}
+
+/* ── 115. 页面切换淡入淡出 ───────────────────────────────── */
+.page-fade {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s var(--ease-smooth), transform 0.4s var(--ease-smooth);
+}
+
+.page-fade.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── 116. 暗色模式专属：文字微光 ────────────────────────── */
+body:not(.light-theme) .subtle-glow {
+  text-shadow: 0 0 8px rgba(99,102,241,0.3);
+}
+
+/* ── 117. 选中状态边框动画 ─────────────────────────────── */
+.selected-border {
+  position: relative;
+}
+
+.selected-border::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  border: 2px solid transparent;
+  background: var(--gradient-aurora) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.selected-border.active::after {
+  opacity: 1;
+  animation: border-pulse 2s ease-in-out infinite;
+}
+
+@keyframes border-pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* ── 118. 增强的骨架屏 ──────────────────────────────────── */
+.enhanced-skeleton {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-glass);
+  border-radius: var(--radius-md);
+}
+
+.enhanced-skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.04),
+    transparent
+  );
+  transform: translateX(-100%);
+  animation: skeleton-sweep 1.5s infinite;
+}
+
+@keyframes skeleton-sweep {
+  100% { transform: translateX(100%); }
+}
+
+/* ── 119. 箭头方向指示器 ─────────────────────────────────── */
+.direction-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.3s var(--ease-spring);
+}
+
+.direction-arrow i {
+  transition: transform 0.3s var(--ease-spring);
+}
+
+.direction-arrow:hover i {
+  transform: translateX(4px);
+}
+
+.direction-arrow.right:hover i {
+  transform: translateX(4px);
+}
+
+.direction-arrow.left:hover i {
+  transform: translateX(-4px);
+}
+
+/* ── 120. 响应式：移动端安全区域 ────────────────────────── */
+@supports (padding: max(0px)) {
+  .safe-area-bottom {
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+  }
+  
+  .safe-area-top {
+    padding-top: max(16px, env(safe-area-inset-top));
+  }
+}
+
+/* ── 121. 新增：卡片翻转效果 ─────────────────────────────── */
+.flip-card {
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s var(--ease-smooth);
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+  background: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── 122. 响应式断点增强 ───────────────────────────────── */
+@media (max-width: 640px) {
+  .container, main {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  
+  .page-header h1 {
+    font-size: 1.75rem;
+  }
+  
+  .hero-title {
+    font-size: 1.8rem;
+  }
+  
+  .stat-card {
+    padding: 16px 12px;
+  }
+  
+  .stat-value {
+    font-size: 1.5rem;
+  }
+  
+  .horizontal-scroll .scroll-card {
+    flex: 0 0 240px;
+  }
 }
 
