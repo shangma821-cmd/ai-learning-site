@@ -1,5 +1,6 @@
-// AI Nexus — 渲染脚本 v3.1
+// AI Nexus — 渲染脚本 v4.0
 // 统一渲染逻辑，支持新版设计系统 + 滚动动画 + 交互增强
+// ✨ v4.0 · 2026-03-22 · 全栈美学增强版
 
 document.addEventListener('DOMContentLoaded', function () {
     // 设置更新日期
@@ -18,7 +19,131 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 初始化滚动动画观察器
     initScrollReveal();
+    
+    // ✨ v4.0 新增交互增强
+    initNeuralNodes();
+    initElasticSearch();
+    initCardSelection();
+    initQuickPreview();
+    initKeyboardNav();
+    initHoverSound();
 });
+
+/* ── 神经网络脉冲节点 ── */
+function initNeuralNodes() {
+    const bg = document.querySelector('.ambient-bg');
+    if (!bg || window.innerWidth < 768) return;
+    
+    const count = 12;
+    for (let i = 0; i < count; i++) {
+        const node = document.createElement('div');
+        node.className = 'neural-node';
+        node.style.cssText = `
+            left: ${Math.random() * 100}%;
+            top: ${Math.random() * 100}%;
+            animation-delay: ${Math.random() * 3}s;
+            animation-duration: ${2 + Math.random() * 2}s;
+            width: ${3 + Math.random() * 4}px;
+            height: ${3 + Math.random() * 4}px;
+            background: ${['rgba(99,102,241,0.7)', 'rgba(34,211,238,0.7)', 'rgba(168,139,250,0.7)'][Math.floor(Math.random()*3)]};
+        `;
+        bg.appendChild(node);
+    }
+}
+
+/* ── 弹性搜索框 ── */
+function initElasticSearch() {
+    document.querySelectorAll('.search-input').forEach(input => {
+        input.addEventListener('focus', () => {
+            input.parentElement?.classList.add('focused');
+        });
+        input.addEventListener('blur', () => {
+            input.parentElement?.classList.remove('focused');
+        });
+    });
+}
+
+/* ── 卡片多选功能 ── */
+function initCardSelection() {
+    document.querySelectorAll('.paper-card, .news-card, .archive-card').forEach(card => {
+        card.addEventListener('click', e => {
+            if (e.target.closest('a') || e.target.closest('button')) return;
+            card.classList.toggle('selected');
+        });
+    });
+}
+
+/* ── 快捷预览（延迟加载摘要）── */
+function initQuickPreview() {
+    document.querySelectorAll('.paper-card').forEach(card => {
+        let timer;
+        card.addEventListener('mouseenter', () => {
+            timer = setTimeout(() => {
+                const preview = card.querySelector('.quick-preview');
+                if (preview) preview.style.opacity = '1';
+            }, 600);
+        });
+        card.addEventListener('mouseleave', () => {
+            clearTimeout(timer);
+            const preview = card.querySelector('.quick-preview');
+            if (preview) preview.style.opacity = '0';
+        });
+    });
+}
+
+/* ── 键盘导航增强 ── */
+function initKeyboardNav() {
+    const cards = [...document.querySelectorAll('.paper-card, .news-card')];
+    if (!cards.length) return;
+    
+    document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+            const focused = document.activeElement;
+            const idx = cards.indexOf(focused);
+            if (idx !== -1) {
+                const next = e.key === 'ArrowRight' 
+                    ? cards[Math.min(idx + 1, cards.length - 1)]
+                    : cards[Math.max(idx - 1, 0)];
+                next?.focus();
+            }
+        }
+    });
+    
+    cards.forEach((card, i) => {
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'article');
+        card.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                const link = card.querySelector('a[href]');
+                if (link) link.click();
+            }
+        });
+    });
+}
+
+/* ── 悬浮声音反馈（轻量提示音）── */
+function initHoverSound() {
+    if (!window.AudioContext && !window.webkitAudioContext) return;
+    
+    let audioCtx;
+    document.querySelectorAll('.paper-card, .action-btn, .filter-chip').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            try {
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.frequency.value = 800 + Math.random() * 400;
+                osc.type = 'sine';
+                gain.gain.setValueAtTime(0.03, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+                osc.start(audioCtx.currentTime);
+                osc.stop(audioCtx.currentTime + 0.08);
+            } catch(e) {}
+        }, { once: true });
+    });
+}
 
 /* ── 精选卡片 ── */
 function renderHighlightCards() {
