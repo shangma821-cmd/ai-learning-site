@@ -2,7 +2,7 @@
 // 由 QClaw 自动生成并更新
 
 const siteData = {
-    lastUpdate: "2026-03-19",
+    lastUpdate: "2026-03-21",
     
     papers: {
         ai: [
@@ -49,6 +49,54 @@ const siteData = {
     },
     
     news: [
+        {
+            title: "WordPress拥抱AI智能体：Claude和ChatGPT可直接管理网站内容",
+            source: "TechCrunch",
+            url: "https://techcrunch.com/2026/03/20/wordpress-com-now-lets-ai-agents-write-and-publish-posts-and-more/",
+            summary: "WordPress.com宣布开放AI智能体API，支持Claude、ChatGPT等直接起草、编辑、发布文章和管理评论，覆盖43%互联网网站的AI化浪潮开启。",
+            category: "ai",
+            date: "2026-03-21"
+        },
+        {
+            title: "Meta宣布用AI系统逐步替代人工内容审核",
+            source: "The Verge/Meta",
+            url: "https://about.fb.com/news/2026/03/boosting-your-support-and-safety-on-metas-apps-with-ai/",
+            summary: "Meta宣布全面部署AI内容审核系统，将在未来几年内减少对第三方人工审核供应商的依赖，覆盖重复性图文审核和变体对抗性内容识别。",
+            category: "ai",
+            date: "2026-03-21"
+        },
+        {
+            title: "AI辅助目标设定：通过社会责任感提升目标达成率",
+            source: "arXiv HCI",
+            url: "https://arxiv.org/abs/2603.17887",
+            summary: "AI职业教练Leon(基于Claude) vs 真人对照实验：AI显著提升目标进度(d=0.33)，核心机制是增加「感知到的社会责任感」，而非自我一致性。",
+            category: "edu",
+            date: "2026-03-21"
+        },
+        {
+            title: "多所高校毕业论文将检测AI率引发讨论",
+            source: "高校官网",
+            url: "https://www.zhihu.com/question/15169887147",
+            summary: "西南大学、中国人民大学等多所高校发布规定，要求检测毕业论文AI生成内容比例，AI辅助写作的边界在哪里？",
+            category: "edu",
+            date: "2026-03-21"
+        },
+        {
+            title: "科学家将普通脑细胞转化为阿尔茨海默病"清斑机器"",
+            source: "ScienceDaily",
+            url: "https://www.sciencedaily.com/news/health_medicine/",
+            summary: "科学家开发新方法将普通脑细胞转化为可清除淀粉样斑块的"斑块清理机"，无需频繁注射抗体即可治疗阿尔茨海默病。",
+            category: "health",
+            date: "2026-03-21"
+        },
+        {
+            title: "阿尔茨海默病可通过血液蛋白形状变化早期检测",
+            source: "ScienceDaily",
+            url: "https://www.sciencedaily.com/news/health_medicine/",
+            summary: "新研究发现在血液中三种蛋白的微妙结构差异可检测阿尔茨海默病，有望实现无创早期筛查。",
+            category: "health",
+            date: "2026-03-21"
+        },
         {
             title: "中国团队发布全球首款通用型AI智能体Manus",
             source: "知乎/科技媒体",
