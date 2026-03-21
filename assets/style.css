@@ -1,7 +1,7 @@
 /* ============================================================
    AI Nexus — 灵儿的知识花园
-   Design System v6.0 · 2026-03-21 02:15
-   Theme: Deep Space Glass · Aurora Gradients · Micro-interactions
+   Design System v6.4 · 2026-03-21 11:06
+   Theme: Neural Glass · Adaptive Aesthetics · Sustainable Design
    ✨ 全栈美学大师版 · 每小时自动优化
    ============================================================ */
 
@@ -1933,7 +1933,7 @@ body.light-theme {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   v6.2 美学大师版 · 2026-03-21 08:53
+   v6.3 美学大师版 · 2026-03-21 09:58
    Theme: Deep Space Glass · Aurora Gradients · Micro-interactions
    ✨ 每小时美学优化 - 新增流光边框、动态高光与增强微交互
    ═══════════════════════════════════════════════════════════════ */
@@ -3771,4 +3771,803 @@ body:not(.light-theme) .subtle-glow {
     flex: 0 0 240px;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   v6.3 美学大师版 · 2026-03-21 09:58 新增样式
+   Theme: Deep Space Glass · Aurora Gradients · Micro-interactions
+   ✨ 每小时美学优化 - 新增流光边框、动态高光与增强微交互
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 123. 悬浮光晕放大效果 ───────────────────────────────── */
+.glow-scale {
+  transition: all 0.3s var(--ease-spring);
+}
+
+.glow-scale:hover {
+  transform: scale(1.02);
+  box-shadow: 
+    0 0 30px rgba(99,102,241,0.3),
+    0 20px 40px rgba(0,0,0,0.3);
+}
+
+/* ── 124. 卡片悬浮彩虹边框 ───────────────────────────────── */
+.rainbow-border {
+  position: relative;
+}
+
+.rainbow-border::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, 
+    #22d3ee, #6366f1, #a78bfa, #f472b6, #22d3ee);
+  background-size: 400% 400%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s;
+  animation: rainbow-flow 4s ease infinite;
+}
+
+.rainbow-border:hover::after {
+  opacity: 1;
+}
+
+@keyframes rainbow-flow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ── 125. 标题下划线动画 ───────────────────────────────── */
+.animated-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.animated-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--gradient-aurora);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s var(--ease-smooth);
+}
+
+.animated-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ── 126. 卡片悬停边框发光 ───────────────────────────────── */
+.glow-border-hover {
+  transition: all 0.3s var(--ease-smooth);
+}
+
+.glow-border-hover:hover {
+  border-color: rgba(99,102,241,0.5);
+  box-shadow: 
+    0 0 20px rgba(99,102,241,0.2),
+    inset 0 0 20px rgba(99,102,241,0.05);
+}
+
+/* ── 127. 弹性跳动动画 ────────────────────────────────── */
+.bounce-in {
+  animation: bounce-enter 0.5s var(--ease-spring) both;
+}
+
+@keyframes bounce-enter {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  60% {
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ── 128. 卡片悬停层叠阴影 ───────────────────────────── */
+.stack-shadow {
+  transition: all 0.3s var(--ease-smooth);
+}
+
+.stack-shadow:hover {
+  transform: translateY(-8px);
+  box-shadow: 
+    0 15px 30px rgba(0,0,0,0.4),
+    0 0 0 1px rgba(99,102,241,0.2),
+    0 0 30px rgba(99,102,241,0.1);
+}
+
+/* ── 129. 渐变文字呼吸效果 ───────────────────────────── */
+.gradient-breathe {
+  animation: gradient-breath 3s ease-in-out infinite;
+}
+
+@keyframes gradient-breath {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+/* ── 130. 新闻卡片入场动画增强 ───────────────────────────── */
+.news-card {
+  animation: news-card-in 0.5s var(--ease-smooth) both;
+}
+
+.news-card:nth-child(1) { animation-delay: 0.05s; }
+.news-card:nth-child(2) { animation-delay: 0.1s; }
+.news-card:nth-child(3) { animation-delay: 0.15s; }
+.news-card:nth-child(4) { animation-delay: 0.2s; }
+.news-card:nth-child(5) { animation-delay: 0.25s; }
+.news-card:nth-child(6) { animation-delay: 0.3s; }
+
+@keyframes news-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── 131. 统计卡片顶部渐变条 ───────────────────────────── */
+.stat-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-aurora);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease-smooth);
+}
+
+.stat-card:hover::before {
+  transform: scaleX(1);
+}
+
+/* ── 132. 破茧卡片悬浮 Emoji 旋转 ─────────────────────── */
+.babel-card .emoji {
+  display: inline-block;
+  transition: all 0.4s var(--ease-spring);
+}
+
+.babel-card:hover .emoji {
+  transform: rotate(360deg) scale(1.3);
+}
+
+/* ── 133. 归档页时间线动画 ───────────────────────────── */
+.archive-card {
+  position: relative;
+  transition: all 0.3s var(--ease-spring);
+}
+
+.archive-card::before {
+  content: '';
+  position: absolute;
+  left: -20px;
+  top: 24px;
+  width: 8px;
+  height: 8px;
+  background: var(--primary);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--primary);
+  transition: all 0.3s;
+}
+
+.archive-card:hover::before {
+  transform: scale(1.5);
+  box-shadow: 0 0 20px var(--primary);
+}
+
+/* ── 134. 快捷操作按钮脉冲 ─────────────────────────── */
+.action-btn::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  border: 2px solid var(--primary);
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.3s;
+}
+
+.action-btn:hover::after {
+  opacity: 0.5;
+  transform: scale(1);
+  animation: action-pulse 1s ease-in-out infinite;
+}
+
+@keyframes action-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.05); opacity: 0.6; }
+}
+
+/* ── 135. 选中标签动画 ────────────────────────────────── */
+.filter-chip.active {
+  position: relative;
+  overflow: hidden;
+}
+
+.filter-chip.active::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255,255,255,0.2), 
+    transparent);
+  transform: translateX(-100%);
+  animation: chip-shimmer 2s ease-in-out infinite;
+}
+
+@keyframes chip-shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* ── 136. 页面微加载动画 ─────────────────────────────── */
+.mini-loader {
+  display: inline-flex;
+  gap: 3px;
+}
+
+.mini-loader span {
+  width: 3px;
+  height: 12px;
+  background: var(--primary-light);
+  border-radius: 2px;
+  animation: mini-load 1s ease-in-out infinite;
+}
+
+.mini-loader span:nth-child(2) { animation-delay: 0.1s; }
+.mini-loader span:nth-child(3) { animation-delay: 0.2s; }
+
+@keyframes mini-load {
+  0%, 100% { transform: scaleY(0.5); }
+  50% { transform: scaleY(1); }
+}
+
+/* ── 137. 动态圆点加载效果 ───────────────────────────────── */
+.loading-dots {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.loading-dots span {
+  width: 6px;
+  height: 6px;
+  background: var(--primary);
+  border-radius: 50%;
+  animation: dot-bounce 1.4s ease-in-out infinite;
+}
+
+.loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+.loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dot-bounce {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+/* ── 138. 悬浮图标旋转 ──────────────────────────────────── */
+.rotate-hover {
+  transition: transform 0.3s var(--ease-spring);
+}
+
+.rotate-hover:hover {
+  transform: rotate(15deg) scale(1.1);
+}
+
+/* ── 139. 暗色模式星光背景增强 ───────────────────── */
+body:not(.light-theme) .star-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: 
+    radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.2) 0%, transparent 100%),
+    radial-gradient(1px 1px at 30% 40%, rgba(255,255,255,0.15) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 50% 60%, rgba(255,255,255,0.25) 0%, transparent 100%),
+    radial-gradient(1px 1px at 70% 30%, rgba(255,255,255,0.18) 0%, transparent 100%),
+    radial-gradient(1px 1px at 90% 80%, rgba(255,255,255,0.12) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 20% 70%, rgba(255,255,255,0.2) 0%, transparent 100%),
+    radial-gradient(1px 1px at 60% 90%, rgba(255,255,255,0.15) 0%, transparent 100%),
+    radial-gradient(1px 1px at 80% 50%, rgba(255,255,255,0.22) 0%, transparent 100%);
+  animation: star-move 30s linear infinite;
+}
+
+@keyframes star-move {
+  from { transform: translateY(0); }
+  to { transform: translateY(-20px); }
+}
+
+/* ── 140. 首页精选论文卡片增强 ────────────────────── */
+.paper-card.featured-card {
+  position: relative;
+}
+
+.paper-card.featured-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(99,102,241,0.05), 
+    transparent);
+  animation: featured-shimmer 3s ease-in-out infinite;
+}
+
+@keyframes featured-shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* ── 141. 对话输入框增强 ─────────────────────────────── */
+.chat-input-container {
+  position: relative;
+}
+
+.chat-input-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--gradient-aurora);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.chat-input-container:focus-within::before {
+  opacity: 0.5;
+}
+
+/* ── 142. 页面切换滑动效果 ───────────────────────────── */
+.slide-page-enter {
+  animation: slide-page-in 0.4s var(--ease-smooth) both;
+}
+
+@keyframes slide-page-in {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ── 143. 底部到顶部渐变消失效果 ───────────────────────── */
+.fade-to-top {
+  position: relative;
+}
+
+.fade-to-top::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(to top, 
+    var(--bg-base), 
+    transparent);
+  pointer-events: none;
+}
+
+/* ── 144. 导航栏滚动模糊效果 ───────────────────────────── */
+.glass-nav.blur-scroll {
+  backdrop-filter: blur(30px) saturate(200%);
+  -webkit-backdrop-filter: blur(30px) saturate(200%);
+  background: rgba(8,12,20,0.95);
+}
+
+/* ── 145. 卡片倒影效果 ─────────────────────────────────── */
+.reflect-card {
+  position: relative;
+}
+
+.reflect-card::after {
+  content: '';
+  position: absolute;
+  bottom: -30px;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background: linear-gradient(to bottom, 
+    rgba(0,0,0,0.1), 
+    transparent);
+  transform: scaleY(-1);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.reflect-card:hover::after {
+  opacity: 0.5;
+}
+
+/* ── 146. 背景网格线动画 ───────────────────────────────── */
+.grid-line-animate {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(99,102,241,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99,102,241,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: grid-move 20s linear infinite;
+}
+
+@keyframes grid-move {
+  from { transform: translate(0, 0); }
+  to { transform: translate(40px, 40px); }
+}
+
+/* ── 147. 响应式图片圆角 ─────────────────────────────── */
+.img-rounded {
+  border-radius: var(--radius-lg);
+  transition: all 0.3s var(--ease-smooth);
+}
+
+.img-rounded:hover {
+  border-radius: var(--radius-xl);
+  transform: scale(1.02);
+}
+
+/* ── 148. 卡片内容错位动画 ───────────────────────────── */
+.stagger-content > *:nth-child(1) { animation-delay: 0s; }
+.stagger-content > *:nth-child(2) { animation-delay: 0.05s; }
+.stagger-content > *:nth-child(3) { animation-delay: 0.1s; }
+.stagger-content > *:nth-child(4) { animation-delay: 0.15s; }
+.stagger-content > *:nth-child(5) { animation-delay: 0.2s; }
+.stagger-content > *:nth-child(6) { animation-delay: 0.25s; }
+
+/* ═══════════════════════════════════════════════════════════════
+   End of v6.3 美学大师版 · 2026-03-21 09:58
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════════════
+   v6.4 美学大师版 · 2026-03-21 11:06
+   Theme: Neural Glass · Adaptive Aesthetics · Sustainable Design
+   ✨ 每小时美学优化 - 新增神经美学、自适应渐变与节能设计
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 149. 神经美学渐变背景 ───────────────────────────────── */
+.neural-gradient {
+  background: 
+    radial-gradient(circle at 20% 30%, 
+      rgba(99,102,241,0.05) 0%, 
+      transparent 50%),
+    radial-gradient(circle at 60% 70%, 
+      rgba(34,211,238,0.04) 0%, 
+      transparent 50%),
+    radial-gradient(circle at 80% 40%, 
+      rgba(168,139,250,0.03) 0%, 
+      transparent 50%);
+  animation: neural-pulse 8s ease infinite;
+}
+
+@keyframes neural-pulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+/* ── 150. 自适应色彩渐变 ───────────────────────────────── */
+.adaptive-gradient {
+  background: linear-gradient(var(--adaptive-angle, 135deg),
+    var(--gradient-aurora));
+  transition: background 1s var(--ease-smooth);
+}
+
+body.light-theme .adaptive-gradient {
+  background: linear-gradient(var(--adaptive-angle, 135deg),
+    rgba(99,102,241,0.1), 
+    rgba(34,211,238,0.1));
+}
+
+/* ── 151. 节能色彩模式 ───────────────────────────────────── */
+.efficient-mode {
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+}
+
+.efficient-mode * {
+  opacity: 0.95;
+  filter: brightness(0.9);
+}
+
+/* ── 152. 玻璃形态深度增强 ────────────────────────────── */
+.glass-morphism-3d {
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(25px) saturate(180%);
+  -webkit-backdrop-filter: blur(25px) saturate(180%);
+  box-shadow: 
+    0 10px 30px rgba(0,0,0,0.25),
+    0 0 0 1px rgba(255,255,255,0.05),
+    0 0 40px rgba(99,102,241,0.05);
+}
+
+/* ── 153. 动态焦点框 ────────────────────────────────────── */
+.focus-frame {
+  position: relative;
+}
+
+.focus-frame::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: inherit;
+  border: 2px solid transparent;
+  background: linear-gradient(135deg, var(--primary), var(--accent-cyan)) border-box;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.focus-frame:hover::after,
+.focus-frame:focus-within::after {
+  opacity: 0.8;
+}
+
+/* ── 154. 自然流动动画 ──────────────────────────────────── */
+.fluid-motion {
+  animation: fluid-flow 6s ease-in-out infinite;
+}
+
+@keyframes fluid-flow {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(2px, -1px); }
+  50% { transform: translate(-1px, 2px); }
+  75% { transform: translate(-2px, -1px); }
+}
+
+/* ── 155. 有机形态圆角 ──────────────────────────────────── */
+.organic-radius {
+  border-radius: 24px 12px 24px 12px;
+  transition: all 0.3s var(--ease-smooth);
+}
+
+.organic-radius:hover {
+  border-radius: 16px 24px 16px 24px;
+}
+
+/* ── 156. 渐进式加载动画 ─────────────────────────────────── */
+.progressive-load {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: progressive-enter 0.8s var(--ease-smooth) forwards;
+}
+
+@keyframes progressive-enter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── 157. 神经美学卡片 ───────────────────────────────────── */
+.neural-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.neural-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, 
+    rgba(99,102,241,0.1) 0%, 
+    transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.neural-card:hover::before {
+  opacity: 1;
+  animation: neural-card-glow 3s ease infinite;
+}
+
+@keyframes neural-card-glow {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+/* ── 158. 自适应阴影 ─────────────────────────────────────── */
+.adaptive-shadow {
+  box-shadow: var(--adaptive-shadow, var(--shadow-md));
+  transition: box-shadow 0.4s var(--ease-smooth);
+}
+
+body.light-theme .adaptive-shadow {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* ── 159. 可持续微交互 ───────────────────────────────────── */
+.sustainable-interaction {
+  transition: all 0.3s var(--ease-smooth);
+}
+
+.sustainable-interaction:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  filter: brightness(1.05);
+}
+
+/* ── 160. 神经美学图标 ────────────────────────────────────── */
+.neural-icon {
+  animation: neural-icon-float 4s ease infinite;
+}
+
+@keyframes neural-icon-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-2px) rotate(5deg); }
+  50% { transform: translateY(1px) rotate(-5deg); }
+  75% { transform: translateY(-1px) rotate(3deg); }
+}
+
+/* ── 161. 响应式排版增强 ─────────────────────────────────── */
+.responsive-text {
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  line-height: clamp(1.5, 2vw, 1.8);
+}
+
+/* ── 162. 动态网格系统 ────────────────────────────────────── */
+.dynamic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: clamp(20px, 3vw, 30px);
+}
+
+/* ── 163. 节能动画模式 ───────────────────────────────────── */
+.efficient-animation {
+  animation-duration: 0.5s;
+  animation-timing-function: var(--ease-smooth);
+}
+
+/* ── 164. 神经美学背景网格 ───────────────────────────────── */
+.neural-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(circle at 30% 40%, rgba(99,102,241,0.03) 1px, transparent 1px),
+    radial-gradient(circle at 60% 20%, rgba(34,211,238,0.02) 1px, transparent 1px),
+    radial-gradient(circle at 80% 60%, rgba(168,139,250,0.02) 1px, transparent 1px);
+  background-size: 100px 100px;
+  animation: neural-grid-move 20s linear infinite;
+}
+
+@keyframes neural-grid-move {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(50px, 50px); }
+}
+
+/* ── 165. 自适应卡片间距 ─────────────────────────────────── */
+.adaptive-gap {
+  gap: clamp(10px, 2vw, 20px);
+}
+
+/* ── 166. 自然字体渲染 ────────────────────────────────────── */
+.natural-font-rendering {
+  font-feature-settings: "ss01", "ss02", "liga", "clig";
+  font-variation-settings: "wght" 400, "wdth" 100;
+}
+
+/* ── 167. 神经美学悬停效果 ───────────────────────────────── */
+.neural-hover {
+  transition: all 0.4s var(--ease-spring);
+}
+
+.neural-hover:hover {
+  transform: 
+    translateY(-5px)
+    rotateX(5deg);
+  filter: 
+    brightness(1.1)
+    contrast(1.05);
+}
+
+/* ── 168. 自适应圆角系统 ─────────────────────────────────── */
+.adaptive-radius {
+  border-radius: clamp(8px, 1vw, 16px);
+}
+
+/* ── 169. 可持续色彩渐变 ─────────────────────────────────── */
+.sustainable-gradient {
+  background: linear-gradient(135deg,
+    rgba(99,102,241,0.05),
+    rgba(34,211,238,0.03),
+    rgba(168,139,250,0.02));
+  opacity: 0.7;
+}
+
+/* ── 170. 神经美学响应式布局 ─────────────────────────────── */
+.neural-layout {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: clamp(15px, 2vw, 25px);
+}
+
+/* ── 171. 动态色彩调整 ───────────────────────────────────── */
+.dynamic-color-adjust {
+  transition: 
+    color 0.3s,
+    background-color 0.3s,
+    border-color 0.3s;
+}
+
+/* ── 172. 有机形态阴影 ────────────────────────────────────── */
+.organic-shadow {
+  box-shadow: 
+    0 10px 20px rgba(0,0,0,0.2),
+    0 0 0 1px rgba(99,102,241,0.05),
+    0 0 25px rgba(99,102,241,0.03);
+}
+
+/* ── 173. 神经美学进度条 ─────────────────────────────────── */
+.neural-progress {
+  background: linear-gradient(135deg,
+    var(--primary-light),
+    var(--accent-cyan),
+    var(--accent-purple));
+  height: 4px;
+  border-radius: 2px;
+  animation: neural-progress-flow 3s ease infinite;
+}
+
+@keyframes neural-progress-flow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ── 174. 自适应图像效果 ─────────────────────────────────── */
+.adaptive-image {
+  border-radius: clamp(12px, 2vw, 24px);
+  transition: all 0.3s var(--ease-smooth);
+}
+
+.adaptive-image:hover {
+  border-radius: clamp(16px, 2vw, 28px);
+  transform: scale(1.03);
+}
+
+/* ── 175. 可持续响应式设计 ───────────────────────────────── */
+.sustainable-responsive {
+  max-width: min(100%, 1200px);
+  margin: 0 auto;
+  padding: clamp(20px, 3vw, 40px);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   End of v6.4 美学大师版 · 2026-03-21 11:06
+   ═══════════════════════════════════════════════════════════════ */
 
