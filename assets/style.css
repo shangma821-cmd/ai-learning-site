@@ -5488,6 +5488,486 @@ body.light-theme .glass-btn {
    End of v6.7 新增样式 - 2026-03-21 14:48
    ═══════════════════════════════════════════════════════════════ */
 
+/* ═══════════════════════════════════════════════════════════════
+   v6.8 美学大师版 · 2026-03-21 18:18
+   Theme: Neural Glass · Aurora Gradients · Micro-interactions
+   ✨ 每小时美学优化 - 新增动态光效、交互增强与性能优化
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 261. 动态光束效果 ─────────────────────────────────────── */
+@keyframes light-beam {
+  0% { transform: translateX(-100%) skewX(-15deg); }
+  100% { transform: translateX(200%) skewX(-15deg); }
+}
+
+.light-beam-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.light-beam-effect::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  transform: skewX(-15deg);
+  animation: light-beam 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* ── 262. 毛玻璃输入框 ─────────────────────────────────────── */
+.glass-input {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  transition: all 0.3s var(--ease-smooth);
+}
+
+.glass-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: rgba(255,255,255,0.08);
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+}
+
+.glass-input::placeholder {
+  color: var(--text-muted);
+}
+
+/* ── 263. 渐变按钮 ───────────────────────────────────────── */
+.gradient-btn {
+  background: var(--gradient-primary);
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s var(--ease-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.gradient-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(99,102,241,0.4);
+}
+
+.gradient-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.5s;
+}
+
+.gradient-btn:hover::after {
+  transform: translateX(100%);
+}
+
+/* ── 264. 悬浮光晕环 ─────────────────────────────────────── */
+.glow-ring {
+  position: relative;
+}
+
+.glow-ring::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+.glow-ring:hover::before {
+  opacity: 0.5;
+  animation: ring-pulse-expand 1s ease-out;
+}
+
+@keyframes ring-pulse-expand {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(1.3); opacity: 0; }
+}
+
+/* ── 265. 动态阴影卡片 ───────────────────────────────────── */
+.dynamic-shadow-card {
+  transition: box-shadow 0.4s var(--ease-smooth);
+}
+
+.dynamic-shadow-card:hover {
+  box-shadow: 
+    0 20px 40px rgba(0,0,0,0.3),
+    0 0 60px rgba(99,102,241,0.15);
+}
+
+/* ── 266. 彩色边框卡片 ───────────────────────────────────── */
+.color-border-card {
+  position: relative;
+}
+
+.color-border-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--primary), var(--accent-purple));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.color-border-card:hover::before {
+  opacity: 1;
+}
+
+/* ── 267. 镜像翻转卡片 ───────────────────────────────────── */
+.mirror-flip-card {
+  transition: transform 0.6s var(--ease-smooth);
+  transform-style: preserve-3d;
+}
+
+.mirror-flip-card:hover {
+  transform: scaleX(-1);
+}
+
+/* ── 268. 弹性动画 ───────────────────────────────────────── */
+@keyframes elastic-bounce {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.1); }
+  50% { transform: scale(0.95); }
+  75% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+.elastic-animate {
+  animation: elastic-bounce 0.6s var(--ease-spring);
+}
+
+/* ── 269. 脉冲阴影 ───────────────────────────────────────── */
+.pulse-shadow {
+  animation: pulse-shadow-effect 2s ease-in-out infinite;
+}
+
+@keyframes pulse-shadow-effect {
+  0%, 100% { box-shadow: 0 4px 20px rgba(99,102,241,0.3); }
+  50% { box-shadow: 0 4px 30px rgba(99,102,241,0.6); }
+}
+
+/* ── 270. 径向渐变背景 ───────────────────────────────────── */
+.radial-gradient-bg {
+  background: radial-gradient(ellipse at center, rgba(99,102,241,0.15) 0%, transparent 70%);
+}
+
+/* ── 271. 动态网格背景 ───────────────────────────────────── */
+.dynamic-grid-bg {
+  background-image: 
+    linear-gradient(rgba(99,102,241,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99,102,241,0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: grid-scroll 20s linear infinite;
+}
+
+@keyframes grid-scroll {
+  from { background-position: 0 0; }
+  to { background-position: 40px 40px; }
+}
+
+/* ── 272. 渐变文字动画 ───────────────────────────────────── */
+@keyframes gradient-text-animate {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.gradient-text-animate {
+  background: linear-gradient(90deg, #22d3ee, #6366f1, #a78bfa, #22d3ee);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-text-animate 4s ease infinite;
+}
+
+/* ── 273. 悬浮发光文字 ───────────────────────────────────── */
+.glow-text-hover {
+  transition: text-shadow 0.3s var(--ease-smooth);
+}
+
+.glow-text-hover:hover {
+  text-shadow: 0 0 10px rgba(99,102,241,0.5), 0 0 20px rgba(99,102,241,0.3);
+}
+
+/* ── 274. 箭头指示器 ─────────────────────────────────────── */
+.arrow-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: gap 0.3s var(--ease-spring);
+}
+
+.arrow-indicator:hover {
+  gap: 8px;
+}
+
+/* ── 275. 悬停边框闪光 ───────────────────────────────────── */
+.border-flash {
+  position: relative;
+  overflow: hidden;
+}
+
+.border-flash::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transform: skewX(-25deg);
+  transition: left 0.5s;
+}
+
+.border-flash:hover::after {
+  left: 150%;
+}
+
+/* ── 276. 缩放图标按钮 ───────────────────────────────────── */
+.zoom-icon-btn {
+  transition: transform 0.3s var(--ease-spring);
+}
+
+.zoom-icon-btn:hover {
+  transform: scale(1.2);
+}
+
+/* ── 277. 旋转图标 ───────────────────────────────────────── */
+.rotate-icon {
+  transition: transform 0.4s var(--ease-spring);
+}
+
+.rotate-icon:hover {
+  transform: rotate(360deg);
+}
+
+/* ── 278. 滑动页面切换 ───────────────────────────────────── */
+.slide-page {
+  animation: slide-page-effect 0.5s var(--ease-smooth) both;
+}
+
+@keyframes slide-page-effect {
+  from { opacity: 0; transform: translateX(50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ── 279. 呼吸动画 ───────────────────────────────────────── */
+.breathe-animation {
+  animation: breathe-effect 3s ease-in-out infinite;
+}
+
+@keyframes breathe-effect {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.02); }
+}
+
+/* ── 280. 闪光按钮 ───────────────────────────────────────── */
+.shine-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.5s;
+}
+
+.shine-btn:hover::before {
+  left: 100%;
+}
+
+/* ── 281. 动态背景 ───────────────────────────────────────── */
+.dynamic-bg {
+  background: 
+    linear-gradient(135deg, rgba(99,102,241,0.1) 0%, transparent 50%),
+    linear-gradient(225deg, rgba(34,211,238,0.1) 0%, transparent 50%),
+    linear-gradient(45deg, rgba(167,139,250,0.1) 0%, transparent 50%);
+  animation: dynamic-bg-shift 10s ease infinite;
+}
+
+@keyframes dynamic-bg-shift {
+  0%, 100% { background-position: 0% 50%, 100% 50%, 50% 0%; }
+  50% { background-position: 100% 50%, 0% 50%, 50% 100%; }
+}
+
+/* ── 282. 霓虹文字 ───────────────────────────────────────── */
+.neon-text {
+  text-shadow: 
+    0 0 5px rgba(99,102,241,0.5),
+    0 0 10px rgba(99,102,241,0.3),
+    0 0 20px rgba(99,102,241,0.2);
+}
+
+.neon-text-cyan {
+  text-shadow: 
+    0 0 5px rgba(34,211,238,0.5),
+    0 0 10px rgba(34,211,238,0.3),
+    0 0 20px rgba(34,211,238,0.2);
+}
+
+/* ── 283. 圆点脉冲动画 ───────────────────────────────────── */
+.dot-pulse {
+  position: relative;
+}
+
+.dot-pulse::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: inherit;
+  animation: dot-pulse-effect 1.5s ease-out infinite;
+}
+
+@keyframes dot-pulse-effect {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+  100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
+}
+
+/* ── 284. 悬停抬升效果 ───────────────────────────────────── */
+.hover-elevate {
+  transition: all 0.3s var(--ease-spring);
+}
+
+.hover-elevate:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+/* ── 285. 边框流动动画 ───────────────────────────────────── */
+@keyframes border-flow-animation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.flowing-border {
+  position: relative;
+}
+
+.flowing-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #22d3ee, #6366f1, #a78bfa, #22d3ee);
+  background-size: 300% 100%;
+  z-index: -1;
+  animation: border-flow-animation 2s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.flowing-border:hover::before {
+  opacity: 1;
+}
+
+/* ── 286. 页面切换淡入 ───────────────────────────────────── */
+.fade-in-page {
+  animation: fade-in-effect 0.5s var(--ease-smooth) both;
+}
+
+@keyframes fade-in-effect {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ── 287. 加载旋转器 ─────────────────────────────────────── */
+.loading-spinner-color {
+  width: 24px;
+  height: 24px;
+  border: 2px solid rgba(99,102,241,0.2);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin-color 0.8s linear infinite;
+}
+
+@keyframes spin-color {
+  to { transform: rotate(360deg); }
+}
+
+/* ── 288. 阴影增强卡片 ───────────────────────────────────── */
+.shadow-enhanced {
+  box-shadow: 
+    0 4px 20px rgba(0,0,0,0.2),
+    0 0 0 1px rgba(99,102,241,0.1);
+  transition: all 0.3s var(--ease-smooth);
+}
+
+.shadow-enhanced:hover {
+  box-shadow: 
+    0 10px 40px rgba(0,0,0,0.3),
+    0 0 30px rgba(99,102,241,0.15),
+    0 0 0 1px rgba(99,102,241,0.2);
+}
+
+/* ── 289. 交互动画容器 ───────────────────────────────────── */
+.interactive-container {
+  cursor: pointer;
+  transition: all 0.3s var(--ease-smooth);
+}
+
+.interactive-container:active {
+  transform: scale(0.98);
+}
+
+/* ── 290. 新版标签样式 ───────────────────────────────────── */
+.modern-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  background: rgba(99,102,241,0.1);
+  border: 1px solid rgba(99,102,241,0.2);
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--primary-light);
+  transition: all 0.25s var(--ease-smooth);
+}
+
+.modern-tag:hover {
+  background: rgba(99,102,241,0.2);
+  transform: scale(1.05);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   End of v6.8 新增样式 - 2026-03-21 18:18
+   ✨ 每小时美学优化完成
+   ═══════════════════════════════════════════════════════════════ */
+
 /* ── 201. 页面加载动画增强 ───────────────────────────────── */
 .page-loader {
   transition: opacity 0.6s var(--ease-smooth), visibility 0.6s;
