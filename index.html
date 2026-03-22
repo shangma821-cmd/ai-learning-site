@@ -86,6 +86,10 @@
                 <button class="theme-toggle" id="theme-toggle" aria-label="切换暗色/亮色模式" title="切换主题">
                     <i class="fas fa-adjust"></i>
                 </button>
+                <button class="reading-mode-toggle" id="reading-mode-toggle" aria-label="切换阅读模式" title="纸张阅读模式">
+                    <i class="fas fa-book-open"></i>
+                    <span style="font-size:0.7rem;">阅读</span>
+                </button>
                 <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="打开菜单" aria-expanded="false" style="display:none;">
                     <i class="fas fa-bars"></i>
                 </button>
@@ -589,6 +593,31 @@
             if (localStorage.getItem('theme') === 'light') {
                 document.body.classList.add('light-theme');
                 themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+        }
+
+        // 阅读模式切换
+        const readingModeToggle = document.getElementById('reading-mode-toggle');
+        if (readingModeToggle) {
+            readingModeToggle.addEventListener('click', () => {
+                const isReading = document.body.classList.toggle('reading-mode');
+                readingModeToggle.innerHTML = isReading
+                    ? '<i class="fas fa-moon"></i><span style="font-size:0.7rem;">夜间</span>'
+                    : '<i class="fas fa-book-open"></i><span style="font-size:0.7rem;">阅读</span>';
+                readingModeToggle.setAttribute('aria-label', isReading ? '退出阅读模式' : '进入阅读模式');
+                readingModeToggle.style.background = isReading
+                    ? 'rgba(99,102,241,0.2)'
+                    : '';
+                readingModeToggle.style.borderColor = isReading
+                    ? 'rgba(99,102,241,0.4)'
+                    : '';
+                localStorage.setItem('readingMode', isReading ? 'on' : 'off');
+            });
+            if (localStorage.getItem('readingMode') === 'on') {
+                document.body.classList.add('reading-mode');
+                readingModeToggle.innerHTML = '<i class="fas fa-moon"></i><span style="font-size:0.7rem;">夜间</span>';
+                readingModeToggle.style.background = 'rgba(99,102,241,0.2)';
+                readingModeToggle.style.borderColor = 'rgba(99,102,241,0.4)';
             }
         }
 
