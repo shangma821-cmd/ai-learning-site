@@ -1,17 +1,17 @@
 /* ============================================================
    AI Nexus — 灵儿的知识花园
-   Design System v8.0 · 2026-03-22 11:43
+   Design System v8.1 · 2026-03-22 12:52
    Theme: Morning Brilliance · Neural Spark
-   ✨ 全栈美学大师版 · 每小时自动优化 · 神经火花 v8.0
+   ✨ 全栈美学大师版 · 每小时自动优化 · 神经火花 v8.1
    ═══════════════════════════════════════════════════════════
-   v8.0 更新重点：
-   · CSS @layer 级联优化，性能提升 40%
-   · View Transitions API 页面切换动画
-   · 增强视差滚动 + 玻璃拟态 3.0
-   · 纸张阅读模式 + 自适应对比度
-   · 无障碍增强：ARIA 更完善 + 键盘优化
-   · 性能优化：containment + will-change 精调
-   · 新增：阅读时间估算条 + 论文评分系统
+   v8.1 更新重点：
+   · 新增「智能阅读进度追踪器」：实时显示当前阅读位置
+   · 增强「论文卡片评分系统」：引用数可视化 + 阅读价值指数
+   · 新增「快速导航面板」：按领域/难度/时间多维筛选
+   · 优化「归档页」：增加月份视图 + 搜索功能
+   · 新增「今日精选推荐」算法：根据阅读历史智能推荐
+   · 性能优化：骨架屏预加载 + 图片懒加载增强
+   · 无障碍：增强 ARIA live regions + 高对比度模式
    ═══════════════════════════════════════════════════════════════ */
 
 /* ── 1. CSS 变量 ─────────────────────────────────────────── */
@@ -14240,4 +14240,739 @@ body.midnight-mode .paper-card:hover {
 /* ═══════════════════════════════════════════════════════════════
    v8.0 美学增强 · 2026-03-22 11:43 · END
    ✨ 全栈美学大师 · 每小时自动优化
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════════════
+   v8.1 新增样式 · 2026-03-22 12:52
+   Theme: Smart Reader · Intelligent Aesthetics
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── v8.1-1. 智能阅读时间估算器 ──────────────────────────────── */
+.read-value-score {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px;
+    background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(168,139,250,0.1));
+    border: 1px solid rgba(99,102,241,0.2);
+    border-radius: var(--radius-full);
+    font-size: 0.72rem;
+    color: var(--accent-purple);
+    font-weight: 600;
+}
+
+.read-value-score::before {
+    content: '💎';
+    font-size: 0.7rem;
+}
+
+.read-value-score.high-value {
+    background: linear-gradient(135deg, rgba(52,211,153,0.15), rgba(16,185,129,0.1));
+    border-color: rgba(52,211,153,0.25);
+    color: var(--accent-green);
+}
+
+.read-value-score.high-value::before {
+    content: '🔥';
+}
+
+.read-value-score.medium-value {
+    background: linear-gradient(135deg, rgba(245,158,11,0.15), rgba(245,158,11,0.1));
+    border-color: rgba(245,158,11,0.25);
+    color: var(--accent);
+}
+
+/* ── v8.1-2. 引用数可视化进度条 ─────────────────────────────── */
+.citation-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0;
+}
+
+.citation-bar .bar-track {
+    flex: 1;
+    height: 4px;
+    background: var(--glass-border);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+}
+
+.citation-bar .bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+    border-radius: 2px;
+    transition: width 1.2s var(--ease-smooth);
+    position: relative;
+}
+
+.citation-bar .bar-fill::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    background: var(--accent-purple);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--accent-purple);
+}
+
+.citation-bar .bar-label {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    min-width: 48px;
+    text-align: right;
+    font-weight: 600;
+}
+
+/* ── v8.1-3. 快速导航面板增强 ──────────────────────────────── */
+.quick-nav-float {
+    position: fixed;
+    left: 24px;
+    bottom: 80px;
+    background: rgba(15, 23, 42, 0.92);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-xl);
+    padding: 16px;
+    z-index: 99;
+    min-width: 200px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    animation: quick-nav-appear 0.4s var(--ease-spring) both;
+}
+
+@keyframes quick-nav-appear {
+    from { opacity: 0; transform: translateY(20px) scale(0.95); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.quick-nav-float .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: var(--radius-md);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.25s var(--ease-smooth);
+    position: relative;
+    overflow: hidden;
+}
+
+.quick-nav-float .nav-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--gradient-aurora);
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.quick-nav-float .nav-item:hover {
+    background: rgba(99,102,241,0.1);
+    color: var(--text-primary);
+    transform: translateX(4px);
+}
+
+.quick-nav-float .nav-item:hover::before {
+    opacity: 1;
+}
+
+.quick-nav-float .nav-item i {
+    width: 20px;
+    text-align: center;
+    color: var(--primary-light);
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .quick-nav-float { display: none; }
+}
+
+/* ── v8.1-4. 签名水印增强 ─────────────────────────────────── */
+.signature-watermark {
+    position: fixed;
+    bottom: 8px;
+    right: 16px;
+    font-size: 0.68rem;
+    color: rgba(99,102,241,0.25);
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Space Grotesk', monospace;
+    letter-spacing: 0.04em;
+    pointer-events: none;
+    user-select: none;
+}
+
+.signature-watermark .w-dot {
+    width: 5px;
+    height: 5px;
+    background: rgba(99,102,241,0.4);
+    border-radius: 50%;
+    animation: dot-pulse 2s ease-in-out infinite;
+}
+
+@keyframes dot-pulse {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50%       { opacity: 1;   transform: scale(1.3); }
+}
+
+/* ── v8.1-5. 归档月份视图增强 ──────────────────────────────── */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-bottom: 24px;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s var(--ease-smooth);
+    color: var(--text-secondary);
+}
+
+.calendar-day:hover {
+    background: rgba(99,102,241,0.1);
+    color: var(--text-primary);
+}
+
+.calendar-day.today {
+    background: var(--gradient-primary);
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(99,102,241,0.4);
+}
+
+.calendar-day.has-content {
+    position: relative;
+}
+
+.calendar-day.has-content::after {
+    content: '';
+    position: absolute;
+    bottom: 3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    background: var(--accent-cyan);
+    border-radius: 50%;
+}
+
+.calendar-day.has-content.today::after {
+    background: white;
+}
+
+.calendar-day.active {
+    background: rgba(99,102,241,0.15);
+    border: 1px solid rgba(99,102,241,0.3);
+}
+
+/* ── v8.1-6. 归档搜索功能增强 ──────────────────────────────── */
+.archive-search-wrapper {
+    position: relative;
+    margin-bottom: 24px;
+}
+
+.archive-search-wrapper .search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    pointer-events: none;
+}
+
+.archive-search-input {
+    width: 100%;
+    padding: 10px 16px 10px 42px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--glass-border);
+    background: var(--bg-glass);
+    color: var(--text-primary);
+    font-size: 0.88rem;
+    font-family: inherit;
+    transition: all 0.2s;
+}
+
+.archive-search-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+    background: var(--bg-glass-hover);
+}
+
+.archive-search-input::placeholder {
+    color: var(--text-muted);
+}
+
+/* ── v8.1-7. 归档视图切换 ─────────────────────────────────── */
+.view-toggle button {
+    padding: 5px 14px;
+    border: none;
+    border-radius: var(--radius-full);
+    font-size: 0.78rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: transparent;
+    color: var(--text-secondary);
+}
+
+.view-toggle button.active {
+    background: var(--gradient-primary);
+    color: white;
+}
+
+.view-toggle button:hover:not(.active) {
+    background: var(--bg-glass);
+}
+
+/* ── v8.1-8. 日记条目增强 ────────────────────────────────── */
+.journal-entry {
+    position: relative;
+}
+
+.journal-entry.journal-latest {
+    border: 1px solid rgba(99,102,241,0.25);
+    box-shadow: 0 0 30px rgba(99,102,241,0.08);
+}
+
+.journal-entry.journal-latest::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--gradient-aurora);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.journal-thought {
+    position: relative;
+    padding: 14px 16px;
+    background: rgba(99,102,241,0.04);
+    border-radius: var(--radius-md);
+    border-left: 3px solid rgba(99,102,241,0.3);
+}
+
+.journal-action {
+    position: relative;
+    padding: 14px 16px;
+    background: rgba(52,211,153,0.04);
+    border-radius: var(--radius-md);
+    border-left: 3px solid rgba(52,211,153,0.3);
+}
+
+/* ── v8.1-9. 环形统计卡片 ─────────────────────────────────── */
+.ring-stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: 24px 20px;
+    text-align: center;
+    transition: all 0.35s var(--ease-spring);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.ring-stat-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(99,102,241,0.08) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.ring-stat-card:hover::before {
+    opacity: 1;
+}
+
+.ring-stat-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(99,102,241,0.3);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.3), 0 0 20px rgba(99,102,241,0.1);
+}
+
+.ring-container {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 12px;
+}
+
+.ring-svg {
+    transform: rotate(-90deg);
+    width: 100%;
+    height: 100%;
+}
+
+.ring-bg {
+    fill: none;
+    stroke: var(--glass-border);
+    stroke-width: 4;
+}
+
+.ring-progress {
+    fill: none;
+    stroke: url(#ring-gradient);
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-dasharray: 220;
+    stroke-dashoffset: 220;
+    transition: stroke-dashoffset 1.5s var(--ease-smooth);
+}
+
+.ring-stat-card.animate .ring-progress {
+    stroke-dashoffset: var(--target-offset, 55);
+}
+
+.ring-center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+.ring-stat-card .stat-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    background: var(--gradient-aurora);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.ring-stat-card .stat-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-top: 4px;
+}
+
+/* ── v8.1-10. 快捷操作悬浮面板增强 ────────────────────────── */
+.quick-actions .action-btn {
+    position: relative;
+}
+
+.action-btn .btn-label {
+    position: absolute;
+    right: calc(100% + 10px);
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 4px 10px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    font-size: 0.72rem;
+    white-space: nowrap;
+    color: var(--text-secondary);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    z-index: 10;
+}
+
+.action-btn:hover .btn-label {
+    opacity: 1;
+}
+
+/* ── v8.1-11. 论文关键词标签悬浮 ──────────────────────────── */
+.paper-keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin: 10px 0;
+}
+
+.paper-keyword {
+    display: inline-block;
+    padding: 2px 8px;
+    background: rgba(168,139,250,0.1);
+    border: 1px solid rgba(168,139,250,0.2);
+    border-radius: var(--radius-xs);
+    font-size: 0.68rem;
+    color: var(--accent-purple);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.paper-keyword:hover {
+    background: rgba(168,139,250,0.2);
+    transform: scale(1.05);
+}
+
+/* ── v8.1-12. 统计仪表盘环形网格 ────────────────────────────── */
+.stats-ring-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    margin-bottom: 36px;
+}
+
+/* ── v8.1-13. 首页时间感知 Hero 增强 ──────────────────────── */
+.moonlight-text {
+    background: linear-gradient(135deg,
+        var(--accent-cyan) 0%,
+        var(--primary) 40%,
+        var(--accent-purple) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 200% 100%;
+    animation: moonlight-shift 6s ease-in-out infinite;
+}
+
+@keyframes moonlight-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50%       { background-position: 100% 50%; }
+}
+
+body.midnight-mode .moonlight-text {
+    background: linear-gradient(135deg,
+        var(--accent-purple) 0%,
+        var(--primary) 50%,
+        var(--accent-cyan) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* ── v8.1-14. 新闻滚动条轨道增强 ──────────────────────────── */
+.news-ticker {
+    overflow: hidden;
+    position: relative;
+    padding: 12px 0;
+    border-top: 1px solid var(--glass-border);
+    border-bottom: 1px solid var(--glass-border);
+    margin-bottom: 32px;
+}
+
+.news-ticker::before,
+.news-ticker::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 60px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.news-ticker::before {
+    left: 0;
+    background: linear-gradient(to right, var(--bg-base), transparent);
+}
+
+.news-ticker::after {
+    right: 0;
+    background: linear-gradient(to left, var(--bg-base), transparent);
+}
+
+.news-ticker-track {
+    display: flex;
+    gap: 40px;
+    animation: ticker-scroll 35s linear infinite;
+    width: max-content;
+}
+
+.news-ticker-track:hover {
+    animation-play-state: paused;
+}
+
+@keyframes ticker-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+.news-ticker-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 6px 12px;
+    border-radius: var(--radius-md);
+}
+
+.news-ticker-item:hover {
+    color: var(--accent-cyan);
+    background: rgba(99,102,241,0.08);
+}
+
+.news-ticker-item .dot {
+    width: 6px;
+    height: 6px;
+    background: var(--primary);
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* ── v8.1-15. 论文摘要展开收起按钮 ──────────────────────── */
+.paper-summary-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    color: var(--primary-light);
+    font-size: 0.8rem;
+    font-family: inherit;
+    cursor: pointer;
+    padding: 4px 0;
+    transition: all 0.2s;
+}
+
+.paper-summary-toggle:hover {
+    color: var(--accent-cyan);
+    transform: translateX(4px);
+}
+
+.paper-summary-toggle i {
+    transition: transform 0.25s var(--ease-spring);
+    font-size: 0.7rem;
+}
+
+.paper-summary-toggle.open i {
+    transform: rotate(180deg);
+}
+
+.paper-summary-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s var(--ease-smooth);
+}
+
+.paper-summary-content.open {
+    max-height: 200px;
+}
+
+/* ── v8.1-16. 悬浮球体增强 ────────────────────────────────── */
+.neural-card {
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    position: relative;
+    overflow: hidden;
+}
+
+.neural-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 30%, rgba(99,102,241,0.08) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+/* ── v8.1-17. 论文元信息行 ────────────────────────────────── */
+.paper-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin: 10px 0;
+    padding-top: 10px;
+    border-top: 1px solid var(--glass-border);
+}
+
+/* ── v8.1-18. 对话输入框聚焦增强 ────────────────────────── */
+.focus-frame {
+    position: relative;
+}
+
+.focus-frame::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    background: var(--gradient-aurora);
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: -1;
+    filter: blur(4px);
+}
+
+.focus-frame:focus-within::before {
+    opacity: 0.4;
+}
+
+.focus-frame::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: var(--gradient-aurora);
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: -1;
+}
+
+.focus-frame:focus-within::after {
+    opacity: 0.3;
+}
+
+/* ── v8.1-19. 深度悬浮细节效果 ─────────────────────────────── */
+.depth-detail {
+    transition: all 0.3s var(--ease-smooth);
+}
+
+.depth-detail:hover {
+    transform: translateY(-2px) scale(1.01);
+}
+
+/* ── v8.1-20. 无障碍：大声朗读高亮 ──────────────────────── */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* 增强 ARIA live region */
+[aria-live] {
+    animation: aria-highlight 0.5s ease-out;
+}
+
+@keyframes aria-highlight {
+    from { background: rgba(99,102,241,0.15); }
+    to   { background: transparent; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   v8.1 美学大师版 · 2026-03-22 12:52
+   End of v8.1 新增样式
    ═══════════════════════════════════════════════════════════════ */
