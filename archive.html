@@ -13,11 +13,12 @@
 <body>
 
     <!-- 动态背景 -->
-    <div class="ambient-bg">
+    <div class="ambient-bg fluid-gradient dawn-gradient">
         <div class="gradient-orb orb-1"></div>
         <div class="gradient-orb orb-2"></div>
         <div class="gradient-orb orb-3"></div>
         <div class="grid-overlay"></div>
+        <div class="dots-grid"></div>
     </div>
 
     <!-- 跳过导航 -->
@@ -60,8 +61,54 @@
 
     <main class="container" id="main-content">
         <div class="page-header">
+            <div class="hero-badge">
+                <span class="pulse-dot"></span>
+                每日归档 · 知识沉淀
+            </div>
             <h1><span class="animated-gradient-text">内容归档</span></h1>
             <p>过往每日更新的内容存档</p>
+            <!-- 学习统计 -->
+            <div class="stats-ring-grid" id="stats-dashboard">
+                <div class="ring-stat-card" data-target="papers">
+                    <div class="ring-container">
+                        <svg class="ring-svg" viewBox="0 0 80 80">
+                            <defs>
+                                <linearGradient id="ring-grad-1" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#22d3ee"/>
+                                    <stop offset="100%" stop-color="#6366f1"/>
+                                </linearGradient>
+                            </defs>
+                            <circle class="ring-bg" cx="40" cy="40" r="35"/>
+                            <circle class="ring-progress" cx="40" cy="40" r="35" style="stroke-dashoffset: 55;"/>
+                        </svg>
+                        <div class="ring-center"><i class="fas fa-book" style="color:var(--primary-light);"></i></div>
+                    </div>
+                    <div class="stat-value" id="total-papers" style="font-size:1.5rem;">0</div>
+                    <div class="stat-label">论文阅读</div>
+                </div>
+                <div class="ring-stat-card" data-target="streak">
+                    <div class="ring-container">
+                        <svg class="ring-svg" viewBox="0 0 80 80">
+                            <circle class="ring-bg" cx="40" cy="40" r="35"/>
+                            <circle class="ring-progress" cx="40" cy="40" r="35" style="stroke-dashoffset: 88;"/>
+                        </svg>
+                        <div class="ring-center"><i class="fas fa-fire" style="color:#f59e0b;"></i></div>
+                    </div>
+                    <div class="stat-value" id="streak-days" style="font-size:1.5rem;">3</div>
+                    <div class="stat-label">连续学习</div>
+                </div>
+                <div class="ring-stat-card" data-target="insights">
+                    <div class="ring-container">
+                        <svg class="ring-svg" viewBox="0 0 80 80">
+                            <circle class="ring-bg" cx="40" cy="40" r="35"/>
+                            <circle class="ring-progress" cx="40" cy="40" r="35" style="stroke-dashoffset: 33;"/>
+                        </svg>
+                        <div class="ring-center"><i class="fas fa-lightbulb" style="color:#a78bfa;"></i></div>
+                    </div>
+                    <div class="stat-value" id="total-insights" style="font-size:1.5rem;">42</div>
+                    <div class="stat-label">获得洞见</div>
+                </div>
+            </div>
         </div>
 
         <section class="archive-section">
@@ -226,6 +273,33 @@
                 wm.className = 'signature-watermark';
                 wm.innerHTML = `<span class="w-dot"></span> AI Nexus · QClaw ${new Date().getFullYear()} · v6.9`;
                 document.body.appendChild(wm);
+            })();
+
+            // 归档页环形进度动画
+            (function initRingStats() {
+                const rings = document.querySelectorAll('.ring-stat-card');
+                const obs = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            rings.forEach(ring => {
+                                ring.classList.add('animate');
+                                const val = ring.querySelector('.stat-value');
+                                const target = parseInt(val.textContent);
+                                if (!isNaN(target) && target > 0) {
+                                    let current = 0; const step = target / 40;
+                                    const timer = setInterval(() => {
+                                        current += step;
+                                        if (current >= target) { val.textContent = target; clearInterval(timer); }
+                                        else val.textContent = Math.floor(current);
+                                    }, 30);
+                                }
+                            });
+                            obs.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.3 });
+                const dash = document.getElementById('stats-dashboard');
+                if (dash) obs.observe(dash);
             })();
 
             // 数字计数动画

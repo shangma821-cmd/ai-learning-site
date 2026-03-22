@@ -1,8 +1,8 @@
 /* ============================================================
    AI Nexus — 灵儿的知识花园
-   Design System v7.3 · 2026-03-22 08:11
+   Design System v7.5 · 2026-03-22 10:31
    Theme: Morning Brilliance · Neural Spark
-   ✨ 全栈美学大师版 · 每小时自动优化 · 神经火花
+   ✨ 全栈美学大师版 · 每小时自动优化 · 神经火花 v7.5
    ============================================================ */
 
 /* ── 1. CSS 变量 ─────────────────────────────────────────── */
@@ -4276,6 +4276,99 @@ body:not(.light-theme) .star-bg {
   animation: fluid-bg-shift 15s ease-in-out infinite;
 }
 
+/* ── Dawn 渐变主题（晨曦）──────────────────────────── */
+.dawn-gradient {
+  background: 
+    radial-gradient(ellipse at 15% 10%, rgba(251,191,36,0.08) 0%, transparent 45%),
+    radial-gradient(ellipse at 85% 85%, rgba(99,102,241,0.1) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 50%, rgba(168,139,250,0.05) 0%, transparent 55%),
+    radial-gradient(ellipse at 30% 70%, rgba(34,211,238,0.06) 0%, transparent 40%),
+    var(--bg-base);
+  background-attachment: fixed;
+}
+
+/* ── 新版工具栏（papers-toolbar-new）─────────────── */
+.papers-toolbar-new {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.papers-toolbar-new .filter-chips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.papers-toolbar-new .search-wrapper {
+  position: relative;
+  flex: 1;
+  min-width: 200px;
+}
+
+.papers-toolbar-new .search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  pointer-events: none;
+}
+
+.papers-toolbar-new .filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 500;
+  background: var(--bg-glass);
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s var(--ease-smooth);
+}
+
+.papers-toolbar-new .filter-chip:hover,
+.papers-toolbar-new .filter-chip.active {
+  background: var(--gradient-primary);
+  border-color: transparent;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(99,102,241,0.3);
+}
+
+.papers-toolbar-new .filter-chip .category-stat-badge {
+  display: inline-flex;
+  align-items: center;
+}
+
+.papers-toolbar-new .filter-chip .pulse-dot {
+  width: 6px;
+  height: 6px;
+  background: currentColor;
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+@media (max-width: 640px) {
+  .papers-toolbar-new {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .papers-toolbar-new .filter-chips {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+  .papers-toolbar-new .filter-chips::-webkit-scrollbar { display: none; }
+}
+
 @keyframes fluid-bg-shift {
   0%, 100% { 
     background-position: 0% 0%, 100% 100%, 50% 50%;
@@ -5485,13 +5578,786 @@ body.light-theme .glass-btn {
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   AI Nexus — 灵儿的知识花园
+   Design System v7.5 · 2026-03-22 10:31
+   Theme: Morning Brilliance · Neural Spark
+   ✨ 全栈美学大师版 · 每小时自动优化 · 神经火花 v7.5
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── v7.5 新增 ─────────────────────────────────────────────── */
+
+/* 275. @starting-style 入口动画（现代浏览器支持）─────────────── */
+@supports (transition-behavior: allow-discrete) {
+    .paper-card {
+        transition: transform 0.3s var(--ease-spring),
+                    box-shadow 0.3s var(--ease-spring),
+                    opacity 0.4s ease,
+                    @starting-style { opacity: 0; }
+    }
+    
+    .news-card, .babel-card, .archive-card, .stat-card {
+        transition: transform 0.35s var(--ease-spring),
+                    box-shadow 0.35s var(--ease-spring),
+                    opacity 0.4s ease,
+                    @starting-style { opacity: 0; }
+    }
+}
+
+/* 276. 视差滚动实验（Scroll-Driven Animations API）────────────── */
+@supports (animation-timeline: scroll()) {
+    .hero-section .floating-sphere {
+        animation: sphere-parallax linear both;
+        animation-timeline: scroll();
+    }
+    
+    @keyframes sphere-parallax {
+        from { transform: translateY(0); }
+        to   { transform: translateY(40px); }
+    }
+    
+    /* 视差背景 orb */
+    .gradient-orb {
+        animation: orb-parallax linear both;
+        animation-timeline: scroll();
+        animation-range: 0 300px;
+    }
+    
+    @keyframes orb-parallax {
+        from { transform: translateY(0) scale(1); }
+        to   { transform: translateY(-60px) scale(1.05); }
+    }
+}
+
+/* 277. field-sizing 动态高度适应 ─────────────────────────────── */
+@supports (field-sizing: content) {
+    .paper-card .summary,
+    .paper-card .paper-summary {
+        field-sizing: content;
+    }
+}
+
+/* 278. 星座粒子背景 ─────────────────────────────────────────── */
+.constellation-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.constellation-star {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: 0 0 3px rgba(255, 255, 255, 0.5);
+    animation: star-twinkle-c 4s ease-in-out infinite;
+}
+
+@keyframes star-twinkle-c {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50%       { opacity: 0.9; transform: scale(1.2); }
+}
+
+.constellation-line {
+    position: absolute;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(99,102,241,0.15), transparent);
+    transform-origin: left center;
+    pointer-events: none;
+}
+
+/* 279. 晨光渐变主题（时间感知）──────────────────────────────── */
+body.time-morning .ambient-bg {
+    background: 
+        radial-gradient(ellipse at 20% 0%, rgba(251,191,36,0.12) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 100%, rgba(99,102,241,0.08) 0%, transparent 50%),
+        var(--bg-base);
+    animation: morning-shift 15s ease-in-out infinite;
+}
+
+body.time-afternoon .ambient-bg {
+    background: 
+        radial-gradient(ellipse at 60% 0%, rgba(251,146,60,0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 20% 100%, rgba(168,85,247,0.08) 0%, transparent 50%),
+        var(--bg-base);
+}
+
+body.time-evening .ambient-bg {
+    background: 
+        radial-gradient(ellipse at 30% 30%, rgba(99,102,241,0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 70%, rgba(168,85,247,0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(56,189,248,0.08) 0%, transparent 50%),
+        var(--bg-base);
+}
+
+@keyframes morning-shift {
+    0%, 100% { background-position: 0% 0%, 100% 100%; }
+    33%       { background-position: 30% 10%, 70% 90%; }
+    66%       { background-position: 10% 30%, 90% 70%; }
+}
+
+/* 280. 深度阴影系统 ─────────────────────────────────────────── */
+.shadow-depth-1 { box-shadow: 0 2px 8px rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.05); }
+.shadow-depth-2 { box-shadow: 0 4px 16px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.08); }
+.shadow-depth-3 { box-shadow: 0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px rgba(0,0,0,0.1); }
+.shadow-depth-4 { box-shadow: 0 16px 48px rgba(0,0,0,0.35), 0 0 0 1px rgba(0,0,0,0.12), 0 0 40px rgba(99,102,241,0.08); }
+
+/* 281. CSS contain 性能优化 ──────────────────────────────────── */
+.paper-card { contain: layout style paint; }
+.news-item  { contain: layout style paint; }
+.stat-card  { contain: layout style; }
+.babel-card { contain: layout style paint; }
+.archive-card { contain: layout style paint; }
+.section    { contain: layout style; }
+
+/* 282. 卡片选中态 ──────────────────────────────────────────── */
+.paper-card.selected,
+.news-card.selected,
+.archive-card.selected {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 2px rgba(99,102,241,0.3), var(--shadow-lg) !important;
+    transform: scale(1.01) translateY(-4px);
+}
+
+.paper-card.selected::before {
+    opacity: 1 !important;
+}
+
+/* 283. 论文标签胶囊悬停展开 ─────────────────────────────────── */
+.paper-tag-expand {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 10px;
+    border-radius: var(--radius-full);
+    font-size: 0.72rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s var(--ease-spring);
+    position: relative;
+    overflow: hidden;
+}
+
+.paper-tag-expand::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.1);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s var(--ease-spring);
+}
+
+.paper-tag-expand:hover::before {
+    transform: scaleX(1);
+}
+
+.paper-tag-expand:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 4px 12px rgba(99,102,241,0.3);
+}
+
+/* 284. 快捷键提示覆盖层 ─────────────────────────────────────── */
+.shortcuts-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(8,12,20,0.9);
+    backdrop-filter: blur(20px);
+    z-index: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+.shortcuts-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.shortcuts-panel {
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: 32px;
+    max-width: 520px;
+    width: 90%;
+    backdrop-filter: blur(20px);
+    animation: shortcuts-in 0.3s var(--ease-spring);
+}
+
+@keyframes shortcuts-in {
+    from { opacity: 0; transform: scale(0.95) translateY(10px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.shortcut-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.shortcut-row:last-child { border-bottom: none; }
+
+.shortcut-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.shortcut-keys {
+    display: flex;
+    gap: 4px;
+}
+
+.kbd {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    height: 28px;
+    padding: 0 8px;
+    font-family: 'Space Grotesk', monospace;
+    font-size: 0.78rem;
+    font-weight: 600;
+    background: var(--bg-glass);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    box-shadow: 0 2px 0 rgba(0,0,0,0.2);
+}
+
+/* 285. 论文阅读时间进度条增强 ─────────────────────────────── */
+.paper-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 8px 0;
+}
+
+.read-time-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 120px;
+}
+
+.read-time-bar .bar-track {
+    flex: 1;
+    height: 3px;
+    background: var(--glass-border);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.read-time-bar .bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+    border-radius: 2px;
+    width: 0%;
+    transition: width 1.2s var(--ease-smooth);
+}
+
+.read-time-bar.in-view .bar-fill {
+    width: var(--bar-percent, 60%);
+}
+
+.read-time-bar .time-label {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    min-width: 50px;
+    text-align: right;
+    white-space: nowrap;
+}
+
+/* 286. 悬浮粒子效果（鼠标追踪）────────────────────────────── */
+.mouse-particle {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    background: radial-gradient(circle, var(--primary-light), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+body:has(.mouse-particle) .mouse-particle {
+    opacity: 1;
+}
+
+/* 287. 动态边框颜色 ─────────────────────────────────────────── */
+.border-dynamic {
+    position: relative;
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    transition: border-color 0.3s;
+}
+
+.border-dynamic::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, 
+        var(--accent-cyan), 
+        var(--accent-purple), 
+        var(--accent-pink), 
+        var(--accent-cyan));
+    background-size: 400% 400%;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.4s;
+    animation: border-dynamic-flow 4s ease infinite;
+}
+
+.border-dynamic:hover::before {
+    opacity: 1;
+}
+
+@keyframes border-dynamic-flow {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 288. 可访问性：减少透明背景 ────────────────────────────── */
+@media (prefers-reduced-transparency: reduce) {
+    .glass-card-enhanced {
+        background: rgba(15,23,42,0.95) !important;
+        backdrop-filter: none !important;
+    }
+    
+    .glass-nav {
+        background: rgba(8,12,20,0.98) !important;
+        backdrop-filter: none !important;
+    }
+    
+    .ambient-bg .grid-overlay,
+    .dots-grid {
+        opacity: 0.05 !important;
+    }
+}
+
+/* 289. 悬停浮现操作按钮组 ───────────────────────────────── */
+.card-floating-actions {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    display: flex;
+    gap: 6px;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all 0.3s var(--ease-spring);
+    z-index: 2;
+}
+
+.paper-card:hover .card-floating-actions,
+.archive-card:hover .card-floating-actions {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.card-floating-actions .float-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-glass-hover);
+    border: 1px solid var(--glass-border);
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.2s;
+    backdrop-filter: blur(8px);
+}
+
+.card-floating-actions .float-btn:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+    transform: scale(1.1);
+}
+
+/* 290. 日记卡片新样式 ─────────────────────────────────────── */
+.journal-entry {
+    position: relative;
+}
+
+.journal-entry-header {
+    position: relative;
+}
+
+.journal-entry-header::after {
+    content: '';
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    bottom: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
+}
+
+.journal-latest {
+    border-color: rgba(99,102,241,0.3) !important;
+    box-shadow: 0 0 30px rgba(99,102,241,0.1) !important;
+}
+
+.journal-latest::before {
+    content: '✨ 最新';
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    padding: 2px 10px;
+    background: var(--gradient-primary);
+    border-radius: var(--radius-full);
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 0.05em;
+}
+
+/* 291. 悬浮书签角标 ───────────────────────────────────────── */
+.bookmark-corner {
+    position: absolute;
+    top: 0;
+    right: 16px;
+    width: 20px;
+    height: 28px;
+    background: var(--gradient-warm);
+    clip-path: polygon(0 0, 100% 0, 100% 100%);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 4px;
+    font-size: 0.6rem;
+    color: white;
+    transform: translateY(-6px);
+    opacity: 0;
+    transition: all 0.3s var(--ease-spring);
+}
+
+.archive-card:hover .bookmark-corner,
+.paper-card.featured-card .bookmark-corner {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 292. 浮动快捷导航浮窗（右侧）──────────────────────────── */
+.quick-nav-float {
+    position: fixed;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 99;
+    background: rgba(15,23,42,0.9);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    box-shadow: var(--shadow-lg);
+}
+
+.quick-nav-float .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.quick-nav-float .nav-item:hover {
+    background: rgba(99,102,241,0.15);
+    color: var(--text-primary);
+}
+
+.quick-nav-float .nav-item i {
+    width: 16px;
+    color: var(--primary-light);
+    font-size: 0.75rem;
+}
+
+@media (max-width: 768px) {
+    .quick-nav-float { display: none; }
+}
+
+/* 293. 签名水印 ─────────────────────────────────────────── */
+.signature-watermark {
+    position: fixed;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    opacity: 0.3;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.signature-watermark .w-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--primary);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* 294. 环形统计卡片动画 ────────────────────────────────── */
+.ring-stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 24px 20px;
+    text-align: center;
+    transition: all 0.3s var(--ease-spring);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+}
+
+.ring-stat-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(99,102,241,0.3);
+    box-shadow: var(--shadow-lg), 0 0 30px rgba(99,102,241,0.1);
+}
+
+.ring-container {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 12px;
+}
+
+.ring-svg {
+    width: 80px;
+    height: 80px;
+    transform: rotate(-90deg);
+}
+
+.ring-bg {
+    fill: none;
+    stroke: var(--glass-border);
+    stroke-width: 6;
+}
+
+.ring-progress {
+    fill: none;
+    stroke: url(#ring-grad-1);
+    stroke-width: 6;
+    stroke-linecap: round;
+    stroke-dasharray: 220;
+    stroke-dashoffset: 220;
+    transition: stroke-dashoffset 1.5s var(--ease-smooth);
+}
+
+.ring-center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.stats-ring-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+@media (max-width: 768px) {
+    .stats-ring-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+}
+
+/* 295. 论文摘要展开按钮 ─────────────────────────────────── */
+.paper-summary-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-full);
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 8px;
+}
+
+.paper-summary-toggle:hover {
+    background: rgba(99,102,241,0.1);
+    border-color: rgba(99,102,241,0.3);
+    color: var(--primary-light);
+}
+
+.paper-summary-toggle.open {
+    background: rgba(99,102,241,0.1);
+    border-color: rgba(99,102,241,0.3);
+    color: var(--primary-light);
+}
+
+.paper-summary-toggle i {
+    font-size: 0.65rem;
+    transition: transform 0.3s;
+}
+
+.paper-summary-toggle.open i {
+    transform: rotate(180deg);
+}
+
+.paper-summary-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s var(--ease-smooth);
+}
+
+.paper-summary-content.open {
+    max-height: 200px;
+}
+
+/* 296. 归档日历视图 ─────────────────────────────────────── */
+.history-calendar {
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.calendar-day:hover {
+    background: var(--bg-glass-hover);
+}
+
+.calendar-day.today {
+    background: var(--gradient-primary);
+    color: white;
+    font-weight: 600;
+}
+
+.calendar-day.has-content {
+    color: var(--accent-cyan);
+    font-weight: 600;
+}
+
+.calendar-day.has-content::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--accent-cyan);
+}
+
+/* 297. 论文筛选动画 ─────────────────────────────────────── */
+@keyframes paper-filter-in {
+    from { opacity: 0; transform: scale(0.95) translateY(8px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* 298. 顶部光效条 ───────────────────────────────────────── */
+.paper-card .top-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        var(--accent-cyan) 0%, 
+        var(--accent-purple) 50%, 
+        var(--accent-pink) 100%);
+    background-size: 200% 100%;
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: opacity 0.3s, transform 0.5s var(--ease-smooth);
+}
+
+.paper-card:hover .top-bar {
+    opacity: 1;
+    transform: scaleX(1);
+}
+
+/* 299. 深夜极光增强（v6.10）───────────────────────────── */
+@keyframes aurora-beam {
+    0%, 100% { transform: translateY(0) scale(1); opacity: 0.6; }
+    33% { transform: translateY(-30px) scale(1.1); opacity: 1; }
+    66% { transform: translateY(20px) scale(0.95); opacity: 0.7; }
+}
+
+/* 300. 深度聚焦卡片效果 ─────────────────────────────────── */
+.focus-card {
+    transition: all 0.4s var(--ease-spring);
+}
+
+.focus-card:focus-within {
+    transform: scale(1.01);
+    box-shadow: 
+        0 0 0 2px var(--primary),
+        0 16px 40px rgba(99,102,241,0.2);
+    z-index: 5;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   End of v7.5 新增样式 - 2026-03-22 10:31
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════════════
    End of v6.7 新增样式 - 2026-03-21 14:48
    ═══════════════════════════════════════════════════════════════ */
 
 /* ═══════════════════════════════════════════════════════════════
-   v6.8 美学大师版 · 2026-03-21 18:18
-   Theme: Neural Glass · Aurora Gradients · Micro-interactions
-   ✨ 每小时美学优化 - 新增动态光效、交互增强与性能优化
+   AI Nexus — 灵儿的知识花园
+   Design System v7.4 · 2026-03-22 09:21
+   Theme: Morning Brilliance · Neural Spark
+   ✨ 全栈美学大师版 · 每小时自动优化 · 神经火花
    ═══════════════════════════════════════════════════════════════ */
 
 /* ── 261. 动态光束效果 ─────────────────────────────────────── */

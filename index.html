@@ -1031,6 +1031,208 @@
                 }
             });
         })();
+
+        // ── v7.5 新增：星座粒子背景 ───────────────────────────
+        (function initConstellation() {
+            if (window.innerWidth < 768) return;
+            const bg = document.querySelector('.ambient-bg');
+            if (!bg) return;
+            
+            const starCount = window.innerWidth < 1024 ? 20 : 40;
+            const frag = document.createDocumentFragment();
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'constellation-star';
+                const size = 1 + Math.random() * 2;
+                star.style.cssText = `
+                    left: ${Math.random() * 100}%;
+                    top: ${Math.random() * 100}%;
+                    width: ${size}px;
+                    height: ${size}px;
+                    animation-delay: ${Math.random() * 4}s;
+                    animation-duration: ${3 + Math.random() * 4}s;
+                `;
+                frag.appendChild(star);
+            }
+            
+            // 随机连线
+            for (let i = 0; i < 8; i++) {
+                const line = document.createElement('div');
+                line.className = 'constellation-line';
+                const x = 10 + Math.random() * 80;
+                const y = 10 + Math.random() * 80;
+                const w = 40 + Math.random() * 60;
+                const angle = -30 + Math.random() * 60;
+                line.style.cssText = `
+                    left: ${x}%;
+                    top: ${y}%;
+                    width: ${w}px;
+                    transform: rotate(${angle}deg);
+                    opacity: ${0.1 + Math.random() * 0.15};
+                `;
+                frag.appendChild(line);
+            }
+            
+            bg.appendChild(frag);
+        })();
+
+        // ── v7.5 新增：时间感知主题 ───────────────────────────
+        (function initTimeTheme() {
+            const hour = new Date().getHours();
+            const body = document.body;
+            body.classList.remove('time-morning', 'time-afternoon', 'time-evening', 'midnight-mode');
+            if (hour >= 6 && hour < 12) {
+                body.classList.add('time-morning');
+            } else if (hour >= 12 && hour < 18) {
+                body.classList.add('time-afternoon');
+            } else if (hour >= 18 && hour < 23) {
+                body.classList.add('time-evening');
+            } else {
+                body.classList.add('midnight-mode', 'time-evening');
+            }
+        })();
+
+        // ── v7.5 新增：悬浮粒子鼠标追踪 ──────────────────────
+        (function initMouseParticles() {
+            if (window.innerWidth < 768) return;
+            const canvas = document.createElement('canvas');
+            canvas.style.cssText = `
+                position: fixed; inset: 0;
+                pointer-events: none;
+                z-index: 1;
+                opacity: 0.4;
+            `;
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            document.querySelector('.ambient-bg')?.appendChild(canvas);
+            
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let mouseX = -1000, mouseY = -1000;
+            let trail = [];
+            
+            document.addEventListener('mousemove', e => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+            
+            document.addEventListener('mouseleave', () => {
+                mouseX = -1000;
+                mouseY = -1000;
+            });
+            
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+            
+            // 拖尾粒子
+            for (let i = 0; i < 15; i++) {
+                trail.push({
+                    x: mouseX, y: mouseY,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    life: 0,
+                    maxLife: 30 + Math.random() * 20,
+                    size: 2 + Math.random() * 3
+                });
+            }
+            
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // 鼠标拖尾
+                if (mouseX > 0) {
+                    trail.forEach(p => {
+                        if (p.life > 0) {
+                            const alpha = (1 - p.life / p.maxLife) * 0.6;
+                            ctx.beginPath();
+                            ctx.arc(p.x, p.y, p.size * (1 - p.life / p.maxLife), 0, Math.PI * 2);
+                            ctx.fillStyle = `rgba(99,102,241,${alpha})`;
+                            ctx.fill();
+                            p.x += p.vx;
+                            p.y += p.vy;
+                            p.life++;
+                        } else {
+                            p.x += (mouseX - p.x) * 0.15;
+                            p.y += (mouseY - p.y) * 0.15;
+                            if (Math.abs(mouseX - p.x) < 2 && Math.abs(mouseY - p.y) < 2) {
+                                p.life = 1;
+                            }
+                        }
+                    });
+                }
+                
+                requestAnimationFrame(animate);
+            }
+            animate();
+        })();
+
+        // ── v7.5 新增：快捷键提示面板 ────────────────────────
+        (function initShortcuts() {
+            // 按 ? 显示快捷键面板
+            document.addEventListener('keydown', e => {
+                if (e.key === '?' && !e.target.matches('input, textarea')) {
+                    const panel = document.querySelector('.shortcuts-overlay') || (() => {
+                        const overlay = document.createElement('div');
+                        overlay.className = 'shortcuts-overlay';
+                        overlay.innerHTML = `
+                            <div class="shortcuts-panel">
+                                <h3 style="font-size:1.1rem;font-weight:600;margin-bottom:20px;display:flex;align-items:center;gap:8px;">
+                                    <span>⌨️</span> 键盘快捷键
+                                </h3>
+                                <div class="shortcut-row"><span class="shortcut-label">返回顶部</span><div class="shortcut-keys"><kbd>T</kbd></div></div>
+                                <div class="shortcut-row"><span class="shortcut-label">切换主题</span><div class="shortcut-keys"><kbd>D</kbd></div></div>
+                                <div class="shortcut-row"><span class="shortcut-label">搜索论文</span><div class="shortcut-keys"><kbd>/</kbd></div></div>
+                                <div class="shortcut-row"><span class="shortcut-label">切换视图</span><div class="shortcut-keys"><kbd>V</kbd></div></div>
+                                <div class="shortcut-row"><span class="shortcut-label">关闭</span><div class="shortcut-keys"><kbd>Esc</kbd></div></div>
+                            </div>
+                        `;
+                        overlay.addEventListener('click', () => overlay.classList.remove('active'));
+                        document.body.appendChild(overlay);
+                        return overlay;
+                    })();
+                    panel.classList.toggle('active');
+                }
+                
+                // 快捷键功能
+                if (e.key === 'Escape') {
+                    document.querySelector('.shortcuts-overlay')?.classList.remove('active');
+                }
+                if (e.key === 't' || e.key === 'T') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+                if (e.key === 'd' || e.key === 'D') {
+                    document.getElementById('theme-toggle')?.click();
+                }
+                if (e.key === '/') {
+                    document.getElementById('paper-search-input')?.focus();
+                }
+            });
+        })();
+
+        // ── v7.5 新增：论文卡片深度悬浮效果 ─────────────────
+        (function initDepthCards() {
+            document.querySelectorAll('.paper-card, .news-card').forEach(card => {
+                card.addEventListener('mousemove', e => {
+                    const rect = card.getBoundingClientRect();
+                    const x = (e.clientX - rect.left) / rect.width;
+                    const y = (e.clientY - rect.top) / rect.height;
+                    const rotateX = (y - 0.5) * -8;
+                    const rotateY = (x - 0.5) * 8;
+                    card.style.transform = `
+                        perspective(1000px)
+                        rotateX(${rotateX}deg)
+                        rotateY(${rotateY}deg)
+                        translateZ(8px)
+                    `;
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = '';
+                });
+            });
+        })();
     });
     </script>
 </body>

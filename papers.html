@@ -14,11 +14,12 @@
 <body>
 
     <!-- 动态背景 -->
-    <div class="ambient-bg">
+    <div class="ambient-bg fluid-gradient dawn-gradient">
         <div class="gradient-orb orb-1"></div>
         <div class="gradient-orb orb-2"></div>
         <div class="gradient-orb orb-3"></div>
         <div class="grid-overlay"></div>
+        <div class="dots-grid"></div>
     </div>
 
     <!-- 跳过导航 -->
@@ -61,22 +62,48 @@
 
     <main class="container" id="main-content">
         <div class="page-header">
+            <div class="hero-badge">
+                <span class="pulse-dot"></span>
+                每日更新 · 精选前沿
+            </div>
             <h1><span class="animated-gradient-text">论文精选</span></h1>
             <p>全球顶级会议 / 期刊的最新研究成果</p>
+            <div class="hero-stats-bar">
+                <span><i class="fas fa-book"></i> <span id="paper-total-count">0</span> 篇论文</span>
+                <span><i class="fas fa-layer-group"></i> 3 个领域</span>
+                <span><i class="fas fa-fire"></i> 持续更新中</span>
+            </div>
         </div>
 
-        <section class="papers-section" id="ai">
-            <h2><span class="tag-icon">🤖</span>AI 人工智能</h2>
+        <!-- 搜索与筛选 -->
+        <div class="papers-toolbar-new">
+            <div class="filter-chips" id="paper-filter-chips">
+                <button class="filter-chip active" data-filter="all"><span>全部</span></button>
+                <button class="filter-chip" data-filter="ai">🤖 AI前沿</button>
+                <button class="filter-chip" data-filter="edu">📚 AI教育</button>
+                <button class="filter-chip" data-filter="health">🏥 AI健康</button>
+            </div>
+            <div class="search-wrapper">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input paper-search" placeholder="搜索论文标题或关键词…" id="paper-search-input"/>
+            </div>
+        </div>
+
+        <!-- AI 人工智能 -->
+        <section class="papers-section neural-gradient sustainable-responsive glass-card-enhanced organic-radius" id="ai">
+            <h2 class="adaptive-gradient organic-radius"><i class="fas fa-robot neural-icon"></i> AI 人工智能</h2>
             <div class="papers-list" id="ai-papers"></div>
         </section>
 
+        <!-- AI 教育 -->
         <section class="papers-section" id="edu">
-            <h2><span class="tag-icon">📚</span>AI 教育</h2>
+            <h2><i class="fas fa-graduation-cap" style="color:#f472b6;"></i> AI 教育</h2>
             <div class="papers-list" id="edu-papers"></div>
         </section>
 
+        <!-- AI 健康 -->
         <section class="papers-section" id="health">
-            <h2><span class="tag-icon">🏥</span>AI 健康</h2>
+            <h2><i class="fas fa-heartbeat" style="color:#34d399;"></i> AI 健康</h2>
             <div class="papers-list" id="health-papers"></div>
         </section>
     </main>
@@ -95,24 +122,79 @@
     <script src="scripts/data.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const formatPaper = (p, tagCls, idx) => `
-                <div class="paper-card tilt-card reveal ${idx === 0 ? 'featured-card' : ''}" style="animation-delay:${idx * 0.08}s">
+            // ── 论文卡片渲染 ──
+            const diffLabels = { easy: '简单', medium: '中等', hard: '困难' };
+            const formatPaper = (p, tagCls, idx) => {
+                const isFeatured = idx === 0;
+                const diff = diffLabels[p.difficulty] || '中等';
+                const readTime = p.readTime || '8 分钟';
+                const citations = p.citations || 0;
+                return `
+                <div class="paper-card ${isFeatured ? 'featured-card tilt-card' : 'tilt-card'} reveal" data-category="${tagCls}" data-title="${p.title}" data-summary="${p.summary}" style="animation-delay:${idx * 0.08}s">
+                    <div class="glow-bar"></div>
+                    <div class="hover-progress-bar"></div>
                     ${tagCls ? `<span class="tag ${tagCls}">${tagCls === 'ai' ? '🤖 AI' : tagCls === 'edu' ? '📚 教育' : '🏥 健康'}</span>` : ''}
-                    <h3>${p.title}</h3>
-                    <p class="paper-meta">${p.venue} · ${p.authors}</p>
-                    <p class="paper-summary">${p.summary}</p>
-                    <a href="${p.url}" target="_blank" rel="noopener" class="paper-link magnetic-btn">
-                        阅读原文 <span>→</span>
-                    </a>
+                    ${isFeatured ? '<span class="badge-hot">HOT</span>' : ''}
+                    <h3><a href="${p.url}" target="_blank" rel="noopener">${p.title}</a></h3>
+                    <p class="meta">${p.venue} · ${p.authors}</p>
+                    <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+                        <span class="read-time"><i class="far fa-clock"></i> ${readTime}</span>
+                        <span class="citation-badge">📖 ${citations}</span>
+                        <span class="diff-indicator" data-diff="${p.difficulty || 'medium'}">
+                            <span class="dot filled"></span>
+                            <span class="dot ${p.difficulty === 'hard' || p.difficulty === 'medium' ? 'filled' : ''}"></span>
+                            <span class="dot ${p.difficulty === 'hard' ? 'filled' : ''}"></span>
+                        </span>
+                        <span style="font-size:0.72rem;color:var(--text-muted);padding:2px 8px;background:var(--bg-glass);border-radius:var(--radius-full);">${diff}</span>
+                    </div>
+                    <p class="summary">${p.summary}</p>
+                    <div class="actions">
+                        <a href="${p.url}" target="_blank" rel="noopener" class="btn btn-primary magnetic-btn">阅读原文</a>
+                        <button class="btn btn-ghost" onclick="this.textContent='✓ 已收藏'; this.classList.add('saved');">收藏</button>
+                    </div>
                 </div>
-            `;
+            `};
 
-            document.getElementById('ai-papers').innerHTML =
-                siteData.papers.ai.map((p, i) => formatPaper(p, 'ai', i)).join('');
-            document.getElementById('edu-papers').innerHTML =
-                siteData.papers.edu.map((p, i) => formatPaper(p, 'edu', i)).join('');
-            document.getElementById('health-papers').innerHTML =
-                siteData.papers.health.map((p, i) => formatPaper(p, 'health', i)).join('');
+            const renderAllPapers = () => {
+                document.getElementById('ai-papers').innerHTML =
+                    siteData.papers.ai.map((p, i) => formatPaper(p, 'ai', i)).join('');
+                document.getElementById('edu-papers').innerHTML =
+                    siteData.papers.edu.map((p, i) => formatPaper(p, 'edu', i)).join('');
+                document.getElementById('health-papers').innerHTML =
+                    siteData.papers.health.map((p, i) => formatPaper(p, 'health', i)).join('');
+
+                // 更新论文总数
+                const total = siteData.papers.ai.length + siteData.papers.edu.length + siteData.papers.health.length;
+                document.getElementById('paper-total-count').textContent = total;
+
+                // 重新绑定 3D 倾斜效果
+                document.querySelectorAll('.tilt-card').forEach(card => {
+                    card.addEventListener('mousemove', (e) => {
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        const centerX = rect.width / 2;
+                        const centerY = rect.height / 2;
+                        const rotateX = (y - centerY) / 20;
+                        const rotateY = (centerX - x) / 20;
+                        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+                    });
+                    card.addEventListener('mouseleave', () => {
+                        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+                    });
+                });
+
+                // 滚动动画
+                const observer = new IntersectionObserver(entries => {
+                    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('stagger-in'); e.target.classList.add('visible'); observer.unobserve(e.target); } });
+                }, { threshold: 0.1 });
+                document.querySelectorAll('.paper-card').forEach(el => observer.observe(el));
+
+                // 初始化筛选
+                initPaperFilterOnPage();
+            };
+
+            renderAllPapers();
 
             // 阅读进度条
             const progressBar = document.getElementById('reading-progress');
@@ -242,7 +324,50 @@
                 document.body.appendChild(wm);
             })();
 
-            // 论文选中状态
+            // ── 论文筛选与搜索 ──
+            function initPaperFilterOnPage() {
+                const chips = document.querySelectorAll('#paper-filter-chips .filter-chip');
+                const searchInput = document.getElementById('paper-search-input');
+                let currentFilter = 'all';
+                let searchTerm = '';
+
+                function filterCards() {
+                    document.querySelectorAll('.paper-card').forEach(card => {
+                        const category = card.dataset.category || '';
+                        const text = (card.dataset.title + ' ' + card.dataset.summary).toLowerCase();
+                        const matchesFilter = currentFilter === 'all' || category === currentFilter;
+                        const matchesSearch = searchTerm === '' || text.includes(searchTerm);
+                        if (matchesFilter && matchesSearch) {
+                            card.style.display = '';
+                            card.style.animation = 'paper-filter-in 0.35s var(--ease-spring) both';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                }
+
+                chips.forEach(chip => {
+                    chip.addEventListener('click', () => {
+                        chips.forEach(c => c.classList.remove('active'));
+                        chip.classList.add('active');
+                        currentFilter = chip.dataset.filter;
+                        filterCards();
+                    });
+                });
+
+                if (searchInput) {
+                    let debounceTimer;
+                    searchInput.addEventListener('input', () => {
+                        clearTimeout(debounceTimer);
+                        debounceTimer = setTimeout(() => {
+                            searchTerm = searchInput.value.toLowerCase().trim();
+                            filterCards();
+                        }, 250);
+                    });
+                }
+            }
+
+            // ── 论文选中状态 ──
             document.querySelectorAll('.paper-card').forEach(card => {
                 card.addEventListener('click', e => {
                     if (e.target.closest('a') || e.target.closest('button')) return;
@@ -271,5 +396,170 @@
             });
         });
     </script>
+    <style>
+        @keyframes paper-filter-in {
+            from { opacity: 0; transform: scale(0.95) translateY(8px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .papers-toolbar-new {
+            display: flex; gap: 12px; align-items: center;
+            margin-bottom: 28px; flex-wrap: wrap;
+        }
+        .filter-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+        .search-wrapper { position: relative; flex: 1; min-width: 200px; }
+        .search-wrapper .search-icon {
+            position: absolute; left: 14px; top: 50%;
+            transform: translateY(-50%); color: var(--text-muted); font-size: 0.85rem;
+        }
+        .paper-search { width: 100%; padding: 9px 16px 9px 40px; }
+        .hero-stats-bar {
+            display: flex; gap: 20px; justify-content: center;
+            margin-top: 16px; font-size: 0.82rem; color: var(--text-muted);
+        }
+        .hero-stats-bar span { display: flex; align-items: center; gap: 6px; }
+        .hero-stats-bar i { color: var(--primary-light); }
+        .papers-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+        .papers-section { margin-bottom: 40px; }
+        .papers-section h2 {
+            font-size: 1.3rem; font-weight: 600; margin-bottom: 20px;
+            padding-bottom: 12px; border-bottom: 1px solid var(--glass-border);
+            display: flex; align-items: center; gap: 10px;
+        }
+        /* glass-card-enhanced */
+        .glass-card-enhanced {
+            background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+            border-radius: var(--radius-xl); padding: 28px;
+        }
+        .neural-gradient { background: linear-gradient(135deg, rgba(99,102,241,0.06) 0%, rgba(139,92,246,0.06) 100%); }
+        .neural-icon { color: var(--primary-light); }
+        .adaptive-gradient {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent-cyan) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .organic-radius { border-radius: var(--radius-lg); }
+        .sustainable-responsive { transition: all 0.3s var(--ease-smooth); }
+        /* 精选角标 */
+        .featured-card { position: relative; }
+        .featured-card::after {
+            content: '⭐ 精选'; position: absolute; top: 12px; right: 12px;
+            padding: 3px 10px; background: var(--gradient-warm);
+            border-radius: var(--radius-full); font-size: 0.68rem;
+            font-weight: 700; color: white; letter-spacing: 0.05em;
+        }
+        .featured-card .featured-glow {
+            position: absolute; top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle at center, rgba(99,102,241,0.06) 0%, transparent 50%);
+            pointer-events: none; animation: featured-glow-pulse 4s ease-in-out infinite;
+        }
+        @keyframes featured-glow-pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+        /* 论文卡片 */
+        .paper-card { position: relative; }
+        .paper-card .glow-bar {
+            position: absolute; top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, transparent 0%, var(--accent-cyan) 30%, var(--accent-purple) 70%, transparent 100%);
+            background-size: 200% 100%; opacity: 0;
+            transition: opacity 0.3s, background-position 0.6s; background-position: 100% 0;
+        }
+        .paper-card:hover .glow-bar { opacity: 1; background-position: 0% 0; }
+        .paper-card .hover-progress-bar {
+            position: absolute; bottom: 0; left: 0; height: 2px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
+            width: 0%; transition: width 0.5s var(--ease-smooth);
+            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+        }
+        .paper-card:hover .hover-progress-bar { animation: hover-progress 0.6s var(--ease-smooth) forwards; }
+        @keyframes hover-progress { from { width: 0%; } to { width: 100%; } }
+        .paper-card::after {
+            content: ''; position: absolute; inset: 0; border-radius: inherit;
+            background: linear-gradient(135deg, rgba(99,102,241,0.05), rgba(167,139,250,0.03));
+            opacity: 0; transition: opacity 0.3s; pointer-events: none;
+        }
+        .paper-card:hover::after { opacity: 1; }
+        /* 标题下划线动画 */
+        .paper-card h3 a {
+            background: linear-gradient(var(--text-primary), var(--text-primary)) no-repeat;
+            background-size: 0% 1px; background-position: 0 100%;
+            transition: background-size var(--duration-base) var(--ease-smooth);
+        }
+        .paper-card:hover h3 a { background-size: 100% 1px; }
+        .paper-card h3:hover { color: var(--accent-cyan); }
+        /* 标签 */
+        .paper-card .tag {
+            display: inline-flex; align-items: center; gap: 4px;
+            padding: 3px 10px; border-radius: var(--radius-full);
+            font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em;
+            text-transform: uppercase; margin-bottom: 14px;
+            transition: transform 0.25s var(--ease-spring);
+        }
+        .paper-card:hover .tag { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(99,102,241,0.3); }
+        .paper-card .tag.ai     { background: rgba(99,102,241,0.15); color: #818cf8; border: 1px solid rgba(99,102,241,0.25); }
+        .paper-card .tag.edu    { background: rgba(244,114,182,0.15); color: #f472b6; border: 1px solid rgba(244,114,182,0.25); }
+        .paper-card .tag.health { background: rgba(52,211,153,0.15); color: #34d399; border: 1px solid rgba(52,211,153,0.25); }
+        /* 引用徽章 */
+        .citation-badge {
+            display: inline-flex; align-items: center; gap: 4px;
+            padding: 2px 10px; background: rgba(99,102,241,0.1);
+            border: 1px solid rgba(99,102,241,0.2); border-radius: var(--radius-full);
+            font-size: 0.7rem; font-weight: 600; color: var(--primary-light);
+        }
+        /* 难度指示器 */
+        .diff-indicator { display: inline-flex; gap: 3px; align-items: center; }
+        .diff-indicator .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--glass-border); transition: background 0.3s; }
+        .diff-indicator .dot.filled { background: var(--primary); box-shadow: 0 0 6px rgba(99,102,241,0.5); }
+        .diff-indicator[data-diff="easy"] .dot.filled   { background: var(--accent-green); box-shadow: 0 0 6px rgba(52,211,153,0.5); }
+        .diff-indicator[data-diff="medium"] .dot.filled  { background: var(--accent); box-shadow: 0 0 6px rgba(245,158,11,0.5); }
+        .diff-indicator[data-diff="hard"] .dot.filled    { background: var(--danger); box-shadow: 0 0 6px rgba(239,68,68,0.5); }
+        /* 阅读时间 */
+        .read-time { display: inline-flex; align-items: center; gap: 4px; font-size: 0.72rem; color: var(--text-muted); padding: 2px 8px; background: var(--bg-glass); border-radius: var(--radius-full); }
+        /* 论文操作按钮 */
+        .paper-card .actions { display: flex; gap: 8px; align-items: center; margin-top: 14px; }
+        .paper-card .btn { padding: 7px 16px; border-radius: var(--radius-sm); font-size: 0.82rem; font-weight: 500; cursor: pointer; border: none; transition: all var(--duration-fast) var(--ease-smooth); }
+        .paper-card .btn-primary { background: var(--gradient-primary); color: white; }
+        .paper-card .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(99,102,241,0.4); }
+        .paper-card .btn-ghost { background: transparent; color: var(--text-muted); border: 1px solid var(--glass-border); }
+        .paper-card .btn-ghost:hover { color: var(--text-primary); border-color: var(--glass-border-hover); background: var(--bg-glass); }
+        .paper-card .btn-ghost.saved { color: var(--accent); border-color: var(--accent); }
+        /* 链接 */
+        .paper-link { display: inline-flex; align-items: center; gap: 6px; color: var(--accent-cyan); font-size: 0.88rem; font-weight: 500; transition: gap var(--duration-base); }
+        .paper-card:hover .paper-link { gap: 10px; }
+        /* 元信息 */
+        .paper-card .meta { color: var(--text-muted); font-size: 0.8rem; margin-bottom: 8px; }
+        .paper-card .summary { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.65; margin-bottom: 8px; }
+        /* 分类染色 */
+        .paper-card[data-category="ai"]:hover    { border-color: rgba(99,102,241,0.4); box-shadow: 0 8px 24px rgba(99,102,241,0.15); }
+        .paper-card[data-category="edu"]:hover  { border-color: rgba(244,114,182,0.4); box-shadow: 0 8px 24px rgba(244,114,182,0.15); }
+        .paper-card[data-category="health"]:hover { border-color: rgba(52,211,153,0.4); box-shadow: 0 8px 24px rgba(52,211,153,0.15); }
+        /* 选中状态 */
+        .paper-card.selected { border-color: rgba(99,102,241,0.5) !important; background: rgba(99,102,241,0.08) !important; }
+        /* 筛选器 */
+        .filter-chip.active { background: var(--gradient-primary) !important; border-color: transparent !important; color: white !important; }
+        /* 徽章 */
+        .badge-hot {
+            display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px;
+            background: rgba(245,158,11,0.15); color: var(--accent);
+            border: 1px solid rgba(245,158,11,0.3); border-radius: var(--radius-full);
+            font-size: 0.65rem; font-weight: 600; letter-spacing: 0.06em;
+        }
+        .badge-hot::before { content: '🔥'; font-size: 0.7rem; }
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .papers-toolbar-new { flex-direction: column; align-items: stretch; }
+            .filter-chips { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; }
+            .papers-list { grid-template-columns: 1fr; }
+            .hero-stats-bar { gap: 12px; font-size: 0.75rem; }
+        }
+    </style>
 </body>
 </html>
