@@ -3,7 +3,7 @@
 // ✨ 2026-03-22 08:11 美学优化版 · v7.3 全栈美学大师 · 神经火花 + 流畅微交互
 
 const siteData = {
-    lastUpdate: "2026-03-21",
+    lastUpdate: "2026-03-22",
     
     papers: {
         ai: [
@@ -96,6 +96,66 @@ const siteData = {
     },
     
     news: [
+        {
+            title: "特朗普政府发布国家AI立法框架",
+            source: "白宫官网",
+            url: "https://www.whitehouse.gov/articles/2026/03/national-ai-legislative-framework",
+            summary: "特朗普政府公布AI立法框架，旨在赢得AI竞争新时代，涉及经济竞争力和国家安全。",
+            category: "ai",
+            date: "2026-03-22",
+            hot: true,
+            views: 98000
+        },
+        {
+            title: "人工智能助力健康产业高质量发展大会在上海召开",
+            source: "上海日报",
+            url: "https://www.shanghaidaily.com",
+            summary: "上百名专家学者、企业代表齐聚，共同探讨AI深度赋能健康产业的全链条各环节。",
+            category: "health",
+            date: "2026-03-22",
+            hot: false,
+            views: 45000
+        },
+        {
+            title: "学而思\"AI未来星·2026青少年人工智能科普活动\"在京启动",
+            source: "学而思/教育媒体",
+            url: "https://www.aitest.com",
+            summary: "中国教育技术协会推动构建覆盖城乡的AI科普体系，解决区域资源不均、实践场景匮乏难题。",
+            category: "edu",
+            date: "2026-03-22",
+            hot: false,
+            views: 38000
+        },
+        {
+            title: "2026中关村论坛年会将于3月25-29日在北京举办",
+            source: "21世纪经济报道",
+            url: "https://www.21jingji.com",
+            summary: "论坛主题为\"科技创新与产业创新深度融合\"，人工智能列为首要议题，100多国嘉宾参与。",
+            category: "ai",
+            date: "2026-03-22",
+            hot: true,
+            views: 72000
+        },
+        {
+            title: "华为在MWC 2026发布新一代信息技术领域智慧课程",
+            source: "华为官方",
+            url: "https://www.huawei.com",
+            summary: "涵盖AI处理器、openEuler操作系统、openGauss数据库等7门课程，系统性提升学生AI能力。",
+            category: "edu",
+            date: "2026-03-22",
+            hot: false,
+            views: 52000
+        },
+        {
+            title: "AI健康管理市场预计2027年达2.59万亿元",
+            source: "健康产业研究",
+            url: "https://www.healthdata.org",
+            summary: "智能健康管理平台年复合增长率25%，全球AI老年护理市场年增长率高达20.4%。",
+            category: "health",
+            date: "2026-03-22",
+            hot: false,
+            views: 41000
+        },
         {
             title: "中国团队发布全球首款通用型AI智能体Manus",
             source: "知乎/科技媒体",
