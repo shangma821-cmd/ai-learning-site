@@ -1,6 +1,6 @@
-// AI Nexus — 渲染脚本 v4.1
+// AI Nexus — 渲染脚本 v4.2
 // 统一渲染逻辑，支持新版设计系统 + 滚动动画 + 交互增强
-// ✨ v4.1 · 2026-03-22 11:43 · 全栈美学增强版 · v8.0 适配
+// ✨ v4.2 · 2026-03-23 11:20 · 全栈美学增强版 · v7.6 适配
 
 document.addEventListener('DOMContentLoaded', function () {
     // 设置更新日期
