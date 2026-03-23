@@ -3,7 +3,7 @@
 // ✨ 2026-03-22 08:11 美学优化版 · v7.3 全栈美学大师 · 神经火花 + 流畅微交互
 
 const siteData = {
-    lastUpdate: "2026-03-22",
+    lastUpdate: "2026-03-23",
     
     papers: {
         ai: [
@@ -96,6 +96,96 @@ const siteData = {
     },
     
     news: [
+        {
+            title: "2026中关村论坛人工智能主题日系列活动即将开幕",
+            source: "千龙网",
+            url: "https://www.qianlong.com/",
+            summary: "第三届中关村论坛人工智能主题日系列活动将在中关村国际创新中心举办，设置六场特色专题论坛，构建人工智能产业立体生态。",
+            category: "ai",
+            date: "2026-03-23",
+            hot: true,
+            views: 56000
+        },
+        {
+            title: "华为昇腾人工智能伙伴峰会探讨AI产业趋势",
+            source: "华为合作伙伴大会",
+            url: "https://www.huawei.com/newsroom",
+            summary: "华为举办昇腾人工智能伙伴峰会，聚焦超节点规模商用实践、硬件新品发布，分享前沿技术实践与商业成功经验。",
+            category: "ai",
+            date: "2026-03-23",
+            hot: true,
+            views: 48000
+        },
+        {
+            title: "AI从舞台走向工厂：工业应用成为发展论坛核心议题",
+            source: "CGTN新闻",
+            url: "https://news.cgtn.com/news/2026-03-22/From-stage-to-factory-How-AI-is-moving-into-real-world-use-in-China-1LItkFkvC48/p.html",
+            summary: "2026中国发展论坛关注人工智能工业应用，AI正从概念阶段走向实际工厂应用，在各行业加速落地。",
+            category: "ai",
+            date: "2026-03-22",
+            hot: false,
+            views: 45000
+        },
+        {
+            title: "教育部明确人工智能三进要求纳入全国中小学必修课",
+            source: "教育部",
+            url: "https://www.moe.gov.cn/",
+            summary: "AI正式纳入中小学课程标准、日常教学、考试评价体系，从试点转为全国统一推进的必修课，AI素养将与评优、升学直接挂钩。",
+            category: "edu",
+            date: "2026-03-23",
+            hot: true,
+            views: 98000
+        },
+        {
+            title: "华为发布新一代信息技术领域智慧课程七门",
+            source: "华为官方",
+            url: "https://www.huawei.com/newsroom",
+            summary: "华为在MWC 2026期间发布七门智慧课程，深化全球产教融合，加速教育信息化进程，为AI时代培养生产力人才。",
+            category: "edu",
+            date: "2026-03-23",
+            hot: false,
+            views: 52000
+        },
+        {
+            title: "深圳推进中小学校人工智能教育观摩交流",
+            source: "深圳教育部门",
+            url: "https://sz.gov.cn/education",
+            summary: "深圳推动AI教育从课堂普及向育人生态系统性重构，AI已融入教、学、研、评、管全流程的教育基础设施。",
+            category: "edu",
+            date: "2026-03-23",
+            hot: false,
+            views: 38000
+        },
+        {
+            title: "AI健康管理市场预计2027年达259万亿元",
+            source: "健康产业研究报告",
+            url: "https://www.healthdata.org",
+            summary: "智能健康管理平台年复合增长率25%，全球AI老年护理市场年增长率高达20.4%，市场规模持续扩大。",
+            category: "health",
+            date: "2026-03-23",
+            hot: false,
+            views: 41000
+        },
+        {
+            title: "全国人大代表建议AI赋能基层医疗",
+            source: "央广网",
+            url: "https://www.cnr.cn/",
+            summary: "全国人大代表耿福能建议让AI当好基层医生的助手、群众健康的管家，AI赋能基层医疗卫生成为两会焦点。",
+            category: "health",
+            date: "2026-03-23",
+            hot: true,
+            views: 67000
+        },
+        {
+            title: "国家人工智能应用中试基地医疗签约七家医院",
+            source: "国家中试基地",
+            url: "https://www.sci.gov.cn/",
+            summary: "国家人工智能应用中试基地（医疗）与北大人民医院、安贞医院等7家医院签约，推动医疗AI规模化落地进入临床验证阶段。",
+            category: "health",
+            date: "2026-03-23",
+            hot: false,
+            views: 52000
+        },
         {
             title: "特朗普政府发布国家AI立法框架",
             source: "白宫官网",
