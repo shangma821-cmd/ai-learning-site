@@ -20,12 +20,19 @@
     </div>
 
     <!-- 动态背景 -->
-    <div class="ambient-bg fluid-gradient dawn-gradient">
+    <div class="ambient-bg spring-fluid-bg">
         <div class="gradient-orb orb-1"></div>
         <div class="gradient-orb orb-2"></div>
         <div class="gradient-orb orb-3"></div>
         <div class="grid-overlay"></div>
         <div class="dots-grid"></div>
+        <!-- 春季花瓣装饰 -->
+        <div class="petal" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="petal" style="left: 25%; animation-delay: 3s;"></div>
+        <div class="petal" style="left: 40%; animation-delay: 6s;"></div>
+        <div class="petal" style="left: 55%; animation-delay: 9s;"></div>
+        <div class="petal" style="left: 70%; animation-delay: 4s;"></div>
+        <div class="petal" style="left: 85%; animation-delay: 7s;"></div>
     </div>
 
     <!-- 跳过导航 -->
@@ -107,7 +114,7 @@
     <main id="main-content">
 
         <!-- Hero 区域 -->
-        <div class="hero-section neural-card">
+        <div class="hero-section spring-glass-card spring-glow-hover aurora-border">
             <div class="floating-sphere" style="width:100px;height:100px;top:10%;left:10%;"></div>
             <div class="floating-sphere" style="width:60px;height:60px;top:60%;right:15%;animation-delay:-3s;"></div>
             <div class="hero-badge">
@@ -116,7 +123,7 @@
                 <span class="midnight-badge" id="time-greeting"></span>
             </div>
             <h1 class="hero-title">
-                <span class="moonlight-text" id="hero-title-text">探索 AI 的边界</span>
+                <span class="spring-gradient-text" id="hero-title-text">探索 AI 的边界</span>
                 <span class="cursor"></span>
             </h1>
             <p class="hero-subtitle masked-text">从论文到实践，从产业到跨界 — 每天 30 分钟，追踪 AI 最值得关注的进展</p>
@@ -136,11 +143,11 @@
 
             <!-- 趋势标签 -->
             <div class="trending-tags" id="trending-tags">
-                <span class="trending-tag" data-hot="true"><span>🤖 AI前沿</span></span>
-                <span class="trending-tag"><span>📚 教育</span></span>
-                <span class="trending-tag"><span>🏥 健康</span></span>
-                <span class="trending-tag"><span>🔬 科学</span></span>
-                <span class="trending-tag"><span>💡 思维</span></span>
+                <span class="spring-tag spring-micro" data-hot="true"><span>🤖 AI前沿</span></span>
+                <span class="spring-tag spring-micro"><span>📚 教育</span></span>
+                <span class="spring-tag spring-micro"><span>🏥 健康</span></span>
+                <span class="spring-tag spring-micro"><span>🔬 科学</span></span>
+                <span class="spring-tag spring-micro"><span>💡 思维</span></span>
             </div>
 
             <!-- 新闻滚动条 -->
@@ -166,7 +173,7 @@
             </div>
 
             <!-- 论文卡片 -->
-            <div class="card-grid papers-grid elastic-grid" id="papers-container">
+            <div class="card-grid papers-grid elastic-grid spring-stack" id="papers-container">
                 <!-- 动态加载 -->
             </div>
 
@@ -176,8 +183,8 @@
             </div>
 
             <!-- 产业资讯 -->
-            <div class="news-section neural-gradient sustainable-responsive glass-card-enhanced">
-                <h2 class="adaptive-gradient organic-radius"><i class="fas fa-newspaper neural-icon"></i> 产业脉搏</h2>
+            <div class="news-section spring-glass-card sustainable-responsive">
+                <h2 class="spring-gradient-text"><i class="fas fa-newspaper spring-icon"></i> 产业脉搏</h2>
                 <div class="news-timeline" id="news-container">
                     <!-- 动态加载 -->
                 </div>
@@ -185,7 +192,7 @@
 
             <!-- 破茧时刻 -->
             <div class="babel-section">
-                <h2><i class="fas fa-seedling"></i> 破茧时刻</h2>
+                <h2 class="spring-gradient-text"><i class="fas fa-seedling spring-icon"></i> 破茧时刻</h2>
                 <p class="section-desc">跳出信息茧房，遇见意想不到的知识</p>
                 <div class="babel-cards" id="babel-container">
                     <!-- 动态加载 -->
@@ -196,7 +203,7 @@
         <!-- 更新日记 -->
         <section id="journal" class="section journal-section">
             <div class="section-header">
-                <h1><i class="fas fa-book-open"></i> <span class="animated-gradient-text">灵儿的日记</span></h1>
+                <h1><i class="fas fa-book-open spring-icon"></i> <span class="spring-gradient-text">灵儿的日记</span></h1>
                 <span class="date journal-subtitle">我的思考与行动记录</span>
             </div>
 
@@ -215,7 +222,7 @@
         <!-- 知识花园 -->
         <section id="garden" class="section garden-section">
             <div class="section-header">
-                <h1><i class="fas fa-tree"></i> 知识花园</h1>
+                <h1><i class="fas fa-tree spring-icon"></i> <span class="spring-gradient-text">知识花园</span></h1>
                 <span class="garden-stats" id="garden-stats"></span>
             </div>
 
@@ -236,7 +243,7 @@
         <!-- 学习档案 -->
         <section id="archive" class="section archive-section">
             <div class="section-header">
-                <h1><i class="fas fa-archive"></i> 学习档案</h1>
+                <h1><i class="fas fa-archive spring-icon"></i> <span class="spring-gradient-text">学习档案</span></h1>
             </div>
 
             <!-- 学习统计 -->

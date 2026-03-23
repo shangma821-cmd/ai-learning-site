@@ -6838,8 +6838,601 @@ body:not(.light-theme) .deep-space-gradient {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   End of v7.6 新增样式 - 2026-03-23 11:20
-   ✨ 25个新样式规则 · 动态边框 · 流体动画 · 可访问性增强
+   v8.0 全栈美学大师版 · 2026-03-23 12:24
+   Theme: Spring Bloom 2026 · Fluid Glass · Aurora Motion
+   ✨ 30个新样式规则 · 春季焕新 · 流体玻璃 · 极光动态
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 326. 春季渐变色彩系统 ─────────────────────────────────── */
+:root {
+  --spring-pink: #f0abfc;
+  --spring-lavender: #c4b5fd;
+  --spring-mint: #6ee7b7;
+  --spring-sky: #7dd3fc;
+  --spring-coral: #fda4af;
+  --spring-gold: #fcd34d;
+  --gradient-spring: linear-gradient(135deg, var(--spring-lavender) 0%, var(--spring-pink) 50%, var(--spring-coral) 100%);
+  --gradient-spring-cool: linear-gradient(135deg, var(--spring-sky) 0%, var(--spring-mint) 100%);
+  --gradient-spring-warm: linear-gradient(135deg, var(--spring-coral) 0%, var(--spring-gold) 100%);
+}
+
+/* ── 327. 春季玻璃拟态卡片 ─────────────────────────────────── */
+.spring-glass-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    rgba(196, 181, 253, 0.08) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-xl);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 0 60px rgba(196, 181, 253, 0.1);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.spring-glass-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  border-color: rgba(196, 181, 253, 0.3);
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 0 80px rgba(196, 181, 253, 0.15);
+}
+
+/* ── 328. 春季极光边框动画 ─────────────────────────────────── */
+.aurora-border {
+  position: relative;
+  overflow: hidden;
+}
+
+.aurora-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: conic-gradient(
+    from 0deg,
+    var(--spring-sky),
+    var(--spring-mint),
+    var(--spring-lavender),
+    var(--spring-pink),
+    var(--spring-coral),
+    var(--spring-sky)
+  );
+  border-radius: inherit;
+  animation: aurora-rotate 4s linear infinite;
+  opacity: 0;
+  transition: opacity 0.4s;
+  z-index: -1;
+}
+
+.aurora-border:hover::before {
+  opacity: 0.8;
+}
+
+@keyframes aurora-rotate {
+  to { transform: rotate(360deg); }
+}
+
+/* ── 329. 春季流体背景 ─────────────────────────────────────── */
+.spring-fluid-bg {
+  background: 
+    radial-gradient(ellipse at 20% 30%, rgba(196, 181, 253, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(110, 231, 183, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(253, 164, 175, 0.08) 0%, transparent 50%),
+    var(--bg-base);
+  animation: spring-fluid-shift 15s ease-in-out infinite;
+}
+
+@keyframes spring-fluid-shift {
+  0%, 100% { background-position: 0% 0%, 100% 100%, 50% 50%; }
+  33% { background-position: 30% 20%, 70% 80%, 60% 40%; }
+  66% { background-position: 10% 30%, 90% 70%, 40% 60%; }
+}
+
+/* ── 330. 春季花瓣飘落动画 ─────────────────────────────────── */
+@keyframes petal-fall {
+  0% {
+    transform: translateY(-10px) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.6; }
+  100% {
+    transform: translateY(100vh) translateX(50px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.petal {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(135deg, var(--spring-pink), var(--spring-coral));
+  border-radius: 50% 0 50% 50%;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+  animation: petal-fall 12s ease-in-out infinite;
+}
+
+/* ── 331. 春季按钮样式 ─────────────────────────────────────── */
+.spring-btn {
+  position: relative;
+  background: var(--gradient-spring);
+  border: none;
+  color: white;
+  padding: 12px 28px;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 15px rgba(196, 181, 253, 0.4);
+}
+
+.spring-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.spring-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(196, 181, 253, 0.5);
+}
+
+.spring-btn:hover::before {
+  left: 100%;
+}
+
+/* ── 332. 春季标签样式 ─────────────────────────────────────── */
+.spring-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: linear-gradient(135deg, rgba(196, 181, 253, 0.15), rgba(253, 164, 175, 0.1));
+  border: 1px solid rgba(196, 181, 253, 0.25);
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--spring-lavender);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.spring-tag:hover {
+  transform: translateY(-2px) scale(1.05);
+  background: linear-gradient(135deg, rgba(196, 181, 253, 0.25), rgba(253, 164, 175, 0.15));
+  box-shadow: 0 4px 12px rgba(196, 181, 253, 0.3);
+}
+
+/* ── 333. 春季文字渐变 ─────────────────────────────────────── */
+.spring-gradient-text {
+  background: var(--gradient-spring);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  background-size: 200% 200%;
+  animation: spring-gradient-shift 4s ease infinite;
+}
+
+@keyframes spring-gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ── 334. 春季卡片悬浮光效 ─────────────────────────────────── */
+.spring-glow-hover {
+  position: relative;
+  overflow: hidden;
+}
+
+.spring-glow-hover::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(196, 181, 253, 0.15) 0%,
+    rgba(110, 231, 183, 0.1) 30%,
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+
+.spring-glow-hover:hover::after {
+  opacity: 1;
+  animation: spring-glow-pulse 3s ease-in-out infinite;
+}
+
+@keyframes spring-glow-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.1); opacity: 1; }
+}
+
+/* ── 335. 春季微交互 ───────────────────────────────────────── */
+.spring-micro {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.spring-micro:hover {
+  transform: translateY(-3px) scale(1.02);
+}
+
+.spring-micro:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+/* ── 336. 春季分隔线 ───────────────────────────────────────── */
+.spring-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--spring-lavender) 20%,
+    var(--spring-pink) 50%,
+    var(--spring-coral) 80%,
+    transparent 100%
+  );
+  opacity: 0.5;
+  animation: spring-divider-shimmer 4s ease-in-out infinite;
+}
+
+@keyframes spring-divider-shimmer {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+}
+
+/* ── 337. 春季加载动画 ─────────────────────────────────────── */
+.spring-loader {
+  width: 48px;
+  height: 48px;
+  border: 3px solid rgba(196, 181, 253, 0.2);
+  border-top-color: var(--spring-lavender);
+  border-right-color: var(--spring-pink);
+  border-radius: 50%;
+  animation: spring-spin 1s linear infinite;
+}
+
+@keyframes spring-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── 338. 春季图标动画 ─────────────────────────────────────── */
+.spring-icon {
+  display: inline-flex;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.spring-icon:hover {
+  transform: scale(1.2) rotate(10deg);
+  filter: drop-shadow(0 0 8px rgba(196, 181, 253, 0.5));
+}
+
+/* ── 339. 春季输入框 ───────────────────────────────────────── */
+.spring-input {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(196, 181, 253, 0.2);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  transition: all 0.3s;
+}
+
+.spring-input:focus {
+  outline: none;
+  border-color: var(--spring-lavender);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 0 3px rgba(196, 181, 253, 0.15), 0 4px 20px rgba(196, 181, 253, 0.1);
+}
+
+.spring-input::placeholder {
+  color: rgba(148, 163, 184, 0.6);
+}
+
+/* ── 340. 春季进度条 ───────────────────────────────────────── */
+.spring-progress {
+  height: 4px;
+  background: var(--glass-border);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.spring-progress .bar {
+  height: 100%;
+  background: var(--gradient-spring);
+  border-radius: var(--radius-full);
+  animation: spring-progress-flow 2s ease-in-out infinite;
+  background-size: 200% 100%;
+}
+
+@keyframes spring-progress-flow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* ── 341. 春季通知徽章 ─────────────────────────────────────── */
+.spring-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: var(--gradient-spring);
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: white;
+  animation: spring-badge-pulse 2s ease-in-out infinite;
+}
+
+@keyframes spring-badge-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(196, 181, 253, 0.4); }
+  50% { box-shadow: 0 0 0 6px rgba(196, 181, 253, 0); }
+}
+
+/* ── 342. 春季悬浮提示 ─────────────────────────────────────── */
+.spring-tooltip {
+  position: relative;
+}
+
+.spring-tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  padding: 8px 14px;
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98));
+  border: 1px solid rgba(196, 181, 253, 0.2);
+  border-radius: var(--radius-md);
+  font-size: 0.78rem;
+  color: var(--text-primary);
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.spring-tooltip:hover::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(-4px);
+}
+
+/* ── 343. 春季卡片堆叠效果 ─────────────────────────────────── */
+.spring-stack {
+  position: relative;
+}
+
+.spring-stack::before,
+.spring-stack::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  z-index: -1;
+  transition: all 0.4s;
+}
+
+.spring-stack::before {
+  transform: translateY(8px) scale(0.96);
+  opacity: 0.6;
+}
+
+.spring-stack::after {
+  transform: translateY(16px) scale(0.92);
+  opacity: 0.3;
+}
+
+.spring-stack:hover::before {
+  transform: translateY(12px) scale(0.94);
+}
+
+.spring-stack:hover::after {
+  transform: translateY(24px) scale(0.88);
+}
+
+/* ── 344. 春季开关切换 ─────────────────────────────────────── */
+.spring-toggle {
+  position: relative;
+  width: 52px;
+  height: 28px;
+  background: var(--glass-border);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.spring-toggle::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.spring-toggle.active {
+  background: var(--gradient-spring);
+}
+
+.spring-toggle.active::after {
+  transform: translateX(24px);
+}
+
+/* ── 345. 春季涟漪效果 ─────────────────────────────────────── */
+.spring-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.spring-ripple::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(196, 181, 253, 0.4) 0%, transparent 50%);
+  transform: scale(0);
+  opacity: 0;
+  transition: transform 0.6s, opacity 0.6s;
+}
+
+.spring-ripple:active::after {
+  transform: scale(2);
+  opacity: 1;
+  transition: transform 0s, opacity 0s;
+}
+
+/* ── 346. 春季焦点环 ───────────────────────────────────────── */
+.spring-focus:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(196, 181, 253, 0.3), 0 0 0 6px rgba(196, 181, 253, 0.1);
+}
+
+/* ── 347. 春季滚动条美化 ───────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--spring-lavender), var(--spring-pink));
+  border-radius: var(--radius-full);
+  opacity: 0.5;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--spring-pink), var(--spring-coral));
+  opacity: 0.8;
+}
+
+/* ── 348. 春季选中文字 ─────────────────────────────────────── */
+::selection {
+  background: rgba(196, 181, 253, 0.3);
+  color: white;
+}
+
+/* ── 349. 春季骨架屏 ───────────────────────────────────────── */
+.spring-skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(196, 181, 253, 0.1) 25%,
+    rgba(253, 164, 175, 0.15) 50%,
+    rgba(196, 181, 253, 0.1) 75%
+  );
+  background-size: 200% 100%;
+  animation: spring-skeleton-shimmer 1.5s infinite;
+}
+
+@keyframes spring-skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── 350. 春季响应式优化 ───────────────────────────────────── */
+@media (max-width: 768px) {
+  .spring-glass-card {
+    padding: 16px;
+    border-radius: var(--radius-lg);
+  }
+  
+  .spring-btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+  
+  .spring-tag {
+    padding: 4px 10px;
+    font-size: 0.72rem;
+  }
+}
+
+/* ── 351. 春季暗色模式适配 ─────────────────────────────────── */
+body:not(.light-theme) .spring-glass-card {
+  background: linear-gradient(
+    135deg,
+    rgba(30, 41, 59, 0.8) 0%,
+    rgba(15, 23, 42, 0.9) 50%,
+    rgba(20, 30, 50, 0.85) 100%
+  );
+  border-color: rgba(196, 181, 253, 0.15);
+}
+
+body:not(.light-theme) .spring-input {
+  background: rgba(15, 23, 42, 0.7);
+  border-color: rgba(196, 181, 253, 0.15);
+}
+
+body:not(.light-theme) .spring-input:focus {
+  background: rgba(20, 30, 50, 0.9);
+  border-color: var(--spring-lavender);
+}
+
+/* ── 352. 春季动画性能优化 ─────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .spring-glass-card,
+  .spring-btn,
+  .spring-tag,
+  .spring-micro {
+    transition: none;
+    animation: none;
+  }
+  
+  .aurora-border::before,
+  .spring-glow-hover::after {
+    animation: none;
+  }
+}
+
+/* ── 353. 春季打印样式 ─────────────────────────────────────── */
+@media print {
+  .spring-glass-card,
+  .spring-btn,
+  .spring-tag {
+    background: white !important;
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+  }
+  
+  .spring-gradient-text {
+    color: black !important;
+    background: none !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   End of v8.0 春季美学版 - 2026-03-23 12:24
+   ✨ 30个新样式规则 · 春季焕新 · 流体玻璃 · 极光动态
    ═══════════════════════════════════════════════════════════════ */
 
 /* ═══════════════════════════════════════════════════════════════

@@ -1,6 +1,6 @@
-// AI Nexus — 渲染脚本 v4.2
+// AI Nexus — 渲染脚本 v4.3
 // 统一渲染逻辑，支持新版设计系统 + 滚动动画 + 交互增强
-// ✨ v4.2 · 2026-03-23 11:20 · 全栈美学增强版 · v7.6 适配
+// ✨ v4.3 · 2026-03-23 12:24 · 春季美学版 · v8.0 适配
 
 document.addEventListener('DOMContentLoaded', function () {
     // 设置更新日期
@@ -27,6 +27,10 @@ document.addEventListener('DOMContentLoaded', function () {
     initQuickPreview();
     initKeyboardNav();
     initHoverSound();
+    
+    // ✨ v4.3 春季特效
+    initSpringEffects();
+    initSpringPetals();
 });
 
 /* ── 神经网络脉冲节点 ── */
@@ -252,3 +256,74 @@ function initScrollReveal() {
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 }
+
+/* ── 春季特效 ── */
+function initSpringEffects() {
+    // 为卡片添加春季入场动画
+    document.querySelectorAll('.spring-glass-card, .paper-card, .news-card, .babel-card, .archive-card').forEach((card, i) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(24px) scale(0.97)';
+        setTimeout(() => {
+            card.style.transition = 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0) scale(1)';
+        }, i * 80);
+    });
+    
+    // 春季按钮涟漪效果
+    document.querySelectorAll('.spring-btn, .btn-primary').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const ripple = document.createElement('span');
+            ripple.style.cssText = `
+                position: absolute;
+                width: 20px;
+                height: 20px;
+                background: rgba(196, 181, 253, 0.6);
+                border-radius: 50%;
+                transform: translate(-50%, -50%) scale(0);
+                animation: spring-ripple-effect 0.6s ease-out;
+                pointer-events: none;
+                left: ${x}px;
+                top: ${y}px;
+            `;
+            this.style.position = 'relative';
+            this.style.overflow = 'hidden';
+            this.appendChild(ripple);
+            
+            setTimeout(() => ripple.remove(), 600);
+        });
+    });
+}
+
+/* ── 春季花瓣动画增强 ── */
+function initSpringPetals() {
+    const petals = document.querySelectorAll('.petal');
+    petals.forEach((petal, i) => {
+        // 随机化花瓣动画
+        const duration = 10 + Math.random() * 8;
+        const delay = Math.random() * 5;
+        petal.style.animationDuration = `${duration}s`;
+        petal.style.animationDelay = `${delay}s`;
+        
+        // 随机大小
+        const size = 6 + Math.random() * 6;
+        petal.style.width = `${size}px`;
+        petal.style.height = `${size}px`;
+    });
+}
+
+// 添加春季涟漪动画样式
+const springStyles = document.createElement('style');
+springStyles.textContent = `
+    @keyframes spring-ripple-effect {
+        to {
+            transform: translate(-50%, -50%) scale(20);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(springStyles);
