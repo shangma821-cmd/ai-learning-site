@@ -115,6 +115,7 @@
 
         <!-- Hero 区域 -->
         <div class="hero-section spring-glass-card spring-glow-hover aurora-border neumorph-glass hover-aura">
+            <div class="hero-glow-ring"></div>
             <div class="floating-sphere" style="width:100px;height:100px;top:10%;left:10%;"></div>
             <div class="floating-sphere" style="width:60px;height:60px;top:60%;right:15%;animation-delay:-3s;"></div>
             <div class="hero-badge">
@@ -246,61 +247,31 @@
                 <h1><i class="fas fa-archive spring-icon"></i> <span class="spring-gradient-text">学习档案</span></h1>
             </div>
 
-            <!-- 学习统计 -->
-            <div class="stats-ring-grid" id="stats-dashboard">
-                <div class="ring-stat-card" data-target="papers">
-                    <div class="ring-container">
-                        <svg class="ring-svg" viewBox="0 0 80 80">
-                            <defs>
-                                <linearGradient id="ring-grad-1" x1="0%" y1="0%" x2="100%" y2="0%">
-                                    <stop offset="0%" stop-color="#22d3ee"/>
-                                    <stop offset="100%" stop-color="#6366f1"/>
-                                </linearGradient>
-                            </defs>
-                            <circle class="ring-bg" cx="40" cy="40" r="35"/>
-                            <circle class="ring-progress" cx="40" cy="40" r="35"
-                                style="stroke-dashoffset: 55;"/>
-                        </svg>
-                        <div class="ring-center"><i class="fas fa-book" style="color:var(--primary-light);"></i></div>
-                    </div>
-                    <div class="stat-value" id="total-papers" style="font-size:1.5rem;">0</div>
-                    <div class="stat-label">论文阅读</div>
+            <!-- 学习统计（Bento 网格 v8.9） -->
+            <div class="bento-grid" id="bento-stats">
+                <div class="bento-card">
+                    <div class="bento-icon aurora-border-2" style="display:inline-block;padding:12px;border-radius:12px;background:rgba(99,102,241,0.12);">📚</div>
+                    <div class="bento-label">论文总数</div>
+                    <div class="bento-value" id="total-papers" data-count="0">0</div>
+                    <div class="bento-sub">持续更新中</div>
                 </div>
-                <div class="ring-stat-card" data-target="streak">
-                    <div class="ring-container">
-                        <svg class="ring-svg" viewBox="0 0 80 80">
-                            <circle class="ring-bg" cx="40" cy="40" r="35"/>
-                            <circle class="ring-progress" cx="40" cy="40" r="35"
-                                style="stroke-dashoffset: 88;"/>
-                        </svg>
-                        <div class="ring-center"><i class="fas fa-fire" style="color:#f59e0b;"></i></div>
-                    </div>
-                    <div class="stat-value" id="streak-days" style="font-size:1.5rem;">3</div>
-                    <div class="stat-label">连续学习</div>
+                <div class="bento-card">
+                    <div class="bento-icon" style="display:inline-block;padding:12px;border-radius:12px;background:rgba(34,211,238,0.12);">🤖</div>
+                    <div class="bento-label">AI 前沿</div>
+                    <div class="bento-value" id="ai-count" data-count="0">0</div>
+                    <div class="bento-sub">人工智能研究</div>
                 </div>
-                <div class="ring-stat-card" data-target="insights">
-                    <div class="ring-container">
-                        <svg class="ring-svg" viewBox="0 0 80 80">
-                            <circle class="ring-bg" cx="40" cy="40" r="35"/>
-                            <circle class="ring-progress" cx="40" cy="40" r="35"
-                                style="stroke-dashoffset: 33;"/>
-                        </svg>
-                        <div class="ring-center"><i class="fas fa-lightbulb" style="color:#a78bfa;"></i></div>
-                    </div>
-                    <div class="stat-value" id="total-insights" style="font-size:1.5rem;">42</div>
-                    <div class="stat-label">获得洞见</div>
+                <div class="bento-card">
+                    <div class="bento-icon" style="display:inline-block;padding:12px;border-radius:12px;background:rgba(168,139,250,0.12);">📰</div>
+                    <div class="bento-label">产业资讯</div>
+                    <div class="bento-value" id="news-count" data-count="0">0</div>
+                    <div class="bento-sub">每日更新</div>
                 </div>
-                <div class="ring-stat-card" data-target="fields">
-                    <div class="ring-container">
-                        <svg class="ring-svg" viewBox="0 0 80 80">
-                            <circle class="ring-bg" cx="40" cy="40" r="35"/>
-                            <circle class="ring-progress" cx="40" cy="40" r="35"
-                                style="stroke-dashoffset: 70;"/>
-                        </svg>
-                        <div class="ring-center"><i class="fas fa-compass" style="color:#34d399;"></i></div>
-                    </div>
-                    <div class="stat-value" id="fields-explored" style="font-size:1.5rem;">7</div>
-                    <div class="stat-label">探索领域</div>
+                <div class="bento-card">
+                    <div class="bento-icon" style="display:inline-block;padding:12px;border-radius:12px;background:rgba(244,114,182,0.12);">💡</div>
+                    <div class="bento-label">破茧洞见</div>
+                    <div class="bento-value" id="babel-count" data-count="0">0</div>
+                    <div class="bento-sub">思维火花</div>
                 </div>
             </div>
 
@@ -432,10 +403,10 @@
                     const readTime = p.readTime || '8 分钟';
                     const citations = p.citations || 0;
                     cards.push(`
-                        <div class="paper-card ${isFeatured ? 'featured-card tilt-card' : 'tilt-card'} reveal neumorph-glass glass-card-shine micro-lift" data-category="${key}" style="animation-delay:${cardIndex * 0.1}s">
+                        <div class="paper-card ${isFeatured ? 'featured-card tilt-card' : 'tilt-card'} aurora-border-2 deep-glow reveal neumorph-glass glass-card-shine micro-lift" data-category="${key}" style="animation-delay:${cardIndex * 0.1}s">
                             <div class="hover-progress-bar"></div>
                             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-                                <span class="tag ${t.cls}">${t.label}</span>
+                                <span class="tag ${t.cls} scan-tag">${t.label}</span>
                                 ${isFeatured ? '<span class="badge-hot">HOT</span>' : ''}
                             </div>
                             <h3><a href="${p.url}" target="_blank" rel="noopener">${p.title}</a></h3>
@@ -1345,5 +1316,16 @@
         })();
     });
     </script>
+
+    <!-- v9.0 快捷键提示浮层 -->
+    <div class="shortcut-hint" role="status" aria-label="键盘快捷键">
+        <span><kbd>T</kbd> 主题切换</span>
+        <span><kbd>R</kbd> 阅读模式</span>
+        <span><kbd>/</kbd> 搜索</span>
+        <span><kbd>?</kbd> 帮助</span>
+    </div>
+
+    <!-- v9.0 Toast 容器 -->
+    <div class="toast-container" aria-live="polite"></div>
 </body>
 </html>

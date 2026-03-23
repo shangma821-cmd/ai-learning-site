@@ -1,6 +1,6 @@
-// AI Nexus — 渲染脚本 v4.3
+// AI Nexus — 渲染脚本 v4.4
 // 统一渲染逻辑，支持新版设计系统 + 滚动动画 + 交互增强
-// ✨ v4.3 · 2026-03-23 12:24 · 春季美学版 · v8.0 适配
+// ✨ v4.4 · 2026-03-24 01:08 · 极光美学版 · v8.9 适配
 
 document.addEventListener('DOMContentLoaded', function () {
     // 设置更新日期
@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     renderHighlightCards();
+    renderBentoStats(); // v4.4 新增
     renderPaperLists();
     renderNews();
     renderBabel();
@@ -31,6 +32,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // ✨ v4.3 春季特效
     initSpringEffects();
     initSpringPetals();
+    
+    // ✨ v4.4 极光美学特效
+    initCopyLink();
+    initMinimap();
 });
 
 /* ── 神经网络脉冲节点 ── */
@@ -161,7 +166,11 @@ function renderHighlightCards() {
     ];
 
     container.innerHTML = highlights.map((item, i) => `
-        <div class="paper-card reveal neumorph-glass glass-card-shine micro-lift" data-category="${item.tag}" style="animation-delay:${i * 0.08}s">
+        <div class="paper-card reveal aurora-border-2 deep-glow hover-reveal-meta" data-category="${item.tag}" style="animation-delay:${i * 0.08}s">
+            <div class="glow-bar"></div>
+            <div class="meta-overlay">
+                <span style="font-size:0.78rem;color:var(--accent-cyan);">📄 ${item.venue}</span>
+            </div>
             <span class="tag ${item.tag}">${item.tagText}</span>
             <h3><a href="${item.url}" target="_blank" rel="noopener">${item.title}</a></h3>
             <p class="meta">${item.venue} · ${item.authors}</p>
@@ -171,6 +180,111 @@ function renderHighlightCards() {
             </a>
         </div>
     `).join('');
+}
+
+/* ── 统计 Bento 网格（v4.4 新增）── */
+function renderBentoStats() {
+    const container = document.getElementById('bento-stats');
+    if (!container || typeof siteData === 'undefined') return;
+    
+    const aiCount = siteData.papers.ai.length;
+    const eduCount = siteData.papers.edu.length;
+    const healthCount = siteData.papers.health.length;
+    const total = aiCount + eduCount + healthCount;
+    const newsCount = siteData.news.length;
+    const babelCount = siteData.babel.length;
+    
+    container.innerHTML = `
+        <div class="bento-card">
+            <div class="bento-icon">📚</div>
+            <div class="bento-label">论文总数</div>
+            <div class="bento-value" data-count="${total}">0</div>
+            <div class="bento-sub">持续更新中</div>
+        </div>
+        <div class="bento-card">
+            <div class="bento-icon">🤖</div>
+            <div class="bento-label">AI 前沿</div>
+            <div class="bento-value" data-count="${aiCount}">0</div>
+            <div class="bento-sub">人工智能研究</div>
+        </div>
+        <div class="bento-card">
+            <div class="bento-icon">📰</div>
+            <div class="bento-label">产业资讯</div>
+            <div class="bento-value" data-count="${newsCount}">0</div>
+            <div class="bento-sub">每日更新</div>
+        </div>
+        <div class="bento-card">
+            <div class="bento-icon">💡</div>
+            <div class="bento-label">破茧洞见</div>
+            <div class="bento-value" data-count="${babelCount}">0</div>
+            <div class="bento-sub">思维火花</div>
+        </div>
+    `;
+    
+    // 数字计数动画
+    setTimeout(() => {
+        container.querySelectorAll('.bento-value').forEach(el => {
+            const target = parseInt(el.dataset.count);
+            if (!target) return;
+            let current = 0;
+            const step = Math.ceil(target / 30);
+            const timer = setInterval(() => {
+                current += step;
+                if (current >= target) { el.textContent = target; clearInterval(timer); }
+                else el.textContent = current;
+            }, 30);
+        });
+    }, 300);
+}
+
+/* ── 复制链接功能（v4.4 新增）── */
+function initCopyLink() {
+    document.querySelectorAll('.paper-link, .paper-card a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            // 延迟让链接正常跳转
+            const url = this.href;
+            if (!url) return;
+            
+            // 尝试复制到剪贴板
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(url).catch(() => {});
+            }
+        });
+    });
+    
+    // 添加复制提示
+    const toast = document.createElement('div');
+    toast.className = 'copy-link-toast';
+    toast.innerHTML = '<span>✓</span> 链接已复制';
+    document.body.appendChild(toast);
+    
+    document.querySelectorAll('[data-copy]').forEach(el => {
+        el.addEventListener('click', () => {
+            const text = el.dataset.copy;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    toast.classList.add('show');
+                    setTimeout(() => toast.classList.remove('show'), 2000);
+                });
+            }
+        });
+    });
+}
+
+/* ── 页面微地图（v4.4 新增）── */
+function initMinimap() {
+    const minimap = document.createElement('div');
+    minimap.className = 'minimap';
+    minimap.innerHTML = '<div class="minimap-progress" id="minimap-progress"></div>';
+    document.body.appendChild(minimap);
+    
+    const progress = document.getElementById('minimap-progress');
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        progress.style.height = pct + '%';
+    });
 }
 
 /* ── 论文列表 ── */
@@ -343,3 +457,155 @@ springStyles.textContent = `
     }
 `;
 document.head.appendChild(springStyles);
+
+// ═══════════════════════════════════════════════════════════════
+// v9.0 渲染增强 · 2026-03-24 02:18
+// ✨ 骨骼屏加载 + 滚动观察器 + Toast通知 + 光标光晕
+// ═══════════════════════════════════════════════════════════════
+
+/* ── 滚动触发动画 ── */
+function initScrollReveal() {
+    const els = document.querySelectorAll('.scroll-reveal, .fade-up, .fade-in');
+    if (!els.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -40px 0px'
+    });
+
+    els.forEach((el, i) => {
+        el.classList.add('scroll-reveal');
+        // stagger delay via data attribute
+        const delay = el.dataset.revealDelay || (i % 6) * 80;
+        el.style.transitionDelay = `${delay}ms`;
+        observer.observe(el);
+    });
+}
+
+/* ── 骨架屏渲染（首次加载用） ── */
+function showSkeletonLoading(container, count = 3) {
+    const skeletons = Array.from({ length: count }, () => `
+        <div class="skeleton-card" style="margin-bottom: 16px;">
+            <div class="skeleton skeleton-circle" style="margin-bottom: 12px;"></div>
+            <div class="skeleton skeleton-line long"></div>
+            <div class="skeleton skeleton-line medium"></div>
+            <div class="skeleton skeleton-line short"></div>
+        </div>
+    `).join('');
+    
+    if (container) container.innerHTML = skeletons;
+}
+
+/* ── Toast 通知系统 ── */
+function showToast(message, type = 'info', duration = 3000) {
+    let container = document.querySelector('.toast-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.className = 'toast-container';
+        document.body.appendChild(container);
+    }
+
+    const toast = document.createElement('div');
+    toast.className = `toast-msg toast-${type}`;
+    toast.textContent = message;
+    container.appendChild(toast);
+
+    setTimeout(() => {
+        toast.style.animation = 'toast-in 0.3s ease reverse both';
+        setTimeout(() => toast.remove(), 300);
+    }, duration);
+}
+
+/* ── 键盘快捷键提示面板 ── */
+function initKeyboardHints() {
+    const hint = document.querySelector('.shortcut-hint');
+    if (!hint) return;
+
+    let hideTimer;
+    document.addEventListener('keydown', (e) => {
+        if (e.key === '?' || (e.shiftKey && e.key === '/')) {
+            hint.classList.add('visible');
+            clearTimeout(hideTimer);
+            hideTimer = setTimeout(() => hint.classList.remove('visible'), 4000);
+        }
+    });
+}
+
+/* ── 导航进度指示器 ── */
+function initNavProgress() {
+    const nav = document.querySelector('.glass-nav');
+    if (!nav) return;
+
+    const progress = document.createElement('div');
+    progress.className = 'nav-progress';
+    progress.style.width = '0%';
+    nav.style.position = 'relative';
+    nav.appendChild(progress);
+
+    window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        const total = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = total > 0 ? (scrolled / total) * 100 : 0;
+        progress.style.width = `${pct}%`;
+    }, { passive: true });
+}
+
+/* ── 光标跟随光晕（桌面端） ── */
+function initCursorGlow() {
+    if (window.matchMedia('(hover: none)').matches) return;
+    
+    const glow = document.createElement('div');
+    glow.className = 'cursor-glow';
+    document.body.appendChild(glow);
+
+    let ticking = false;
+    document.addEventListener('mousemove', (e) => {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                glow.style.left = `${e.clientX}px`;
+                glow.style.top  = `${e.clientY}px`;
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+}
+
+/* ── 页面入场动画 ── */
+function initPageEnter() {
+    document.body.classList.add('page-enter');
+    setTimeout(() => document.body.classList.remove('page-enter'), 600);
+}
+
+/* ── 初始化 v9.0 全部增强 ── */
+document.addEventListener('DOMContentLoaded', () => {
+    initScrollReveal();
+    initKeyboardHints();
+    initNavProgress();
+    initCursorGlow();
+    initPageEnter();
+
+    // 给所有卡片添加入场动画
+    document.querySelectorAll('.paper-card, .news-card, .stat-card, .babel-card').forEach((card, i) => {
+        if (!card.classList.contains('scroll-reveal')) {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s cubic-bezier(0.22,1,0.36,1)';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 100 + i * 60);
+        }
+    });
+});
+
+// ═══════════════════════════════════════════════════════════════
+// End of v9.0 渲染增强 · 2026-03-24 02:18
+// ═══════════════════════════════════════════════════════════════
