@@ -1,10 +1,10 @@
 /* ============================================================
    AI Nexus — 灵儿的知识花园
-   Design System v8.5 · 2026-03-23 13:30
-   Theme: Morning Brilliance · Neural Spark
-   ✨ 全栈美学大师版 · 每小时自动优化 · 神经火花 v8.5
+   Design System v8.6 · 2026-03-23 17:37
+   Theme: Evening Glow · Neural Spark
+   ✨ 全栈美学大师版 · 每小时自动优化 · 神经火花 v8.6
    ═══════════════════════════════════════════════════════════
-   v8.5 更新重点（2026-03-23 13:30）：
+   v8.6 更新重点（2026-03-23 17:37）：
    · 补全所有缺失的 CSS 类定义（neural-*、spring-*、aurora-border 等）
    · 新增春季花瓣动画（petal-drift）+ 极光边框效果
    · 修复移动端菜单展开问题（nav-links.open 动画）
@@ -584,6 +584,94 @@ main {
   color: var(--text-primary);
   border-color: var(--glass-border-hover);
   background: var(--bg-glass);
+}
+
+/* v8.6 新增：发光按钮 */
+.glow-btn {
+  position: relative;
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.9rem;
+  background: var(--gradient-primary);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+}
+
+.glow-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.glow-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(99,102,241,0.45), 0 0 20px rgba(99,102,241,0.3);
+}
+
+.glow-btn:hover::before {
+  opacity: 1;
+}
+
+.glow-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* v8.6 新增：液态金属效果 */
+.liquid-metal {
+  background: linear-gradient(135deg, 
+    rgba(255,255,255,0.1) 0%, 
+    rgba(255,255,255,0.05) 50%,
+    rgba(255,255,255,0.1) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 
+    0 8px 32px rgba(0,0,0,0.3),
+    inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+/* v8.6 新增：滚动驱动动画支持 */
+@supports (animation-timeline: view()) {
+  .scroll-animate {
+    animation: fadeSlideUp linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 40%;
+  }
+}
+
+/* v8.6 新增：卡片交错动画 */
+.card-animate {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: cardFadeIn 0.5s ease forwards;
+}
+
+.card-animate:nth-child(1) { animation-delay: 0.05s; }
+.card-animate:nth-child(2) { animation-delay: 0.1s; }
+.card-animate:nth-child(3) { animation-delay: 0.15s; }
+.card-animate:nth-child(4) { animation-delay: 0.2s; }
+.card-animate:nth-child(5) { animation-delay: 0.25s; }
+.card-animate:nth-child(6) { animation-delay: 0.3s; }
+
+@keyframes cardFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* v8.6 新增：增强 focus 指示器 */
+:focus-visible {
+  outline: 2px solid var(--primary-light);
+  outline-offset: 3px;
+  border-radius: var(--radius-xs);
+  box-shadow: 0 0 0 4px rgba(99,102,241,0.2);
 }
 
 .paper-link {
