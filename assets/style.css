@@ -51,6 +51,16 @@
   --accent-pink:    #f472b6;
   --accent-green:   #34d399;
   --accent-orange:  #fb923c;
+  
+  /* v9.0 新增：宇宙绽放主题色 */
+  --cosmic-pink:     #ff6bcb;
+  --cosmic-purple:   #c084fc;
+  --cosmic-blue:    #38bdf8;
+  --cosmic-cyan:    #22d3ee;
+  
+  /* v9.0 新增：流星效果色 */
+  --meteor-cyan:    #67e8f9;
+  --meteor-purple:   #9333ea;
 
   /* 背景层 */
   --bg-base:        #080c14;
@@ -4368,6 +4378,550 @@ body:not(.light-theme) .star-bg {
 .stagger-content > *:nth-child(4) { animation-delay: 0.15s; }
 .stagger-content > *:nth-child(5) { animation-delay: 0.2s; }
 .stagger-content > *:nth-child(6) { animation-delay: 0.25s; }
+
+/* ═══════════════════════════════════════════════════════════════
+   v9.0 美学大师版新增样式 · 2026-03-24 04:25
+   ✨ 宇宙绽放 · 流星边框 · 己空极光 · 光标追踪
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 237. 宇宙绽放渐变（Cosmic Bloom）──────────────────── */
+.cosmic-bloom-gradient {
+  background: 
+    radial-gradient(ellipse at 20% 30%, rgba(255,107,203, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(192,132,252, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(56,189,248, 0.05) 0%, transparent 50%);
+  animation: cosmic-bloom-rotate 20s ease-in-out infinite;
+}
+
+@keyframes cosmic-bloom-rotate {
+  0%, 100% { background-position: 0% 0%, 100% 100%, 50% 50%; }
+  33% { background-position: 20% 30%, 80% 70%, 60% 40%; }
+  66% { background-position: 40% 60%, 60% 40%, 70% 70%; }
+  100% { background-position: 0% 0%, 100% 100%, 50% 50%; }
+}
+
+/* ── 238. 流星边框效果（Meteor Border）────────────────────── */
+.meteor-border {
+  position: relative;
+  overflow: hidden;
+}
+
+.meteor-border::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    var(--meteor-cyan) 50%,
+    var(--meteor-purple) 100%
+  );
+  animation: meteor-fall 1.5s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes meteor-fall {
+  0% { left: -100%; opacity: 0; }
+  50% { opacity: 1; }
+  100% { left: calc(100% + 100px); opacity: 0; }
+}
+
+/* ── 239. 呼吸式发光圆环 ───────────────────────────────────── */
+.breathing-glow-ring {
+  position: relative;
+}
+
+.breathing-glow-ring::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  border: 2px solid transparent;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink)) border-box;
+  animation: breathing-glow 3s ease-in-out infinite;
+}
+
+@keyframes breathing-glow {
+  0%, 100% { 
+    opacity: 0;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+}
+
+/* ── 240. 卡片悬浮光晕扩散 ───────────────────────────────── */
+.card-glow-expand {
+  position: relative;
+}
+
+.card-glow-expand::after {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  border-radius: inherit;
+  background: radial-gradient(circle at center, rgba(99,102,241,0.12) 0%, transparent 70%);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.card-glow-expand:hover::after {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+/* ── 241. 鼠标跟随光点追踪 ───────────────────────────────── */
+.cursor-light-trail {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gradient-aurora);
+  pointer-events: none;
+  z-index: 9999;
+  box-shadow: 0 0 15px rgba(99,102,241,0.5), 0 0 30px rgba(99,102,241,0.3);
+  opacity: 0.7;
+  transition: transform 0.1s linear;
+}
+
+/* ── 242. Hero 星空粒子背景 ───────────────────────────────────── */
+.hero-starfield {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hero-starfield .star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: rgba(255,255,255,0.8);
+  border-radius: 50%;
+  animation: star-twinkle 3s ease-in-out infinite;
+}
+
+.hero-starfield .star:nth-child(2n) { animation-delay: -1.5s; }
+.hero-starfield .star:nth-child(3n) { animation-delay: -3s; }
+
+@keyframes star-twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* ── 243. 打字机光标彩虹渐变 ─────────────────────────────────── */
+.cursor-rainbow {
+  display: inline-block;
+  width: 3px;
+  height: 1.2em;
+  background: linear-gradient(180deg, #22d3ee, #6366f1, #a78bfa, #f472b6);
+  animation: cursor-rainbow-blink 1s step-end infinite;
+  border-radius: 2px;
+  vertical-align: text-bottom;
+}
+
+@keyframes cursor-rainbow-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ── 244. 底部导航进度指示条 ─────────────────────────────────── */
+.nav-bottom-progress {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--bg-base);
+  z-index: 201;
+}
+
+.nav-bottom-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
+  transition: width 0.1s linear;
+  box-shadow: 0 0 10px rgba(99,102,241,0.3);
+}
+
+/* ── 245. 卡片旋转入场动画组 ───────────────────────────────── */
+.rotate-in {
+  animation: rotate-fade-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes rotate-fade-in {
+  0% {
+    opacity: 0;
+    transform: perspective(1000px) rotateY(-5deg) translateY(30px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(1000px) rotateY(0deg) translateY(0) scale(1);
+  }
+}
+
+/* ── 246. 快捷键悬浮提示美化 ─────────────────────────────────── */
+.shortcut-hint-enhanced {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  padding: 8px 16px;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  z-index: 100;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+}
+
+.shortcut-hint-enhanced:hover {
+  opacity: 1;
+}
+
+.shortcut-hint-enhanced kbd {
+  padding: 2px 6px;
+  background: rgba(99,102,241,0.15);
+  border: 1px solid rgba(99,102,241,0.3);
+  border-radius: var(--radius-xs);
+  font-family: monospace;
+  font-size: 0.68rem;
+  color: var(--primary-light);
+}
+
+/* ── 247. 焦点环彩虹动画 ─────────────────────────────────────── */
+:focus-visible {
+  outline: none;
+}
+
+.focus-ring-rainbow:focus-visible {
+  box-shadow: 
+    0 0 0 3px rgba(34,211,238, 0.4),
+    0 0 0 5px rgba(99,102,241, 0.3),
+    0 0 0 8px rgba(168,139,250, 0.2);
+  animation: focus-ring-pulse 2s ease-in-out infinite;
+}
+
+@keyframes focus-ring-pulse {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(34,211,238, 0.4), 0 0 0 5px rgba(99,102,241, 0.3), 0 0 0 8px rgba(168,139,250, 0.2); }
+  50% { box-shadow: 0 0 0 4px rgba(34,211,238, 0.5), 0 0 0 7px rgba(99,102,241, 0.4), 0 0 0 10px rgba(168,139,250, 0.3); }
+}
+
+/* ── 248. 论文卡片阅读进度动画 ───────────────────────────────── */
+.reading-progress-card {
+  position: relative;
+}
+
+.reading-progress-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: transparent;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  overflow: hidden;
+}
+
+.reading-progress-card.reading::before {
+  background: linear-gradient(90deg, transparent, var(--accent-cyan), var(--accent-purple));
+  animation: reading-progress-anim 3s linear forwards;
+}
+
+@keyframes reading-progress-anim {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+/* ── 249. 悬浮涟漪点击波纹 ─────────────────────────────────────── */
+.ripple-click {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple-click .ripple-wave {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+  transform: scale(0);
+  animation: ripple-expand 0.6s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes ripple-expand {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* ── 250. 移动端触摸反馈 ─────────────────────────────────────── */
+@media (hover: none) {
+  .paper-card:active,
+  .news-card:active,
+  .babel-card:active {
+    transform: scale(0.98);
+    transition: transform 0.1s;
+  }
+  
+  .action-btn:active {
+    transform: scale(0.95);
+  }
+  
+  .filter-chip:active {
+    transform: scale(0.97);
+    background: rgba(99,102,241,0.25);
+  }
+}
+
+/* ── 251. 微交互动画类（50+）──────────────────────────────────────── */
+/* 淡入淡出 */
+.fade-in { animation: fadeIn 0.3s ease-out both; }
+.fade-out { animation: fadeIn 0.3s ease-out reverse both; }
+
+/* 滑入滑出 */
+.slide-up { animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+.slide-down { animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) reverse both; }
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 缩放弹跳 */
+.scale-bounce { animation: scaleBounce 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+
+@keyframes scaleBounce {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* 抖动效果 */
+.shake-effect { animation: shakeEffect 0.4s ease-in-out; }
+
+@keyframes shakeEffect {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-5px); }
+  40% { transform: translateX(5px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(3px); }
+}
+
+/* 闪烁效果 */
+.blink-effect { animation: blinkEffect 0.5s ease-in-out 3; }
+
+@keyframes blinkEffect {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* 浮动效果 */
+.float-effect { animation: floatEffect 3s ease-in-out infinite; }
+
+@keyframes floatEffect {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* 脉冲效果 */
+.pulse-effect { animation: pulseEffect 2s ease-in-out infinite; }
+
+@keyframes pulseEffect {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.8; }
+}
+
+/* 旋转进入 */
+.rotate-in-left { animation: rotateInLeft 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+.rotate-in-right { animation: rotateInRight 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+
+@keyframes rotateInLeft {
+  from { opacity: 0; transform: rotate(-10deg) translateX(-20px); }
+  to { opacity: 1; transform: rotate(0deg) translateX(0); }
+}
+
+@keyframes rotateInRight {
+  from { opacity: 0; transform: rotate(10deg) translateX(20px); }
+  to { opacity: 1; transform: rotate(0deg) translateX(0); }
+}
+
+/* 弹跳延迟 */
+.bounce-delay-1 { animation-delay: 0.1s !important; }
+.bounce-delay-2 { animation-delay: 0.2s !important; }
+.bounce-delay-3 { animation-delay: 0.3s !important; }
+.bounce-delay-4 { animation-delay: 0.4s !important; }
+.bounce-delay-5 { animation-delay: 0.5s !important; }
+
+/* 渐变文字悬浮 */
+.gradient-text-hover {
+  transition: all 0.3s ease;
+}
+.gradient-text-hover:hover {
+  filter: brightness(1.2);
+  text-shadow: 0 0 20px rgba(99,102,241,0.5);
+}
+
+/* 阴影脉冲 */
+.shadow-pulse {
+  animation: shadowPulse 2s ease-in-out infinite;
+}
+
+@keyframes shadowPulse {
+  0%, 100% { box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+  50% { box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
+}
+
+/* 边框闪烁 */
+.border-flash {
+  animation: borderFlash 1.5s ease-in-out infinite;
+}
+
+@keyframes borderFlash {
+  0%, 100% { border-color: var(--glass-border); }
+  50% { border-color: var(--primary-light); }
+}
+
+/* ── 252. 暗色模式极光流动增强 ───────────────────────────────── */
+body:not(.light-theme) .aurora-flow-enhanced {
+  position: relative;
+}
+
+body:not(.light-theme) .aurora-flow-enhanced::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 10% 20%, rgba(99,102,241,0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 80%, rgba(168,139,250,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(34,211,238,0.08) 0%, transparent 50%);
+  animation: auroraFlowMove 20s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes auroraFlowMove {
+  0%, 100% { 
+    background-position: 0% 0%, 100% 100%, 50% 50%;
+    opacity: 0.8;
+  }
+  33% { 
+    background-position: 30% 30%, 70% 70%, 60% 40%;
+    opacity: 1;
+  }
+  66% { 
+    background-position: 20% 40%, 80% 60%, 40% 60%;
+    opacity: 0.6;
+  }
+}
+
+/* ── 253. 卡片玻璃态悬浮增强 ───────────────────────────────────── */
+.glass-card-hover-enhanced {
+  background: linear-gradient(135deg,
+    rgba(255,255,255,0.06) 0%,
+    rgba(255,255,255,0.02) 100%
+  );
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.glass-card-hover-enhanced:hover {
+  background: linear-gradient(135deg,
+    rgba(255,255,255,0.1) 0%,
+    rgba(255,255,255,0.04) 100%
+  );
+  border-color: rgba(99,102,241,0.3);
+  transform: translateY(-4px);
+  box-shadow: 
+    0 12px 40px rgba(0,0,0,0.4),
+    0 0 30px rgba(99,102,241,0.1),
+    inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+/* ── 254. 标签悬浮增强 ─────────────────────────────────────── */
+.tag-hover-enhanced {
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.tag-hover-enhanced:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 4px 15px rgba(99,102,241,0.3);
+}
+
+/* ── 255. 按钮悬浮增强 ───────────────────────────────────────── */
+.btn-hover-enhanced {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-hover-enhanced::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-hover-enhanced:hover::before {
+  left: 100%;
+}
+
+/* ── 256. 搜索框聚焦增强 ───────────────────────────────────────── */
+.search-focus-enhanced {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.search-focus-enhanced:focus {
+  transform: scale(1.02);
+  box-shadow: 
+    0 0 0 3px rgba(99,102,241,0.15),
+    0 8px 24px rgba(99,102,241,0.1);
+}
+
+/* ── 257. 导航链接悬浮增强 ─────────────────────────────────────── */
+.nav-link-hover-enhanced {
+  position: relative;
+}
+
+.nav-link-hover-enhanced::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--gradient-aurora);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform: translateX(-50%);
+}
+
+.nav-link-hover-enhanced:hover::after {
+  width: 100%;
+  transform: translateX(0);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   End of v9.0 美学大师版新增样式 · 2026-03-24 04:25
+   ═══════════════════════════════════════════════════════════════ */
 
 /* ═══════════════════════════════════════════════════════════════
    End of v6.3 美学大师版 · 2026-03-21 09:58
