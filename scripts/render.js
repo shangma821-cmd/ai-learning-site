@@ -1,6 +1,6 @@
-// AI Nexus — 渲染脚本 v4.4
+// AI Nexus — 渲染脚本 v4.5
 // 统一渲染逻辑，支持新版设计系统 + 滚动动画 + 交互增强
-// ✨ v4.4 · 2026-03-24 01:08 · 极光美学版 · v8.9 适配
+// ✨ v4.5 · 2026-03-24 05:30 · 极光美学版 · v9.1 适配
 
 document.addEventListener('DOMContentLoaded', function () {
     // 设置更新日期
@@ -584,6 +584,135 @@ function initPageEnter() {
     setTimeout(() => document.body.classList.remove('page-enter'), 600);
 }
 
+/* ── v9.1 新增：弹性动画效果 ── */
+function initElasticEffects() {
+    // 为卡片添加弹性悬停效果
+    document.querySelectorAll('.paper-card, .news-card, .babel-card').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.transition = 'transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transition = 'transform 0.3s ease';
+        });
+    });
+}
+
+/* ── v9.1 新增：粒子爆发效果 ── */
+function initParticleBurst() {
+    document.querySelectorAll('.paper-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            for (let i = 0; i < 8; i++) {
+                const particle = document.createElement('div');
+                particle.style.cssText = `
+                    position: absolute;
+                    width: 4px;
+                    height: 4px;
+                    background: rgba(99,102,241,0.8);
+                    border-radius: 50%;
+                    left: ${x}px;
+                    top: ${y}px;
+                    pointer-events: none;
+                    z-index: 100;
+                `;
+                card.appendChild(particle);
+                
+                const angle = (i / 8) * Math.PI * 2;
+                const velocity = 50 + Math.random() * 30;
+                
+                particle.animate([
+                    { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+                    { transform: `translate(${Math.cos(angle) * velocity}px, ${Math.sin(angle) * velocity}px) scale(0)`, opacity: 0 }
+                ], {
+                    duration: 500,
+                    easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                }).onfinish = () => particle.remove();
+            }
+        });
+    });
+}
+
+/* ── v9.1 新增：磁吸效果 ── */
+function initMagneticEffect() {
+    if (window.innerWidth < 768) return; // 移动端禁用
+    
+    document.querySelectorAll('.action-btn, .theme-toggle').forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+            const rect = btn.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            
+            btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+        });
+        
+        btn.addEventListener('mouseleave', () => {
+            btn.style.transform = '';
+        });
+    });
+}
+
+/* ── v9.1 新增：波纹点击效果 ── */
+function initRippleClick() {
+    document.querySelectorAll('.glow-btn, .filter-chip').forEach(el => {
+        el.addEventListener('click', (e) => {
+            const rect = el.getBoundingClientRect();
+            const ripple = document.createElement('div');
+            const size = Math.max(rect.width, rect.height);
+            
+            ripple.style.cssText = `
+                position: absolute;
+                width: ${size}px;
+                height: ${size}px;
+                background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
+                border-radius: 50%;
+                left: ${e.clientX - rect.left - size/2}px;
+                top: ${e.clientY - rect.top - size/2}px;
+                pointer-events: none;
+                transform: scale(0);
+            `;
+            
+            el.style.position = 'relative';
+            el.style.overflow = 'hidden';
+            el.appendChild(ripple);
+            
+            ripple.animate([
+                { transform: 'scale(0)', opacity: 1 },
+                { transform: 'scale(2)', opacity: 0 }
+            ], {
+                duration: 600,
+                easing: 'ease-out'
+            }).onfinish = () => ripple.remove();
+        });
+    });
+}
+
+/* ── v9.1 新增：3D 视差效果 ── */
+function initParallax3D() {
+    if (window.innerWidth < 768) return;
+    
+    document.querySelectorAll('.paper-card').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            
+            card.style.transform = `
+                perspective(1000px)
+                rotateX(${y * -5}deg)
+                rotateY(${x * 5}deg)
+                translateZ(10px)
+            `;
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = '';
+        });
+    });
+}
+
 /* ── 初始化 v9.0 全部增强 ── */
 document.addEventListener('DOMContentLoaded', () => {
     initScrollReveal();
@@ -591,6 +720,13 @@ document.addEventListener('DOMContentLoaded', () => {
     initNavProgress();
     initCursorGlow();
     initPageEnter();
+    
+    // v9.1 新增效果
+    initElasticEffects();
+    initParticleBurst();
+    initMagneticEffect();
+    initRippleClick();
+    initParallax3D();
 
     // 给所有卡片添加入场动画
     document.querySelectorAll('.paper-card, .news-card, .stat-card, .babel-card').forEach((card, i) => {
@@ -607,5 +743,5 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ═══════════════════════════════════════════════════════════════
-// End of v9.0 渲染增强 · 2026-03-24 02:18
+// End of v9.1 渲染增强 · 2026-03-24 05:30
 // ═══════════════════════════════════════════════════════════════

@@ -1,24 +1,23 @@
 /* ============================================================
    AI Nexus — 灵儿的知识花园
-   Design System v8.9 · 2026-03-24 01:08
+   Design System v9.1 · 2026-03-24 05:30
    Theme: Neural Glass · Aurora Flow · Spring Renewal · Midnight Glow
-   ✨ 全栈美学大师版 · 每小时自动优化 · 神经玻璃 v8.9
+   ✨ 全栈美学大师版 · 每小时自动优化 · 神经玻璃 v9.1
    ═══════════════════════════════════════════════════════════
-   v8.9 更新重点（2026-03-24 01:08）：
-   · 新增极光边框 2.0（双层动态光晕）
-   · 新增噪音纹理层（增加质感深度）
-   · 新增 Bento 网格布局（统计仪表盘）
-   · 新增 236 条新 CSS 样式定义
-   · 增强论文卡片深度悬浮极光光晕
-   · 增强新拟态按钮 + 玻璃态输入框
-   · 新增波浪背景效果 + 垂直时间线
-   · 新增页面微地图 + 阅读时间估算器
-   · 增强悬停交互：卡片抬起、阴影加深、浮现元信息
-   · 增强导航栏滚动模糊效果
-   · 新增 41 个动画延迟工具类
+   v9.1 更新重点（2026-03-24 05:30）：
+   · 新增弹性动画效果（elastic-in, spiral-in）
+   · 新增磁吸悬停效果（magnetic-hover）
+   · 新增动态光束效果（beam-hover）
+   · 新增霓虹文字效果（neon-text）
+   · 新增玻璃拟态增强（glass-morphism-enhanced）
+   · 新增粒子爆发效果（particle-burst）
+   · 新增波纹扩散效果（wave-hover）
+   · 新增 3D 旋转视差（parallax-3d）
+   · 新增渐变背景动画（animated-gradient-bg）
+   · 增强暗色模式极光效果
    · 增强亮色模式玻璃效果
-   · 增强首页 Hero 区域极光脉冲
-   · 新增章节切换过渡动画
+   · 新增 33 个动画效果类
+   · 性能优化：will-change 提示
    ═══════════════════════════════════════════════════════════════
    v8.6 更新重点（2026-03-23 17:37）：
    · 补全所有缺失的 CSS 类定义（neural-*、spring-*、aurora-border 等）
@@ -4918,6 +4917,598 @@ body:not(.light-theme) .aurora-flow-enhanced::before {
   width: 100%;
   transform: translateX(0);
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   v9.1 美学大师版新增样式 · 2026-03-24 05:30
+   ✨ 每小时美学优化 - 新增弹性动画、玻璃态增强、暗色模式优化
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 258. 弹性弹性动画 ───────────────────────────────────── */
+.elastic-in {
+  animation: elasticEnter 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) both;
+}
+
+@keyframes elasticEnter {
+  0% { opacity: 0; transform: scale(0.3); }
+  50% { opacity: 1; transform: scale(1.05); }
+  70% { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+
+/* ── 259. 磁吸效果 ─────────────────────────────────────── */
+.magnetic-hover {
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.magnetic-hover:hover {
+  transform: translateY(-6px);
+}
+
+/* ── 260. 渐变光晕背景 ─────────────────────────────────── */
+.glow-bg {
+  position: relative;
+}
+
+.glow-bg::before {
+  content: '';
+  position: absolute;
+  inset: -50px;
+  background: radial-gradient(circle at center, 
+    rgba(99,102,241,0.15) 0%, 
+    rgba(168,139,250,0.08) 30%,
+    transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: -1;
+  animation: glow-pulse 4s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+/* ── 261. 文本渐变描边 ─────────────────────────────────── */
+.gradient-stroke {
+  -webkit-text-stroke: 1px transparent;
+  background: linear-gradient(135deg, #22d3ee, #6366f1, #a78bfa);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* ── 262. 镜像翻转效果 ─────────────────────────────────── */
+.flip-card-3d {
+  perspective: 1000px;
+}
+
+.flip-card-3d .card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.flip-card-3d:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-3d .card-front,
+.flip-card-3d .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.flip-card-3d .card-back {
+  transform: rotateY(180deg);
+}
+
+/* ── 263. 螺旋入场动画 ─────────────────────────────────── */
+.spiral-in {
+  animation: spiralEnter 0.7s cubic-bezier(0.68, -0.55, 0.265, 1.55) both;
+}
+
+@keyframes spiralEnter {
+  0% { opacity: 0; transform: rotate(-180deg) scale(0.3); }
+  100% { opacity: 1; transform: rotate(0deg) scale(1); }
+}
+
+/* ── 264. 悬停光束效果 ─────────────────────────────────── */
+.beam-hover {
+  position: relative;
+  overflow: hidden;
+}
+
+.beam-hover::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(from 0deg, 
+    transparent 0deg, 
+    rgba(99,102,241,0.1) 60deg, 
+    transparent 120deg);
+  animation: beam-rotate 4s linear infinite;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.beam-hover:hover::after {
+  opacity: 1;
+}
+
+@keyframes beam-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ── 265. 脉冲圆环 ─────────────────────────────────────── */
+.pulse-ring {
+  position: relative;
+}
+
+.pulse-ring::before,
+.pulse-ring::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border: 2px solid var(--primary);
+  border-radius: 50%;
+  animation: pulse-ring-expand 2s ease-out infinite;
+  opacity: 0;
+}
+
+.pulse-ring::after {
+  animation-delay: 1s;
+}
+
+@keyframes pulse-ring-expand {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* ── 266. 霓虹文字 ─────────────────────────────────────── */
+.neon-text {
+  text-shadow: 
+    0 0 5px rgba(99,102,241,0.5),
+    0 0 10px rgba(99,102,241,0.3),
+    0 0 20px rgba(99,102,241,0.2);
+  animation: neon-flicker 3s ease-in-out infinite;
+}
+
+@keyframes neon-flicker {
+  0%, 100% { opacity: 1; }
+  92% { opacity: 1; }
+  93% { opacity: 0.8; }
+  94% { opacity: 1; }
+  96% { opacity: 0.9; }
+  97% { opacity: 1; }
+}
+
+/* ── 267. 动态边框 ─────────────────────────────────────── */
+.dynamic-border {
+  position: relative;
+}
+
+.dynamic-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(45deg, 
+    #22d3ee, #6366f1, #a78bfa, #f472b6, #22d3ee);
+  background-size: 400% 400%;
+  border-radius: inherit;
+  z-index: -1;
+  animation: border-gradient-move 3s ease infinite;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.dynamic-border:hover::before {
+  opacity: 1;
+}
+
+@keyframes border-gradient-move {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ── 268. 玻璃拟态增强 ─────────────────────────────────── */
+.glass-morphism-enhanced {
+  background: linear-gradient(135deg, 
+    rgba(255,255,255,0.1) 0%, 
+    rgba(255,255,255,0.05) 50%,
+    rgba(255,255,255,0.08) 100%);
+  backdrop-filter: blur(20px) saturate(200%);
+  -webkit-backdrop-filter: blur(20px) saturate(200%);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 
+    0 8px 32px rgba(0,0,0,0.3),
+    inset 0 1px 0 rgba(255,255,255,0.15),
+    inset 0 -1px 0 rgba(255,255,255,0.05);
+}
+
+/* ── 269. 粒子爆发效果 ─────────────────────────────────── */
+.particle-burst {
+  position: relative;
+  overflow: hidden;
+}
+
+.particle-burst::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, 
+    rgba(99,102,241,0.2) 0%, 
+    transparent 70%);
+  transform: scale(0);
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.particle-burst:hover::before {
+  transform: scale(2);
+}
+
+/* ── 270. 悬停波纹扩散 ─────────────────────────────────── */
+.wave-hover {
+  position: relative;
+  overflow: hidden;
+}
+
+.wave-hover::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: radial-gradient(circle, rgba(99,102,241,0.3) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
+.wave-hover:hover::after {
+  width: 300%;
+  height: 300%;
+}
+
+/* ── 271. 镜像倒影效果 ─────────────────────────────────── */
+.reflect-effect {
+  position: relative;
+}
+
+.reflect-effect::after {
+  content: '';
+  position: absolute;
+  bottom: -40%;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(to bottom, 
+    rgba(99,102,241,0.05) 0%, 
+    transparent 100%);
+  transform: scaleY(-1);
+  opacity: 0.3;
+  pointer-events: none;
+  filter: blur(4px);
+}
+
+/* ── 272. 动态网点图案 ─────────────────────────────────── */
+.dots-pattern {
+  background-image: radial-gradient(circle, 
+    rgba(99,102,241,0.15) 1px, 
+    transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* ── 273. 折叠入场动画 ─────────────────────────────────── */
+.fold-in {
+  animation: foldEnter 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes foldEnter {
+  0% { 
+    opacity: 0; 
+    transform: perspective(500px) rotateX(-90deg);
+  }
+  100% { 
+    opacity: 1; 
+    transform: perspective(500px) rotateX(0deg);
+  }
+}
+
+/* ── 274. 滑动入场 ─────────────────────────────────────── */
+.slide-enter {
+  animation: slideEnter 0.4s ease-out both;
+}
+
+@keyframes slideEnter {
+  from { 
+    opacity: 0; 
+    transform: translateX(-30px);
+  }
+  to { 
+    opacity: 1; 
+    transform: translateX(0);
+  }
+}
+
+/* ── 275. 弹性按钮 ─────────────────────────────────────── */
+.elastic-btn {
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.elastic-btn:hover {
+  transform: scale(1.05);
+}
+
+.elastic-btn:active {
+  transform: scale(0.95);
+}
+
+/* ── 276. 闪光按钮 ─────────────────────────────────────── */
+.shimmer-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, 
+    transparent 0%, 
+    rgba(255,255,255,0.3) 50%,
+    transparent 100%);
+  transition: left 0.5s ease;
+}
+
+.shimmer-btn:hover::after {
+  left: 100%;
+}
+
+/* ── 277. 悬停抬起效果 ─────────────────────────────────── */
+.lift-on-hover {
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.lift-on-hover:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 
+    0 20px 40px rgba(0,0,0,0.3),
+    0 0 30px rgba(99,102,241,0.15);
+}
+
+/* ── 278. 渐变遮罩文字 ─────────────────────────────────── */
+.gradient-mask-text {
+  position: relative;
+}
+
+.gradient-mask-text::before {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #22d3ee, #6366f1, #a78bfa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.gradient-mask-text:hover::before {
+  opacity: 1;
+}
+
+/* ── 279. 3D 旋转视差 ─────────────────────────────────── */
+.parallax-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease;
+}
+
+.parallax-3d:hover {
+  transform: perspective(1000px) rotateX(5deg) rotateY(-5deg);
+}
+
+/* ── 280. 渐变背景动画 ─────────────────────────────────── */
+.animated-gradient-bg {
+  background: linear-gradient(-45deg, 
+    rgba(99,102,241,0.1), 
+    rgba(168,139,250,0.1), 
+    rgba(34,211,238,0.1));
+  background-size: 400% 400%;
+  animation: gradient-bg-move 8s ease infinite;
+}
+
+@keyframes gradient-bg-move {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ── 281. 暗色模式专属：增强极光效果 ──────────────────── */
+body:not(.light-theme) .aurora-enhanced {
+  position: relative;
+}
+
+body:not(.light-theme) .aurora-enhanced::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 0% 0%, rgba(34,211,238,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 100% 100%, rgba(99,102,241,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(168,139,250,0.08) 0%, transparent 50%);
+  animation: aurora-enhanced-move 15s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes aurora-enhanced-move {
+  0%, 100% { 
+    background-position: 0% 0%, 100% 100%, 50% 50%;
+    opacity: 0.8;
+  }
+  33% { 
+    background-position: 20% 30%, 80% 70%, 40% 60%;
+    opacity: 1;
+  }
+  66% { 
+    background-position: 40% 20%, 60% 80%, 60% 40%;
+    opacity: 0.6;
+  }
+}
+
+/* ── 282. 亮色模式增强 ─────────────────────────────────── */
+body.light-theme .glass-morphism-enhanced {
+  background: linear-gradient(135deg, 
+    rgba(255,255,255,0.9) 0%, 
+    rgba(255,255,255,0.7) 50%,
+    rgba(255,255,255,0.85) 100%);
+  border-color: rgba(0,0,0,0.08);
+  box-shadow: 
+    0 8px 32px rgba(0,0,0,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.8);
+}
+
+/* ── 283. 移动端优化：更大的点击区域 ─────────────────── */
+@media (max-width: 768px) {
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .mobile-padding-reduced {
+    padding: 12px 16px;
+  }
+}
+
+/* ── 284. 性能优化：will-change 提示 ─────────────────── */
+.will-animate {
+  will-change: transform, opacity;
+}
+
+/* ── 285. 新增：粘性悬浮头部效果 ───────────────────────── */
+.sticky-header {
+  position: sticky;
+  top: 64px;
+  background: rgba(8,12,20,0.95);
+  backdrop-filter: blur(20px);
+  z-index: 50;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+/* ── 286. 标签云悬浮动画 ───────────────────────────────── */
+.tag-cloud-item {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.tag-cloud-item:hover {
+  transform: scale(1.15) translateY(-4px);
+  box-shadow: 0 8px 20px rgba(99,102,241,0.25);
+}
+
+/* ── 287. 卡片切换动画 ─────────────────────────────────── */
+.card-flip {
+  perspective: 1000px;
+}
+
+.card-flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.card-flip.flipped .card-flip-inner {
+  transform: rotateY(180deg);
+}
+
+.card-flip-front,
+.card-flip-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.card-flip-back {
+  transform: rotateY(180deg);
+}
+
+/* ── 288. 加载骨架屏闪烁 ───────────────────────────────── */
+.skeleton-shimmer {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(90deg,
+    var(--bg-glass) 25%,
+    rgba(255,255,255,0.05) 50%,
+    var(--bg-glass) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.8s infinite;
+}
+
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── 289. 选中状态动画 ─────────────────────────────────── */
+.selected-animate {
+  transition: all 0.3s ease;
+}
+
+.selected-animate.active {
+  background: rgba(99,102,241,0.15);
+  border-color: var(--primary);
+  box-shadow: 0 0 20px rgba(99,102,241,0.2);
+}
+
+/* ── 290. 进度步骤指示器 ───────────────────────────────── */
+.step-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.step-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--bg-glass);
+  border: 2px solid var(--glass-border);
+  transition: all 0.3s ease;
+}
+
+.step-dot.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  box-shadow: 0 0 12px rgba(99,102,241,0.5);
+}
+
+.step-dot.completed {
+  background: var(--accent-green);
+  border-color: var(--accent-green);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   End of v9.1 美学大师版新增样式 · 2026-03-24 05:30
+   ═══════════════════════════════════════════════════════════════════ */
 
 /* ═══════════════════════════════════════════════════════════════
    End of v9.0 美学大师版新增样式 · 2026-03-24 04:25
