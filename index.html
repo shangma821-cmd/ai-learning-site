@@ -114,7 +114,7 @@
     <main id="main-content">
 
         <!-- Hero 区域 -->
-        <div class="hero-section spring-glass-card spring-glow-hover aurora-border">
+        <div class="hero-section spring-glass-card spring-glow-hover aurora-border neumorph-glass hover-aura">
             <div class="floating-sphere" style="width:100px;height:100px;top:10%;left:10%;"></div>
             <div class="floating-sphere" style="width:60px;height:60px;top:60%;right:15%;animation-delay:-3s;"></div>
             <div class="hero-badge">
@@ -130,7 +130,7 @@
         </div>
 
         <!-- 今日精选 -->
-        <section id="today" class="section today-section active">
+        <section id="today" class="section today-section active scroll-reveal">
             <!-- 今日日期大标题 -->
             <div class="today-header">
                 <div class="today-date-display" id="today-date-bg"></div>
@@ -201,7 +201,7 @@
         </section>
 
         <!-- 更新日记 -->
-        <section id="journal" class="section journal-section">
+        <section id="journal" class="section journal-section scroll-reveal">
             <div class="section-header">
                 <h1><i class="fas fa-book-open spring-icon"></i> <span class="spring-gradient-text">灵儿的日记</span></h1>
                 <span class="date journal-subtitle">我的思考与行动记录</span>
@@ -220,7 +220,7 @@
         </section>
 
         <!-- 知识花园 -->
-        <section id="garden" class="section garden-section">
+        <section id="garden" class="section garden-section scroll-reveal">
             <div class="section-header">
                 <h1><i class="fas fa-tree spring-icon"></i> <span class="spring-gradient-text">知识花园</span></h1>
                 <span class="garden-stats" id="garden-stats"></span>
@@ -241,7 +241,7 @@
         </section>
 
         <!-- 学习档案 -->
-        <section id="archive" class="section archive-section">
+        <section id="archive" class="section archive-section scroll-reveal">
             <div class="section-header">
                 <h1><i class="fas fa-archive spring-icon"></i> <span class="spring-gradient-text">学习档案</span></h1>
             </div>
@@ -309,7 +309,7 @@
         </section>
 
         <!-- AI 对话 -->
-        <section id="chat" class="section chat-section">
+        <section id="chat" class="section chat-section scroll-reveal">
             <div class="section-header">
                 <h1><i class="fas fa-comments"></i> 学习对话</h1>
             </div>
@@ -432,7 +432,7 @@
                     const readTime = p.readTime || '8 分钟';
                     const citations = p.citations || 0;
                     cards.push(`
-                        <div class="paper-card ${isFeatured ? 'featured-card tilt-card' : 'tilt-card'} reveal" data-category="${key}" style="animation-delay:${cardIndex * 0.1}s">
+                        <div class="paper-card ${isFeatured ? 'featured-card tilt-card' : 'tilt-card'} reveal neumorph-glass glass-card-shine micro-lift" data-category="${key}" style="animation-delay:${cardIndex * 0.1}s">
                             <div class="hover-progress-bar"></div>
                             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
                                 <span class="tag ${t.cls}">${t.label}</span>
@@ -470,7 +470,7 @@
                 const isNew = idx < 2;
                 const isHot = item.hot;
                 return `
-                <div class="news-item reveal" style="animation-delay:${idx * 0.08}s">
+                <div class="news-item reveal neumorph-glass micro-lift" style="animation-delay:${idx * 0.08}s">
                     <span class="time">${item.date ? item.date.slice(5) : '--'}</span>
                     <div class="content">
                         <div class="title">
@@ -495,7 +495,7 @@
                 design: '🎨', history: '📜', nature: '🌿', space: '🚀'
             };
             babelContainer.innerHTML = siteData.babel.slice(0, 4).map((item, idx) => `
-                <div class="babel-card hover-shadow-lift reveal" onclick="window.open('${item.url || '#'}','_blank')" style="animation-delay:${idx * 0.1}s">
+                <div class="babel-card hover-shadow-lift reveal neumorph-glass micro-lift" onclick="window.open('${item.url || '#'}','_blank')" style="animation-delay:${idx * 0.1}s">
                     <div class="emoji">${emojiMap[item.category] || '✨'}</div>
                     <h4>${item.title}</h4>
                     <div class="field">${item.source}</div>
@@ -517,7 +517,7 @@
                 const t = typeMap[entry.type] || { color: '#6366f1', icon: '📝' };
                 const isLatest = idx === 0;
                 return `
-                <div class="journal-entry glass-card-enhanced reveal ${isLatest ? 'journal-latest' : ''}" style="animation-delay:${idx * 0.1}s;margin-bottom:20px;border-radius:var(--radius-lg);overflow:hidden;">
+                <div class="journal-entry glass-card-enhanced reveal neumorph-glass ${isLatest ? 'journal-latest' : ''}" style="animation-delay:${idx * 0.1}s;margin-bottom:20px;border-radius:var(--radius-lg);overflow:hidden;">
                     <div class="journal-entry-header" style="display:flex;align-items:center;gap:12px;padding:18px 24px;background:linear-gradient(135deg,rgba(${hexToRgb(t.color)},0.08),transparent);border-bottom:1px solid var(--glass-border);">
                         <div style="width:40px;height:40px;border-radius:50%;background:${t.color}20;border:1px solid ${t.color}40;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;">
                             ${t.icon}

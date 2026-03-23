@@ -5275,9 +5275,9 @@ kbd {
    ═══════════════════════════════════════════════════════════════ */
 
 /* ═══════════════════════════════════════════════════════════════
-   v8.7 美学大师版 · 2026-03-23 22:48
-   Theme: Neural Glass · Aurora Flow · Spring Renewal
-   ✨ 每小时美学优化 - 新增琥珀光晕、卡片呼吸动画、磁性悬浮
+   v8.8 美学大师版 · 2026-03-23 23:58
+   Theme: Neural Glass · Aurora Flow · Spring Renewal · Midnight Glow
+   ✨ 每小时美学优化 - 新增新拟态玻璃、动态渐变边框、微交互增强
    ═══════════════════════════════════════════════════════════════ */
 
 /* ═══════════════════════════════════════════════════════════════
@@ -6290,7 +6290,395 @@ body:not(.light-theme) .star-enhanced {
   }
 }
 
-/* ── 223. 打印样式增强 ─────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════
+   v8.8 新增样式 - 2026-03-23 23:58
+   新拟态玻璃 · 动态渐变边框 · 微交互增强
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 224. 新拟态玻璃卡片 ───────────────────────────────────── */
+.neumorph-glass {
+  background: linear-gradient(145deg, 
+    rgba(255,255,255,0.08) 0%, 
+    rgba(255,255,255,0.02) 50%,
+    rgba(0,0,0,0.05) 100%);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 
+    0 8px 32px rgba(0,0,0,0.3),
+    inset 0 1px 0 rgba(255,255,255,0.12),
+    inset 0 -1px 0 rgba(0,0,0,0.1);
+  transition: all 0.4s var(--ease-spring);
+}
+
+.neumorph-glass:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 
+    0 16px 48px rgba(0,0,0,0.4),
+    0 0 40px rgba(99,102,241,0.1),
+    inset 0 1px 0 rgba(255,255,255,0.15);
+  border-color: rgba(99,102,241,0.25);
+}
+
+/* ── 225. 动态流动边框 ─────────────────────────────────────── */
+.flow-border-animated {
+  position: relative;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.flow-border-animated::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    var(--accent-cyan) 10%,
+    var(--primary) 25%,
+    var(--accent-purple) 40%,
+    transparent 50%,
+    transparent 60%,
+    var(--accent-pink) 75%,
+    var(--accent-cyan) 90%,
+    transparent 100%
+  );
+  border-radius: inherit;
+  animation: flow-border-rotate 4s linear infinite;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.flow-border-animated:hover::before {
+  opacity: 1;
+}
+
+.flow-border-animated::after {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  background: var(--bg-card);
+  border-radius: inherit;
+  z-index: -1;
+}
+
+@keyframes flow-border-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ── 226. 微交互动画库 ─────────────────────────────────────── */
+.micro-bounce {
+  transition: transform 0.3s var(--ease-spring);
+}
+
+.micro-bounce:hover {
+  transform: scale(1.05);
+}
+
+.micro-bounce:active {
+  transform: scale(0.95);
+}
+
+.micro-lift {
+  transition: all 0.25s var(--ease-smooth);
+}
+
+.micro-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.micro-glow {
+  transition: all 0.3s var(--ease-smooth);
+}
+
+.micro-glow:hover {
+  box-shadow: 0 0 20px rgba(99,102,241,0.3);
+}
+
+/* ── 227. 文字微动效 ───────────────────────────────────────── */
+.text-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--text-primary) 0%,
+    var(--primary-light) 25%,
+    var(--accent-cyan) 50%,
+    var(--primary-light) 75%,
+    var(--text-primary) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: text-shimmer 3s linear infinite;
+}
+
+@keyframes text-shimmer {
+  to { background-position: 200% center; }
+}
+
+/* ── 228. 卡片悬浮深度效果 ─────────────────────────────────── */
+.depth-card {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.depth-card-inner {
+  transition: transform 0.4s var(--ease-spring);
+  transform-style: preserve-3d;
+}
+
+.depth-card:hover .depth-card-inner {
+  transform: translateZ(20px) rotateX(2deg) rotateY(-2deg);
+}
+
+/* ── 229. 磁性悬浮效果增强 ─────────────────────────────────── */
+.magnetic-float {
+  transition: transform 0.2s var(--ease-spring);
+}
+
+/* ── 230. 渐变按钮增强 ─────────────────────────────────────── */
+.gradient-btn-enhanced {
+  position: relative;
+  background: var(--gradient-primary);
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s var(--ease-spring);
+}
+
+.gradient-btn-enhanced::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, 
+    rgba(255,255,255,0.2) 0%, 
+    transparent 50%,
+    rgba(255,255,255,0.1) 100%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.gradient-btn-enhanced:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(99,102,241,0.4), 0 0 20px rgba(99,102,241,0.2);
+}
+
+.gradient-btn-enhanced:hover::before {
+  opacity: 1;
+}
+
+.gradient-btn-enhanced:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* ── 231. 玻璃拟态输入框 ───────────────────────────────────── */
+.glass-input {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  color: var(--text-primary);
+  font-family: inherit;
+  transition: all 0.25s var(--ease-smooth);
+  backdrop-filter: blur(10px);
+}
+
+.glass-input:focus {
+  outline: none;
+  border-color: rgba(99,102,241,0.5);
+  background: rgba(255,255,255,0.05);
+  box-shadow: 
+    0 0 0 3px rgba(99,102,241,0.1),
+    0 4px 20px rgba(99,102,241,0.1);
+}
+
+.glass-input::placeholder {
+  color: var(--text-muted);
+}
+
+/* ── 232. 标签悬浮效果增强 ─────────────────────────────────── */
+.tag-enhanced {
+  position: relative;
+  overflow: hidden;
+}
+
+.tag-enhanced::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, 
+    rgba(255,255,255,0.1) 0%, 
+    transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tag-enhanced:hover::before {
+  opacity: 1;
+}
+
+/* ── 233. 滚动触发动画类 ───────────────────────────────────── */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s var(--ease-spring);
+}
+
+.scroll-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-reveal-left {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: all 0.6s var(--ease-spring);
+}
+
+.scroll-reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scroll-reveal-right {
+  opacity: 0;
+  transform: translateX(30px);
+  transition: all 0.6s var(--ease-spring);
+}
+
+.scroll-reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scroll-reveal-scale {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.6s var(--ease-spring);
+}
+
+.scroll-reveal-scale.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ── 234. 脉冲动画增强 ─────────────────────────────────────── */
+.pulse-soft {
+  animation: pulse-soft 2s ease-in-out infinite;
+}
+
+@keyframes pulse-soft {
+  0%, 100% { 
+    opacity: 1; 
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(99,102,241,0.4);
+  }
+  50% { 
+    opacity: 0.8; 
+    transform: scale(1.02);
+    box-shadow: 0 0 20px 5px rgba(99,102,241,0.2);
+  }
+}
+
+/* ── 235. 悬浮光晕效果 ─────────────────────────────────────── */
+.hover-aura {
+  position: relative;
+}
+
+.hover-aura::after {
+  content: '';
+  position: absolute;
+  inset: -10px;
+  background: radial-gradient(circle at center, 
+    rgba(99,102,241,0.15) 0%, 
+    transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.hover-aura:hover::after {
+  opacity: 1;
+}
+
+/* ── 236. 玻璃卡片悬浮光条 ─────────────────────────────────── */
+.glass-card-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card-shine::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255,255,255,0.08), 
+    transparent);
+  transition: left 0.6s var(--ease-smooth);
+  pointer-events: none;
+}
+
+.glass-card-shine:hover::before {
+  left: 150%;
+}
+
+/* ── 237. 响应式字体缩放 ───────────────────────────────────── */
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: clamp(1.8rem, 8vw, 2.5rem);
+  }
+  
+  .section-header h1 {
+    font-size: 1.4rem;
+  }
+  
+  .paper-card h3 {
+    font-size: 0.95rem;
+  }
+}
+
+/* ── 238. 暗色模式优化 ─────────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  .neumorph-glass {
+    background: linear-gradient(145deg, 
+      rgba(255,255,255,0.05) 0%, 
+      rgba(255,255,255,0.01) 50%,
+      rgba(0,0,0,0.1) 100%);
+  }
+}
+
+/* ── 239. 减少动画偏好支持 ─────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .flow-border-animated::before,
+  .text-shimmer,
+  .pulse-soft {
+    animation: none !important;
+  }
+  
+  .scroll-reveal,
+  .scroll-reveal-left,
+  .scroll-reveal-right,
+  .scroll-reveal-scale {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ── 240. 打印样式增强 ─────────────────────────────────────── */
 @media print {
   .amber-glow::before,
   .wave-btn::before,

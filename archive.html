@@ -117,7 +117,7 @@
             </div>
         </div>
 
-        <section class="archive-section spring-glass-card">
+        <section class="archive-section spring-glass-card scroll-reveal">
             <div class="archive-grid" id="archive-list">
                 <!-- 动态加载 -->
             </div>
@@ -148,7 +148,7 @@
 
             if (archiveItems.length > 0) {
                 container.innerHTML = archiveItems.map((item, idx) => `
-                    <div class="archive-card hover-shadow-lift reveal" style="animation-delay:${idx * 0.08}s">
+                    <div class="archive-card hover-shadow-lift reveal neumorph-glass glass-card-shine micro-lift" style="animation-delay:${idx * 0.08}s">
                         <div class="archive-date">${item.date}</div>
                         <h3>${item.title || '每日精选'}</h3>
                         <div class="archive-stats">
@@ -167,7 +167,7 @@
                 const newsCount = typeof siteData !== 'undefined' ? siteData.news.length : 0;
 
                 container.innerHTML = `
-                    <div class="archive-card hover-shadow-lift reveal">
+                    <div class="archive-card hover-shadow-lift reveal neumorph-glass glass-card-shine micro-lift">
                         <div class="archive-date">${today}</div>
                         <h3>今日精选内容</h3>
                         <div class="archive-stats">

@@ -161,7 +161,7 @@ function renderHighlightCards() {
     ];
 
     container.innerHTML = highlights.map((item, i) => `
-        <div class="paper-card reveal" data-category="${item.tag}" style="animation-delay:${i * 0.08}s">
+        <div class="paper-card reveal neumorph-glass glass-card-shine micro-lift" data-category="${item.tag}" style="animation-delay:${i * 0.08}s">
             <span class="tag ${item.tag}">${item.tagText}</span>
             <h3><a href="${item.url}" target="_blank" rel="noopener">${item.title}</a></h3>
             <p class="meta">${item.venue} · ${item.authors}</p>
@@ -207,7 +207,7 @@ function renderNews() {
     container.innerHTML = siteData.news.slice(0, 6).map((item, i) => {
         const cat = categoryMap[item.category] || { emoji: '📌', cls: 'default' };
         return `
-            <div class="news-card reveal" style="animation-delay:${i * 0.06}s">
+            <div class="news-card reveal neumorph-glass glass-card-shine micro-lift" style="animation-delay:${i * 0.06}s">
                 <span class="tag ${cat.cls}">${cat.emoji}</span>
                 <h4>${item.title}</h4>
                 <p class="news-meta">${item.source} · ${item.date}</p>
@@ -234,7 +234,7 @@ function renderBabel() {
     container.innerHTML = siteData.babel.slice(0, 4).map((item, i) => {
         const cat = categoryMap[item.category] || { emoji: '✨', cls: 'default' };
         return `
-            <div class="babel-card reveal" onclick="window.open('${item.url || '#'}','_blank')" style="animation-delay:${i * 0.08}s">
+            <div class="babel-card reveal neumorph-glass glass-card-shine micro-lift" onclick="window.open('${item.url || '#'}','_blank')" style="animation-delay:${i * 0.08}s">
                 <div class="emoji">${cat.emoji}</div>
                 <h4>${item.title}</h4>
                 <div class="field">${item.source} · ${item.date}</div>
@@ -245,16 +245,32 @@ function renderBabel() {
 
 /* ── 滚动触发动画 ── */
 function initScrollReveal() {
-    const observer = new IntersectionObserver((entries) => {
+    // 处理 .reveal 元素
+    const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
+                revealObserver.unobserve(entry.target);
             }
         });
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // 处理滚动显示动画类
+    const scrollClasses = ['.scroll-reveal', '.scroll-reveal-left', '.scroll-reveal-right', '.scroll-reveal-scale'];
+    const scrollObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                scrollObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+    scrollClasses.forEach(cls => {
+        document.querySelectorAll(cls).forEach(el => scrollObserver.observe(el));
+    });
 }
 
 /* ── 春季特效 ── */

@@ -84,12 +84,12 @@
             <span class="spring-tag spring-micro"><span>💡 思维</span></span>
         </div>
 
-        <section class="news-section-page spring-glass-card sustainable-responsive organic-radius">
+        <section class="news-section-page spring-glass-card sustainable-responsive organic-radius scroll-reveal">
             <h2 class="spring-gradient-text organic-radius"><i class="fas fa-newspaper spring-icon"></i> 最新资讯</h2>
             <div class="news-grid-page" id="news-list"></div>
         </section>
 
-        <section class="news-section-page break-babel-page spring-glass-card">
+        <section class="news-section-page break-babel-page spring-glass-card scroll-reveal">
             <h2 class="spring-gradient-text"><i class="fas fa-seedling spring-icon"></i> 破茧资讯</h2>
             <div class="news-grid-page" id="babel-list"></div>
         </section>
@@ -119,7 +119,7 @@
                 const cat = categoryMap[item.category] || { emoji: '📌', cls: 'default' };
                 const isHot = idx < 3;
                 return `
-                    <div class="news-card hover-shadow-lift reveal" style="animation-delay:${idx * 0.06}s">
+                    <div class="news-card hover-shadow-lift reveal neumorph-glass glass-card-shine micro-lift" style="animation-delay:${idx * 0.06}s">
                         <span class="tag ${cat.cls}">${isHot ? '<span class="badge-hot">HOT</span> ' : ''}${cat.emoji} ${item.category ? item.category.toUpperCase() : ''}</span>
                         <h3>${item.title}</h3>
                         <p class="news-meta">${item.source} · ${item.date}</p>

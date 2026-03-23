@@ -137,7 +137,7 @@
                 const readTime = p.readTime || '8 分钟';
                 const citations = p.citations || 0;
                 return `
-                <div class="paper-card ${isFeatured ? 'featured-card tilt-card' : 'tilt-card'} reveal" data-category="${tagCls}" data-title="${p.title}" data-summary="${p.summary}" style="animation-delay:${idx * 0.08}s">
+                <div class="paper-card ${isFeatured ? 'featured-card tilt-card' : 'tilt-card'} reveal neumorph-glass glass-card-shine micro-lift" data-category="${tagCls}" data-title="${p.title}" data-summary="${p.summary}" style="animation-delay:${idx * 0.08}s">
                     <div class="glow-bar"></div>
                     <div class="hover-progress-bar"></div>
                     ${tagCls ? `<span class="tag ${tagCls}">${tagCls === 'ai' ? '🤖 AI' : tagCls === 'edu' ? '📚 教育' : '🏥 健康'}</span>` : ''}
