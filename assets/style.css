@@ -20230,3 +20230,273 @@ body.light-theme .divider-gradient {
 /* ═══════════════════════════════════════════════════════════════
    End of v9.0 美学大师版 · 2026-03-24 02:18
    ═══════════════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════════════
+   v9.1 美学大师版 · 2026-03-24 03:23
+   ✨ 每小时美学优化 - 悬停光晕脉冲、3D倾斜增强、波纹背景、渐变闪烁
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 331. 悬停光晕脉冲效果 ─────────────────────────────── */
+.hover-glow-pulse {
+    position: relative;
+    overflow: hidden;
+}
+
+.hover-glow-pulse::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(99,102,241,0.15) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.hover-glow-pulse:hover::before {
+    opacity: 1;
+    animation: glow-pulse-ring 1.5s ease-out infinite;
+}
+
+@keyframes glow-pulse-ring {
+    0% { transform: scale(0.8); opacity: 0.8; }
+    100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* ── 332. 卡片悬浮3D倾斜效果增强 ────────────────────────── */
+.tilt-card-enhanced {
+    transform-style: preserve-3d;
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    will-change: transform;
+}
+
+.tilt-card-enhanced:hover {
+    transform: perspective(1200px) rotateX(3deg) rotateY(-3deg) translateZ(15px);
+}
+
+.tilt-card-enhanced .tilt-content {
+    transform: translateZ(10px);
+}
+
+/* ── 333. 动态波纹背景 ─────────────────────────────────── */
+.ripple-bg {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+        radial-gradient(circle at 20% 30%, rgba(99,102,241,0.05) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(168,139,250,0.05) 0%, transparent 40%);
+    animation: ripple-bg-move 8s ease-in-out infinite;
+}
+
+@keyframes ripple-bg-move {
+    0%, 100% { transform: scale(1) translate(0, 0); }
+    50% { transform: scale(1.05) translate(10px, -10px); }
+}
+
+/* ── 334. 渐变文字闪烁动画 ───────────────────────────── */
+.gradient-text-blink {
+    background: linear-gradient(90deg, #22d3ee, #6366f1, #a78bfa, #f472b6);
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradient-blink 2s ease-in-out infinite;
+}
+
+@keyframes gradient-blink {
+    0%, 100% { 
+        background-position: 0% 50%;
+        opacity: 1;
+    }
+    50% { 
+        background-position: 100% 50%;
+        opacity: 0.8;
+    }
+}
+
+/* ── 335. 页面切换交叉淡入淡出 ─────────────────────────── */
+.cross-fade-page {
+    opacity: 0;
+    transform: scale(0.98);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.cross-fade-page.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* ── 336. 增强暗色模式对比度 ─────────────────────────── */
+body.hc-mode {
+    --text-primary: #ffffff;
+    --text-secondary: #e2e8f0;
+    --text-muted: #cbd5e1;
+}
+
+body.hc-mode .paper-card,
+body.hc-mode .news-card,
+body.hc-mode .stat-card,
+body.hc-mode .babel-card {
+    border: 2px solid rgba(255,255,255,0.2);
+}
+
+body.hc-mode .glass-nav {
+    background: #0a0f1a;
+    border-bottom: 2px solid rgba(255,255,255,0.15);
+}
+
+/* ── 337. 弹性按钮动画 ─────────────────────────────────── */
+.spring-btn {
+    position: relative;
+    padding: 10px 24px;
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    font-size: 0.9rem;
+    background: var(--gradient-primary);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    overflow: hidden;
+}
+
+.spring-btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(99,102,241,0.4);
+}
+
+.spring-btn:active {
+    transform: translateY(0) scale(0.98);
+}
+
+/* ── 338. 玻璃拟态输入框增强 ─────────────────────────── */
+.glass-input {
+    width: 100%;
+    padding: 12px 18px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--glass-border);
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(10px);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+.glass-input:focus {
+    outline: none;
+    border-color: rgba(99,102,241,0.5);
+    background: rgba(255,255,255,0.06);
+    box-shadow: 0 0 0 4px rgba(99,102,241,0.1), 0 8px 24px rgba(99,102,241,0.15);
+}
+
+.glass-input::placeholder {
+    color: var(--text-muted);
+}
+
+/* ── 339. 导航项下划线动画 ─────────────────────────────── */
+.nav-underline {
+    position: relative;
+}
+
+.nav-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gradient-aurora);
+    transition: width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border-radius: 2px;
+}
+
+.nav-underline:hover::after,
+.nav-underline.active::after {
+    width: 100%;
+}
+
+/* ── 340. 移动端触摸波纹效果 ─────────────────────────── */
+@media (hover: none) {
+    .touch-ripple {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .touch-ripple::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255,255,255,0.2);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: width 0.4s ease, height 0.4s ease;
+    }
+    
+    .touch-ripple:active::after {
+        width: 200%;
+        height: 200%;
+    }
+}
+
+/* ── 341. 卡片边缘渐变光 ───────────────────────────────── */
+.edge-glow {
+    position: relative;
+}
+
+.edge-glow::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(34,211,238,0.3), rgba(99,102,241,0.3), rgba(168,139,250,0.3));
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.edge-glow:hover::before {
+    opacity: 1;
+}
+
+/* ── 342. 文字阴影呼吸效果 ───────────────────────────── */
+.text-breath {
+    animation: text-breath-anim 3s ease-in-out infinite;
+}
+
+@keyframes text-breath-anim {
+    0%, 100% { text-shadow: 0 0 8px rgba(99,102,241,0.3); }
+    50% { text-shadow: 0 0 20px rgba(99,102,241,0.6), 0 0 40px rgba(99,102,241,0.3); }
+}
+
+/* ── 343. 简洁的加载骨架 ─────────────────────────────── */
+.skeleton-simple {
+    background: linear-gradient(90deg, 
+        var(--bg-glass) 0%, 
+        rgba(255,255,255,0.05) 50%, 
+        var(--bg-glass) 100%);
+    background-size: 200% 100%;
+    animation: skeleton-simple-move 1.5s ease-in-out infinite;
+    border-radius: var(--radius-sm);
+}
+
+@keyframes skeleton-simple-move {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   End of v9.1 美学大师版 · 2026-03-24 03:23
+   ✨ 每小时美学优化完成
+   ═══════════════════════════════════════════════════════════════ */
