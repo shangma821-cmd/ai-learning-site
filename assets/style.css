@@ -5275,9 +5275,9 @@ kbd {
    ═══════════════════════════════════════════════════════════════ */
 
 /* ═══════════════════════════════════════════════════════════════
-   v6.5 美学大师版 · 2026-03-21 12:12
-   Theme: Neural Glass · Adaptive Aesthetics · Sustainable Design
-   ✨ 每小时美学优化 - 新增流体渐变、玻璃拟态增强与性能优化
+   v8.7 美学大师版 · 2026-03-23 22:48
+   Theme: Neural Glass · Aurora Flow · Spring Renewal
+   ✨ 每小时美学优化 - 新增琥珀光晕、卡片呼吸动画、磁性悬浮
    ═══════════════════════════════════════════════════════════════ */
 
 /* ═══════════════════════════════════════════════════════════════
@@ -5751,6 +5751,565 @@ body.light-theme .glass-card-enhanced {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   v8.7 美学大师版 · 2026-03-23 22:48 新增样式
+   Theme: Aurora Flow · Amber Glow · Card Breath
+   ✨ 每小时美学优化 - 琥珀光晕 · 卡片呼吸 · 磁性悬浮 · 涟漪点击
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 196. 琥珀光晕效果 ─────────────────────────────────────── */
+.amber-glow {
+  position: relative;
+}
+
+.amber-glow::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: radial-gradient(
+    ellipse at 30% 20%,
+    rgba(251, 191, 36, 0.15) 0%,
+    rgba(245, 158, 11, 0.08) 30%,
+    transparent 70%
+  );
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-smooth);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.amber-glow:hover::before {
+  opacity: 1;
+}
+
+/* ── 197. 卡片呼吸动画 ─────────────────────────────────────── */
+.card-breathe {
+  animation: card-breathe 4s ease-in-out infinite;
+}
+
+@keyframes card-breathe {
+  0%, 100% {
+    box-shadow: 
+      0 4px 20px rgba(0, 0, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+  50% {
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.4),
+      0 0 30px rgba(99, 102, 241, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+}
+
+/* ── 198. 磁性悬浮增强 ─────────────────────────────────────── */
+.magnetic-hover {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.magnetic-hover:hover {
+  transform: translateY(-6px) scale(1.02);
+}
+
+/* ── 199. 涟漪点击效果增强 ─────────────────────────────────── */
+.ripple-click {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple-click::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background-image: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.25) 10%,
+    transparent 10.01%
+  );
+  background-repeat: no-repeat;
+  background-position: 50%;
+  transform: scale(10);
+  opacity: 0;
+  transition: transform 0.5s, opacity 0.5s;
+}
+
+.ripple-click:active::after {
+  transform: scale(0);
+  opacity: 1;
+  transition: 0s;
+}
+
+/* ── 200. 悬浮光斑追踪 ─────────────────────────────────────── */
+.light-spot-track {
+  position: relative;
+  overflow: hidden;
+}
+
+.light-spot-track::before {
+  content: '';
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(
+    circle,
+    rgba(99, 102, 241, 0.12) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.light-spot-track:hover::before {
+  opacity: 1;
+}
+
+/* ── 201. 标签云悬浮渐变 ───────────────────────────────────── */
+.tag-gradient-hover {
+  transition: all 0.25s var(--ease-spring);
+}
+
+.tag-gradient-hover:hover {
+  background: linear-gradient(135deg, 
+    rgba(99, 102, 241, 0.2) 0%, 
+    rgba(168, 139, 250, 0.15) 100%);
+  border-color: rgba(99, 102, 241, 0.4);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.2);
+}
+
+/* ── 202. 输入框聚焦发光 ───────────────────────────────────── */
+.input-glow:focus {
+  box-shadow: 
+    0 0 0 3px rgba(99, 102, 241, 0.15),
+    0 0 20px rgba(99, 102, 241, 0.1);
+}
+
+/* ── 203. 新闻时间线渐变线 ─────────────────────────────────── */
+.news-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(
+    to bottom,
+    var(--accent-cyan),
+    var(--primary),
+    transparent
+  );
+  border-radius: 3px;
+  opacity: 0.6;
+}
+
+.news-item:hover::before {
+  opacity: 1;
+  box-shadow: 0 0 8px rgba(99, 102, 241, 0.4);
+}
+
+/* ── 204. 统计数字渐变增强 ─────────────────────────────────── */
+.stat-value-gradient {
+  background: linear-gradient(135deg, 
+    var(--accent-cyan) 0%, 
+    var(--primary) 50%, 
+    var(--accent-purple) 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: stat-gradient-flow 3s ease infinite;
+}
+
+@keyframes stat-gradient-flow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ── 205. Hero 区域极光流动 ─────────────────────────────────── */
+.hero-aurora-flow {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-aurora-flow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 20% 30%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 70%, rgba(34, 211, 238, 0.06) 0%, transparent 50%);
+  animation: aurora-move 12s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes aurora-move {
+  0%, 100% {
+    background-position: 0% 0%, 100% 100%;
+  }
+  33% {
+    background-position: 20% 40%, 80% 60%;
+  }
+  66% {
+    background-position: 40% 20%, 60% 80%;
+  }
+}
+
+/* ── 206. 卡片入场渐显 ─────────────────────────────────────── */
+.card-fade-in {
+  opacity: 0;
+  transform: translateY(16px) scale(0.98);
+  animation: card-fade-in 0.6s var(--ease-spring) forwards;
+}
+
+@keyframes card-fade-in {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.card-fade-in:nth-child(1) { animation-delay: 0.05s; }
+.card-fade-in:nth-child(2) { animation-delay: 0.1s; }
+.card-fade-in:nth-child(3) { animation-delay: 0.15s; }
+.card-fade-in:nth-child(4) { animation-delay: 0.2s; }
+.card-fade-in:nth-child(5) { animation-delay: 0.25s; }
+.card-fade-in:nth-child(6) { animation-delay: 0.3s; }
+
+/* ── 207. 按钮悬停波浪 ─────────────────────────────────────── */
+.wave-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.wave-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s, height 0.4s;
+}
+
+.wave-btn:hover::before {
+  width: 300%;
+  height: 300%;
+}
+
+/* ── 208. 导航链接下划线动画 ───────────────────────────────── */
+.nav-link-underline {
+  position: relative;
+}
+
+.nav-link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--gradient-aurora);
+  transform: translateX(-50%);
+  transition: width 0.3s var(--ease-spring);
+  border-radius: 2px;
+}
+
+.nav-link-underline:hover::after,
+.nav-link-underline.active::after {
+  width: 80%;
+}
+
+/* ── 209. 滚动进度条渐变 ───────────────────────────────────── */
+.reading-progress-enhanced {
+  background: linear-gradient(90deg, 
+    var(--accent-cyan), 
+    var(--primary), 
+    var(--accent-purple), 
+    var(--accent-pink));
+  background-size: 200% 100%;
+  animation: progress-gradient 2s linear infinite;
+}
+
+@keyframes progress-gradient {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* ── 210. 浮动球体光影 ─────────────────────────────────────── */
+.floating-sphere-enhanced {
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 255, 255, 0.25) 0%,
+    rgba(255, 255, 255, 0.1) 30%,
+    transparent 70%
+  );
+  box-shadow: 
+    inset -2px -2px 10px rgba(0, 0, 0, 0.1),
+    0 0 30px rgba(99, 102, 241, 0.1);
+}
+
+/* ── 211. 毛玻璃导航增强 ───────────────────────────────────── */
+.glass-nav-enhanced {
+  background: rgba(8, 12, 20, 0.85);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  box-shadow: 
+    0 4px 30px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* ── 212. 论文卡片悬浮光束 ─────────────────────────────────── */
+.paper-card-glow-beam {
+  position: relative;
+}
+
+.paper-card-glow-beam::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(99, 102, 241, 0.05), 
+    transparent);
+  transition: left 0.6s var(--ease-smooth);
+  pointer-events: none;
+}
+
+.paper-card-glow-beam:hover::before {
+  left: 100%;
+}
+
+/* ── 213. 分隔线渐变消失 ───────────────────────────────────── */
+.divider-gradient {
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    var(--glass-border), 
+    transparent);
+  margin: 24px 0;
+}
+
+/* ── 214. 脉冲指示器增强 ───────────────────────────────────── */
+.pulse-indicator-enhanced {
+  position: relative;
+}
+
+.pulse-indicator-enhanced::before,
+.pulse-indicator-enhanced::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+.pulse-indicator-enhanced::after {
+  animation-delay: 1s;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* ── 215. 知识图谱节点发光 ─────────────────────────────────── */
+.graph-node-glow {
+  filter: drop-shadow(0 0 6px rgba(99, 102, 241, 0.6));
+}
+
+/* ── 216. 环形进度条动画增强 ───────────────────────────────── */
+.ring-progress-animated {
+  stroke-dasharray: 220;
+  stroke-dashoffset: 220;
+  animation: ring-fill 2s var(--ease-smooth) forwards;
+}
+
+@keyframes ring-fill {
+  to {
+    stroke-dashoffset: var(--target-offset, 55);
+  }
+}
+
+/* ── 217. 页脚光晕 ─────────────────────────────────────────── */
+.footer-glow {
+  position: relative;
+}
+
+.footer-glow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(99, 102, 241, 0.5), 
+    transparent);
+}
+
+/* ── 218. 移动端触摸反馈增强 ───────────────────────────────── */
+@media (hover: none) {
+  .paper-card:active,
+  .news-card:active,
+  .babel-card:active {
+    transform: scale(0.97);
+    transition: transform 0.1s;
+  }
+  
+  .action-btn:active {
+    transform: scale(0.9);
+  }
+  
+  .tag:active {
+    transform: scale(0.95);
+  }
+}
+
+/* ── 219. 深色模式星星闪烁增强 ─────────────────────────────── */
+body:not(.light-theme) .star-enhanced {
+  animation: star-twinkle-enhanced 3s ease-in-out infinite;
+}
+
+@keyframes star-twinkle-enhanced {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+  }
+}
+
+/* ── 220. 加载骨架屏渐变 ───────────────────────────────────── */
+.skeleton-gradient {
+  background: linear-gradient(
+    90deg,
+    var(--bg-glass) 0%,
+    rgba(99, 102, 241, 0.08) 50%,
+    var(--bg-glass) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-gradient-move 1.5s ease infinite;
+}
+
+@keyframes skeleton-gradient-move {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── 221. 工具提示增强 ─────────────────────────────────────── */
+.tooltip-enhanced {
+  position: relative;
+}
+
+.tooltip-enhanced::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  padding: 8px 14px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  font-size: 0.78rem;
+  color: var(--text-primary);
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.25s var(--ease-spring);
+  box-shadow: var(--shadow-md);
+  z-index: 100;
+}
+
+.tooltip-enhanced::after {
+  content: '';
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--glass-border);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.25s;
+}
+
+.tooltip-enhanced:hover::before,
+.tooltip-enhanced:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+.tooltip-enhanced:hover::before {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── 222. 响应式优化：平板端 ───────────────────────────────── */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .stats-dashboard {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .hero-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+  }
+}
+
+/* ── 223. 打印样式增强 ─────────────────────────────────────── */
+@media print {
+  .amber-glow::before,
+  .wave-btn::before,
+  .paper-card-glow-beam::before,
+  .hero-aurora-flow::after,
+  .pulse-indicator-enhanced::before,
+  .pulse-indicator-enhanced::after {
+    display: none !important;
+  }
+  
+  .card-breathe {
+    animation: none !important;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   v8.7 美学大师版 · 2026-03-23 22:48 优化完成
+   ✨ 琥珀光晕 · 卡片呼吸 · 磁性悬浮 · 涟漪点击 · 极光流动
+   ═══════════════════════════════════════════════════════════════ */
   background-size: 200% 200%;
   animation: gradient-bg-move 4s ease infinite;
 }

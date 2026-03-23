@@ -368,7 +368,7 @@
     <script src="scripts/data.js"></script>
     <script src="scripts/render.js"></script>
     <script>
-    // AI Nexus v8.5 · 2026-03-23 13:30
+    // AI Nexus v8.7 · 2026-03-23 22:48
     // 今日日期
     document.addEventListener('DOMContentLoaded', function() {
         // 时间问候语
@@ -1269,6 +1269,79 @@
                     card.style.transform = '';
                 });
             });
+        })();
+
+        // ── v8.7 新增：卡片呼吸动画 ───────────────────────────
+        (function initCardBreath() {
+            document.querySelectorAll('.paper-card:not(.featured-card)').forEach(card => {
+                card.classList.add('card-breathe');
+            });
+        })();
+
+        // ── v8.7 新增：涟漪点击效果 ────────────────────────────
+        (function initRippleEffect() {
+            document.querySelectorAll('.paper-card, .babel-card, .news-card, .filter-chip').forEach(el => {
+                el.classList.add('ripple-click');
+            });
+        })();
+
+        // ── v8.7 新增：标签悬浮渐变 ────────────────────────────
+        (function initTagHover() {
+            document.querySelectorAll('.spring-tag, .filter-chip').forEach(tag => {
+                tag.classList.add('tag-gradient-hover');
+            });
+        })();
+
+        // ── v8.7 新增：统计数字渐变动画 ───────────────────────
+        (function initStatGradient() {
+            document.querySelectorAll('.stat-value').forEach(el => {
+                el.classList.add('stat-value-gradient');
+            });
+        })();
+
+        // ── v8.7 新增：Hero 极光流动 ────────────────────────────
+        (function initHeroAurora() {
+            const hero = document.querySelector('.hero-section');
+            if (hero) {
+                hero.classList.add('hero-aurora-flow');
+            }
+        })();
+
+        // ── v8.7 新增：按钮波浪效果 ────────────────────────────
+        (function initWaveButtons() {
+            document.querySelectorAll('.btn-primary, .glow-btn').forEach(btn => {
+                btn.classList.add('wave-btn');
+            });
+        })();
+
+        // ── v8.7 新增：导航下划线动画 ───────────────────────────
+        (function initNavUnderline() {
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.add('nav-link-underline');
+            });
+        })();
+
+        // ── v8.7 新增：页脚光晕 ────────────────────────────────
+        (function initFooterGlow() {
+            const footer = document.querySelector('.glass-footer');
+            if (footer) {
+                footer.classList.add('footer-glow');
+            }
+        })();
+
+        // ── v8.7 新增：输入框聚焦发光 ──────────────────────────
+        (function initInputGlow() {
+            document.querySelectorAll('.search-input, #chat-input').forEach(input => {
+                input.classList.add('input-glow');
+            });
+        })();
+
+        // ── v8.7 新增：阅读进度条增强 ──────────────────────────
+        (function initProgressEnhanced() {
+            const progress = document.getElementById('reading-progress');
+            if (progress) {
+                progress.classList.add('reading-progress-enhanced');
+            }
         })();
     });
     </script>
